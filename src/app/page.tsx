@@ -8,14 +8,14 @@ import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rock
 
 const CONFIG = {
   name: "Ryan Huynh",
-  tagline: "Incoming Computer Engineering student @ UC Davis (Winter 2025)",
+  tagline: "Incoming Computer Engineering student @ UC Davis (Fall 2025)",
   summary:
     "Aspiring computer engineer with a strong foundation in C/C++, embedded systems, and web development. Passionate about building reliable, user-centric solutions.",
-  email: "ryan.huynh@example.com", // TODO: update
+  email: "ryhuynh2@gmail.com", // TODO: update
   location: "Hayward, CA",
   socials: {
-    github: "https://github.com/your-username", // TODO: update
-    linkedin: "https://www.linkedin.com/in/your-handle", // TODO: update
+    github: "https://github.com/ryanhuynh02", // TODO: update
+    linkedin: "www.linkedin.com/in/ryan-huynh2", // TODO: update
   },
   resumeUrl: "/Ryan_Huynh_Resume.pdf", // TODO: add a real file
   skills: [
@@ -36,7 +36,7 @@ const CONFIG = {
       title: "Door Sensor w/ Reed Switch & Piezo",
       description:
         "Designed a low-power door sensor using a magnet and reed switch with audible alert; modeled behavior and tuned thresholds.",
-      tags: ["Embedded", "Hardware", "C/C++"],
+      tags: ["Soldering", "Hardware", "Electrical"],
       href: "#",
     },
     {
@@ -70,7 +70,7 @@ const CONFIG = {
     {
       school: "University of California, Davis",
       degree: "B.S. in Computer Engineering (Incoming)",
-      period: "Starting Winter 2025",
+      period: "Starting Fall 2025",
     },
   ],
 };
