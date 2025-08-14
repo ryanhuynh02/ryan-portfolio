@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight } from "lucide-react";
 
 // Tailwind is available by default in this canvas preview environment.
@@ -209,10 +210,24 @@ export default function Portfolio() {
           <div className="relative">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3">
-                <div className="size-12 rounded-2xl bg-slate-900 text-white grid place-items-center text-xl font-bold">RH</div>
+              <div className="flex items-center gap-3">
+              <div className="size-9 rounded-2xl overflow-hidden">
+                <Image
+                  src="/profile-picture.jpeg" // make sure the file is in /public with this name
+                  alt="Ryan Huynh"
+                  width={36}
+                  height={36}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="leading-tight">
+                <div className="font-semibold">{CONFIG.name}</div>
+                <div className="text-xs text-slate-500">{CONFIG.location}</div>
+              </div>
+            </div>
                 <div>
                   <div className="font-semibold">Computer Engineering</div>
-                  <div className="text-sm text-slate-500">UC Davis · Winter 2025</div>
+                  <div className="text-sm text-slate-500">UC Davis · Fall 2025</div>
                 </div>
               </div>
               <ul className="mt-4 space-y-2 text-sm text-slate-700">
