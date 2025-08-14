@@ -211,7 +211,7 @@ export default function Portfolio() {
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3">
               <div className="flex items-center gap-3">
-              <div className="size-9 rounded-2xl overflow-hidden">
+              <div className="min-w-[80px] min-h-[80px] rounded-2xl overflow-hidden flex-shrink-0">
                 <Image
                   src="/profile-picture.jpeg" // make sure the file is in /public with this name
                   alt="Ryan Huynh"
