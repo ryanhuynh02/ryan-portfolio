@@ -144,6 +144,7 @@ export default function Portfolio() {
           </button>
         </div>
       </header>
+
       {/* Mobile Drawer (moved outside the header) */}
 <div className={`fixed inset-0 z-[9999] ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
   {/* Opaque overlay: blocks underlying content and closes on tap */}
@@ -151,7 +152,7 @@ export default function Portfolio() {
     type="button"
     aria-label="Close menu overlay"
     onClick={() => setOpen(false)}
-    className={`absolute inset-0 transition-opacity ${open ? "opacity-100" : "opacity-0"} bg-white`}
+    className={`absolute inset-0 transition-opacity ${open ? "opacity-100" : "opacity-0"} bg-black/60 backdrop-blur-sm`}
   />
   {/* Slide-in panel */}
   <aside
