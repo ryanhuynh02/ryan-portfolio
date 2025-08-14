@@ -108,7 +108,21 @@ export default function Portfolio() {
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200/60">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="size-9 rounded-2xl bg-slate-900 text-white grid place-items-center font-bold">RH</div>
+          <div className="flex items-center gap-3">
+          <div className="size-9 rounded-2xl overflow-hidden">
+            <Image
+              src="/profile-picture.jpeg"
+              alt="Ryan Huynh"
+              width={36}
+              height={36}
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <div className="leading-tight">
+            <div className="font-semibold">{CONFIG.name}</div>
+            <div className="text-xs text-slate-500">{CONFIG.location}</div>
+          </div>
+        </div>
             <div className="leading-tight">
               <div className="font-semibold">{CONFIG.name}</div>
               <div className="text-xs text-slate-500">{CONFIG.location}</div>
