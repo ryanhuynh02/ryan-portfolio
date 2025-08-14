@@ -143,45 +143,49 @@ export default function Portfolio() {
             <Menu className="size-5" />
           </button>
         </div>
-
-        {/* Mobile Drawer (full-height left slide-in) */}
-        <div className={`fixed inset-0 z-50 transition ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
-          {/* overlay */}
-          <div
-            className={`absolute inset-0 bg-black/30 transition-opacity ${open ? "opacity-100" : "opacity-0"}`}
-            onClick={() => setOpen(false)}
-          />
-          {/* panel */}
-          <aside
-            className={`absolute left-0 top-0 h-full w-80 max-w-[85%] bg-white shadow-xl border-r border-slate-200 transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}
-          >
-            <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200">
-              <div className="font-semibold">Menu</div>
-              <button className="p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(false)} aria-label="Close menu">
-                <X className="size-5" />
-              </button>
-            </div>
-            <nav className="p-2">
-              {navItems.map((n) => (
-                <button
-                  key={n.id}
-                  onClick={() => scrollTo(n.id)}
-                  className="w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100 flex items-center justify-between"
-                >
-                  <span>{n.label}</span>
-                  <ChevronRight className="size-4" />
-                </button>
-              ))}
-              <a
-                href={CONFIG.resumeUrl}
-                className="mt-2 w-full inline-flex items-center justify-center gap-2 text-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-sm hover:shadow transition"
-              >
-                <Download className="size-4" /> Download Resume
-              </a>
-            </nav>
-          </aside>
-        </div>
       </header>
+      {/* Mobile Drawer (moved outside the header) */}
+<div className={`fixed inset-0 z-[9999] ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
+  {/* Opaque overlay: blocks underlying content and closes on tap */}
+  <button
+    type="button"
+    aria-label="Close menu overlay"
+    onClick={() => setOpen(false)}
+    className={`absolute inset-0 transition-opacity ${open ? "opacity-100" : "opacity-0"} bg-white`}
+  />
+  {/* Slide-in panel */}
+  <aside
+    className={`absolute left-0 top-0 h-full w-80 max-w-[85%] bg-white shadow-xl border-r border-slate-200 transform transition-transform duration-300 ${
+      open ? "translate-x-0" : "-translate-x-full"
+    }`}
+  >
+    <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200">
+      <div className="font-semibold">Menu</div>
+      <button className="p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(false)} aria-label="Close menu">
+        <X className="size-5" />
+      </button>
+    </div>
+    <nav className="p-2">
+      {navItems.map((n) => (
+        <button
+          key={n.id}
+          onClick={() => scrollTo(n.id)}
+          className="w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100 flex items-center justify-between"
+        >
+          <span>{n.label}</span>
+          <ChevronRight className="size-4" />
+        </button>
+      ))}
+      <a
+        href={CONFIG.resumeUrl}
+        className="mt-2 w-full inline-flex items-center justify-center gap-2 text-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-sm hover:shadow transition"
+      >
+        <Download className="size-4" /> Download Resume
+      </a>
+    </nav>
+  </aside>
+</div>
+
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 pt-14 pb-10">
