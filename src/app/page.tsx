@@ -215,8 +215,8 @@ export default function Portfolio() {
                 <Image
                   src="/profile-picture.jpeg" // make sure the file is in /public with this name
                   alt="Ryan Huynh"
-                  width={36}
-                  height={36}
+                  width={56}
+                  height={56}
                   className="object-cover w-full h-full"
                 />
               </div>
