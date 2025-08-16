@@ -1,4 +1,4 @@
-
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,12 +12,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
-    default: 'ryan-huynh',
-    template: '%s | ryan-huynh',
+    default: "ryan-huynh",
+    template: "%s | ryan-huynh",
   },
-  description: 'Personal site of Ryan Huynh',
+  description: "Personal site of Ryan Huynh",
+  icons: {
+    icon: [{ url: "/icon-ryan.png" }],      // tab icon
+    apple: [{ url: "/icon-ryan.png" }],     // iOS home screen (fine to reuse)
+  },
 };
 
 export default function RootLayout({
