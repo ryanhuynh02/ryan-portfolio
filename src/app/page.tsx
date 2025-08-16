@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { User } from "lucide-react"
 import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight } from "lucide-react";
 
 // Tailwind is available by default in this canvas preview environment.
@@ -227,6 +228,10 @@ export default function Portfolio() {
                 <Linkedin className="size-4" /> LinkedIn
               </a>
             </div>
+            <div className="flex items-center gap-2 mt-8 mb-2">
+              <User className="size-5" />
+              <h2 className="text-2xl font-bold">About Me</h2>
+            </div> 
           </div>
           <div className="relative">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
