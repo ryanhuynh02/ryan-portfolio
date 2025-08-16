@@ -7,53 +7,6 @@ import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rock
 // This is a single-file React component you can drop into a Vite/Next/CRA app.
 // Customize the data in the CONFIG section below.
 
-// === Circuit Board Logo (inline React SVG) ===
-function LogoCircuit({ size = 36 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 64 64"
-      role="img"
-      aria-label="Circuit board logo"
-      className="rounded-xl shadow-sm"
-    >
-      <defs>
-        <linearGradient id="boardGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#0f172a" />
-          <stop offset="1" stopColor="#312e81" />
-        </linearGradient>
-      </defs>
-
-      <rect x="6" y="6" width="52" height="52" rx="12" fill="url(#boardGrad)" />
-
-      <g fill="#e5e7eb">
-        <rect x="29" y="0" width="6" height="8" rx="2" />
-        <rect x="29" y="56" width="6" height="8" rx="2" />
-        <rect x="0" y="29" width="8" height="6" rx="2" />
-        <rect x="56" y="29" width="8" height="6" rx="2" />
-        <rect x="10" y="2" width="6" height="8" rx="2" transform="rotate(45 13 6)" />
-        <rect x="48" y="2" width="6" height="8" rx="2" transform="rotate(135 51 6)" />
-        <rect x="10" y="54" width="6" height="8" rx="2" transform="rotate(-45 13 58)" />
-        <rect x="48" y="54" width="6" height="8" rx="2" transform="rotate(-135 51 58)" />
-      </g>
-
-      <rect x="20" y="20" width="24" height="24" rx="4" fill="none" stroke="#ffffff" strokeWidth="2" />
-
-      <g stroke="#c7d2fe" strokeWidth="2" strokeLinecap="round" fill="none">
-        <path d="M24 24h8m0 0v-6" />
-        <path d="M40 24h-8m0 0v-6" />
-        <path d="M24 40h8m0 0v6" />
-        <path d="M40 40h-8m0 0v6" />
-        <path d="M24 32h-8m0 0v-6" />
-        <path d="M40 32h8m0 0v6" />
-      </g>
-
-      <path d="M32 22v20" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 const CONFIG = {
   name: "Ryan Huynh",
   tagline: "Incoming Computer Engineering student @ UC Davis (Fall 2025)",
@@ -156,8 +109,15 @@ export default function Portfolio() {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
           <div className="flex items-center gap-3">
-          <LogoCircuit size={36} />
-
+          <div className="size-9 rounded-2xl overflow-hidden">
+            <Image
+              src="/Cpu-logo.svg"
+              alt="Ryan Huynh"
+              width={36}
+              height={36}
+              className="object-cover w-full h-full"
+            />
+          </div>
           <div className="leading-tight">
             <div className="font-semibold">{CONFIG.name}</div>
             <div className="text-xs text-slate-500">{CONFIG.location}</div>

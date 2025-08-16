@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <!-- Deep navy → indigo blue gradient -->
+    <radialGradient id="g" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#0f172a"></stop>
+      <stop offset="100%" stop-color="#312e81"></stop>
+    </radialGradient>
+  </defs>
+
+  <!-- Circular PCB background -->
+  <circle cx="128" cy="128" r="112" fill="url(#g)"></circle>
+
+  <!-- Gold traces -->
+  <g fill="none" stroke="#f7c948" stroke-width="6" stroke-linecap="round">
+    <path d="M60 88 H100 M60 168 H100 M196 88 H156 M196 168 H156"></path>
+    <path d="M88 60 V100 M168 60 V100 M88 196 V156 M168 196 V156"></path>
+    <path d="M128 72 V48 M128 208 V184 M72 128 H48 M208 128 H184"></path>
+  </g>
+
+  <!-- Vias -->
+  <g fill="#f7c948">
+    <circle cx="60" cy="88" r="5"></circle><circle cx="60" cy="168" r="5"></circle>
+    <circle cx="196" cy="88" r="5"></circle><circle cx="196" cy="168" r="5"></circle>
+    <circle cx="88" cy="60" r="5"></circle><circle cx="168" cy="60" r="5"></circle>
+    <circle cx="88" cy="196" r="5"></circle><circle cx="168" cy="196" r="5"></circle>
+    <circle cx="128" cy="48" r="5"></circle><circle cx="128" cy="208" r="5"></circle>
+    <circle cx="48" cy="128" r="5"></circle><circle cx="208" cy="128" r="5"></circle>
+  </g>
+
+  <!-- Central chip -->
+  <rect x="86" y="86" width="84" height="84" rx="12" fill="#0e1b2a" stroke="#d1fae5" stroke-width="4"></rect>
+
+  <!-- Inner lines -->
+  <g stroke="#d1fae5" stroke-width="4" stroke-linecap="round">
+    <path d="M98 112 H158"></path>
+    <path d="M98 144 H158"></path>
+    <path d="M128 86 V170"></path>
+  </g>
+</svg>
