@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { User } from "lucide-react"
-import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight } from "lucide-react";
+import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight, ChevronDown } from "lucide-react";
 
 // Tailwind is available by default in this canvas preview environment.
 // This is a single-file React component you can drop into a Vite/Next/CRA app.
 // Customize the data in the CONFIG section below.
-
 const CONFIG = {
   name: "Ryan Huynh",
   tagline: "Incoming Computer Engineering student @ UC Davis (Fall 2025)",
@@ -76,6 +75,40 @@ const CONFIG = {
     },
   ],
 };
+function AboutCollapse() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-4">
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
+        aria-expanded={open}
+      >
+        <span className="font-medium text-slate-700">More about me</span>
+        <ChevronDown className={`h-4 w-4 text-slate-600 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
+          <p>
+            I’m a passionate Computer Engineering student with a strong foundation in both hardware and software development.
+            Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue expanding my expertise
+            in cutting-edge technologies.
+          </p>
+          <p>
+            During my internship at San Francisco State University from June to August 2025, I gained hands-on experience
+            in real-world engineering projects, collaborating with teams and applying theoretical knowledge to practical solutions.
+          </p>
+          <p>
+            I’m excited about the intersection of hardware and software, with particular interests in embedded systems,
+            machine learning, and innovative computing solutions that can make a positive impact on society.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Portfolio() {
   const [open, setOpen] = useState(false);
@@ -260,6 +293,10 @@ export default function Portfolio() {
                 <li className="flex items-center gap-2"><Cpu className="size-4"/> Digital logic, microcontrollers, and systems</li>
                 <li className="flex items-center gap-2"><Rocket className="size-4"/> Curious, fast-learner, team collaborator</li>
               </ul>
+
+{/* Collapsible “About me” text */}
+<AboutCollapse />
+
             </div>
           </div>
         </div>
