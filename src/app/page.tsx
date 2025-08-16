@@ -291,7 +291,7 @@ export default function Portfolio() {
                 <Linkedin className="size-4" /> LinkedIn
               </a>
             </div>
-            <div id = "about" className="flex items-center gap-2 mt-8 mb-0.02 scroll-mt-24">
+            <div id = "about" className="flex items-center gap-2 mt-12 mb-0.02 scroll-mt-24">
               <User className="size-5" />
               <h2 className="text-2xl font-bold">About</h2>
             </div> 
