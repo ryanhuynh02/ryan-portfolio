@@ -202,7 +202,7 @@ export default function Portfolio() {
   </aside>
 </div>
 
-<Section id="about" title="About" icon={<User className="size-5" />}>
+
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 pt-14 pb-10">
         <div className="grid md:grid-cols-[1.2fr,1fr] gap-8 items-center">
@@ -264,7 +264,6 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-  </Section>   
 
       {/* Experience */}
       <Section id="experience" title="Experience" icon={<Briefcase className="size-5" />}>        
