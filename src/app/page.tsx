@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { User } from "lucide-react"
 import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight, ChevronDown } from "lucide-react";
-
+import Link from "next/link";
 // Tailwind is available by default in this canvas preview environment.
 // This is a single-file React component you can drop into a Vite/Next/CRA app.
 // Customize the data in the CONFIG section below.
@@ -38,7 +38,7 @@ const CONFIG = {
       description:
         "Designed a low-power door sensor using a magnet and reed switch with audible alert; modeled behavior and tuned thresholds.",
       tags: ["Soldering", "Hardware", "Electrical"],
-      href: "#",
+      href: "/projects/door-sensor",
     },
     {
       title: "Color & Math Game (Ionic)",
@@ -359,7 +359,7 @@ export default function Portfolio() {
             <Card key={p.title}>
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-semibold text-lg">{p.title}</h3>
-                <a href={p.href} className="text-sm text-slate-500 hover:text-slate-900">View</a>
+                <Link href={p.href} className="text-sm text-slate-500 hover:text-slate-900">View</Link>
               </div>
               <p className="mt-2 text-slate-700">{p.description}</p>
               <div className="mt-3 flex flex-wrap gap-2">
