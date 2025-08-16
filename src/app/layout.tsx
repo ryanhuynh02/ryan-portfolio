@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   },
   description: "Personal site of Ryan Huynh",
   icons: {
-    icon: [{ url: "/icon-ryan.png" }],      // tab icon
-    apple: [{ url: "/icon-ryan.png" }],     // iOS home screen (fine to reuse)
+    icon: [{ url: "/icon-ryan.png?v=2" }],
+    apple: [{ url: "/icon-ryan.png?v=2" }],
   },
 };
 
