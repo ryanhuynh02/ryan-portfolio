@@ -41,7 +41,7 @@ const CONFIG = {
       href: "#",
     },
     {
-      title: "Color Game Trio (Ionic)",
+      title: "Color & Math Game (Ionic)",
       description:
         "A mini suite of color-based memory and recognition games; built reusable components and state management.",
       tags: ["Ionic", "TypeScript", "Mobile"],
@@ -57,14 +57,16 @@ const CONFIG = {
   ],
   experience: [
     {
-      role: "Software Engineering Intern",
+      role: "Engineering Intern",
       org: "San Francisco State University (SFSU)",
       period: "June 2025 – August 2025",
       bullets: [
-        "Collaborated on a research-driven software project; implemented features and wrote tests.",
-        "Built internal tools to automate data processing and improved throughput.",
-        "Presented weekly demos and documented design decisions for maintainability.",
+        "Collaborated with engineering teams on cutting-edge research projects.",
+        "Applied theoretical knowledge to real-world engineering challenges.",
+        "Constructed the Carmen robot hardware for lab research.",
+        "Translated an iOS app game into a web application to help children with complex communication needs express internal states and support individuals with cognitive impairments."
       ],
+      
     },
   ],
   education: [
@@ -103,6 +105,37 @@ function AboutCollapse() {
           <p>
             I’m excited about the intersection of hardware and software, with particular interests in embedded systems,
             machine learning, and innovative computing solutions that can make a positive impact on society.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+function ExperienceMoreSFSU() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-4">
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
+        aria-expanded={open}
+      >
+        <span className="font-medium text-slate-700">More details</span>
+        <ChevronDown className={`h-4 w-4 text-slate-600 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
+          <p>
+            Selected for the Summer Training Academy for Research Scholars (STARS) Program, I collaborated with
+            Professor Alyssa Kubota in the Personalized Health and Assistive Technologies (PHAST) Lab at San
+            Francisco State University.
+          </p>
+          <p>
+            My work included constructing the Carmen robot hardware and translating an iOS game into a web
+            application to help children with complex communication needs express their internal states and
+            support individuals with cognitive impairments.
           </p>
         </div>
       )}
@@ -293,7 +326,6 @@ export default function Portfolio() {
                 <li className="flex items-center gap-2"><Cpu className="size-4"/> Digital logic, microcontrollers, and systems</li>
                 <li className="flex items-center gap-2"><Rocket className="size-4"/> Curious, fast-learner, team collaborator</li>
               </ul>
-
 {/* Collapsible “About me” text */}
 <AboutCollapse />
 
@@ -315,8 +347,10 @@ export default function Portfolio() {
                     <li key={i}>{b}</li>
                   ))}
                 </ul>
+                {e.org.includes("San Francisco State University") && <ExperienceMoreSFSU />}
               </div>
               <div className="text-sm text-slate-500 whitespace-nowrap">{e.period}</div>
+              
             </div>
           </Card>
         ))}
