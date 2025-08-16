@@ -160,42 +160,6 @@ export default function Portfolio() {
         </div>
       </header>
 
-      <Section id="about" title="About" icon={<User className="size-5" />}>
-  <div className="grid md:grid-cols-[1.2fr,1fr] gap-8 items-center">
-    {/* Left: short intro/details */}
-    <div>
-      <p className="text-slate-700">
-        I’m Ryan—an incoming Computer Engineering student at UC Davis (Winter 2025),
-        with interests in embedded systems, C/C++, and building useful tools.
-      </p>
-      <ul className="mt-4 space-y-2 text-slate-700">
-        <li>Incoming Computer Engineering @ UC Davis (Winter 2025)</li>
-        <li>Software Engineering Intern @ SFSU (Jun–Aug 2025)</li>
-        <li>Hayward, CA · Email & socials below</li>
-      </ul>
-    </div>
-
-    {/* Right: profile card w/ picture */}
-    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="flex items-center gap-4">
-        <div className="w-28 h-28 rounded-full overflow-hidden flex-shrink-0">
-          <Image
-            src="/profile-picture.jpeg"
-            alt="Ryan Huynh"
-            width={112}
-            height={112}
-            className="object-cover w-full h-full"
-          />
-        </div>
-        <div>
-          <div className="font-semibold">Ryan Huynh</div>
-          <div className="text-sm text-slate-500">Hayward, CA</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</Section>
-
       {/* Mobile Drawer (moved outside the header) */}
 <div className={`fixed inset-0 z-[9999] ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
   {/* Opaque overlay: blocks underlying content and closes on tap */}
@@ -238,7 +202,7 @@ export default function Portfolio() {
   </aside>
 </div>
 
-
+<Section id="about" title="About" icon={<User className="size-5" />}>
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 pt-14 pb-10">
         <div className="grid md:grid-cols-[1.2fr,1fr] gap-8 items-center">
@@ -300,6 +264,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+  </Section>   
 
       {/* Experience */}
       <Section id="experience" title="Experience" icon={<Briefcase className="size-5" />}>        
