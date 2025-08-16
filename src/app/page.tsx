@@ -8,7 +8,7 @@ import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rock
 // Customize the data in the CONFIG section below.
 
 // === Circuit Board Logo (inline React SVG) ===
-export function LogoCircuit({ size = 36 }: { size?: number }) {
+function LogoCircuit({ size = 36 }: { size?: number }) {
   return (
     <svg
       width={size}
