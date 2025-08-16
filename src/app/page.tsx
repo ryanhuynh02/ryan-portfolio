@@ -344,11 +344,10 @@ export default function Portfolio() {
                     <li key={i}>{b}</li>
                   ))}
                 </ul>
-                {e.org.includes("San Francisco State University") && <ExperienceMoreSFSU />}
               </div>
               <div className="text-sm text-slate-500 whitespace-nowrap">{e.period}</div>
-              
             </div>
+            {e.org.includes("San Francisco State University") && <ExperienceMoreSFSU />}
           </Card>
         ))}
       </Section>
