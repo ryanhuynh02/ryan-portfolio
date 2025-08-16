@@ -16,7 +16,7 @@ const CONFIG = {
   location: "Hayward, CA",
   socials: {
     github: "https://github.com/ryanhuynh02", // TODO: update
-    linkedin: "https://linkedin.com/in/ryanhuynh2", // TODO: update
+    linkedin: "https://www.linkedin.com/in/ryan-huynh2", // TODO: update
   },
   resumeUrl: "/Ryan_Huynh_Resume.pdf", // TODO: add a real file
   skills: [
