@@ -14,8 +14,22 @@ export const metadata = {
 };
 
 export default function DoorSensorProjectPage() {
-  const file = path.join(process.cwd(), "src", "content", "projects", "door-sensor.mdx");
-  const mdx = fs.readFileSync(file, "utf8");
+// Read MDX that lives next to this page: src/app/projects/door-sensor/door-sensor.mdx
+const file = path.join(
+  process.cwd(),
+  "src",
+  "app",
+  "projects",
+  "door-sensor",
+  "door-sensor.mdx"
+);
+
+let mdx = "# Coming soon";
+try {
+  if (fs.existsSync(file)) {
+    mdx = fs.readFileSync(file, "utf8");
+  }
+} catch {}
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-10">
