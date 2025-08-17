@@ -24,19 +24,15 @@ export const metadata: Metadata = {
       { url: "/favicon_rh-192.png", sizes: "192x192", type: "image/png" },
       { url: "/favicon_rh-512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/favicon_rh_latest-180.png", sizes: "180x180" }],
+    apple: [{ url: "/favicon_rh-180.png", sizes: "180x180" }],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="light" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-white text-slate-900`}
       >
         {children}
       </body>
