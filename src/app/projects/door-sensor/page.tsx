@@ -24,13 +24,8 @@ export default function DoorSensorProjectPage() {
     "door-sensor.mdx"
   );
 
-  let mdx = "# Coming soon";
-  try {
-    if (fs.existsSync(file)) {
-      mdx = fs.readFileSync(file, "utf8");
-    }
-  } catch {}
-
+  const mdx = fs.readFileSync(file, "utf8");
+  
   return (
     <main
       className="max-w-4xl mx-auto px-4 py-10 bg-white text-slate-900 min-h-screen"
