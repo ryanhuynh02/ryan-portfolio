@@ -20,14 +20,13 @@ export const metadata: Metadata = {
   description: "Personal site of Ryan Huynh",
   icons: {
     icon: [
-      { url: "/favicon.ico" }, // default browser tab
-      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/favicon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon_rh.ico" },
+      { url: "/favicon_rh-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon_rh-512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/favicon-192.png", sizes: "192x192" }],
+    apple: [{ url: "/favicon_rh_latest-180.png", sizes: "180x180" }],
   },
 };
-
 
 export default function RootLayout({
   children,
