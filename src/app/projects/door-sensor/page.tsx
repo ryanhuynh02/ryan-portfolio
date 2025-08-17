@@ -47,7 +47,7 @@ export default function DoorSensorProjectPage() {
           Door Sensor w/ Reed Switch &amp; Piezo
         </h1>
         <Link
-          href="/projects"
+          href="/#projects"
           className="text-sm underline text-slate-600 hover:text-slate-900"
         >
           ← Back to Projects
