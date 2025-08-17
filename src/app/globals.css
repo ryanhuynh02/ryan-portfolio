@@ -21,7 +21,5 @@
 
 
 html, body { @apply bg-white text-slate-900; }
-html {
-  scroll-behavior: smooth;
-}
+
 
