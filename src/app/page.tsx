@@ -173,13 +173,12 @@ export default function Portfolio() {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
           <div className="flex items-center gap-3">
-          <div className="size-9 rounded-2xl overflow-hidden">
-          <div className="min-w-[80px] min-h-[80px] rounded-full overflow-hidden"></div>
+          <div className="size-16 rounded-2xl overflow-hidden">
             <Image
               src="/profile-logo.svg"
               alt="Ryan Huynh"
-              width={50}
-              height={50}
+              width={100}
+              height={100}
               className="object-cover w-full h-full"
             />
           </div>
