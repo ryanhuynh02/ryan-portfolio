@@ -8,20 +8,26 @@ import { MDXComponents } from "@/components/MDXComponents";
 
 const components = MDXComponents as Record<string, ComponentType>;
 
-function readDoorSensorMDX() {
+// --- Add this helper ---
+function sanitizeForMDX(raw: string): string {
+  return raw
+    // remove things MDX can't parse
+    .replace(/<!--[\s\S]*?-->/g, "")        // HTML comments
+    .replace(/<!DOCTYPE[^>]*>/gi, "")       // <!DOCTYPE ...>
+    .replace(/<![^>]*>/g, "")               // any other <! ... >
+    // escape raw comparison operators
+    .replace(/<=/g, "&lt;=")                // <=
+    .replace(/<(?=\s|\d)/g, "&lt;");        // < 1, < 5, < (space)
+}
+
+// (Optional) try both common paths: with and without "src"
+function readDoorSensorMDX(): string | null {
   const candidates = [
     path.join(process.cwd(), "src", "app", "projects", "door-sensor", "door-sensor.mdx"),
     path.join(process.cwd(), "app", "projects", "door-sensor", "door-sensor.mdx"),
   ];
   for (const f of candidates) {
-    if (fs.existsSync(f)) {
-      const raw = fs.readFileSync(f, "utf8");
-      // Remove HTML comments and <!DOCTYPE ...> or any <! ... >
-      return raw
-        .replace(/<!--[\s\S]*?-->/g, "")
-        .replace(/<!DOCTYPE[^>]*>/gi, "")
-        .replace(/<![^>]*>/g, "");
-    }
+    if (fs.existsSync(f)) return sanitizeForMDX(fs.readFileSync(f, "utf8"));
   }
   return null;
 }
@@ -60,6 +66,15 @@ export default function DoorSensorProjectPage() {
             (Couldn’t load <code>door-sensor.mdx</code> at build time.)
           </p>
         )}
+      </div>
+
+      <div className="mt-8">
+        <a
+          href="/projects/door-sensor/Door_Sensor_Final_Report.pdf"
+          className="inline-flex items-center gap-2 rounded-xl bg-slate-900 text-white px-4 py-2 text-sm"
+        >
+          Download PDF
+        </a>
       </div>
     </main>
   );
