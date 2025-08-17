@@ -8,22 +8,26 @@ import { MDXComponents } from "@/components/MDXComponents";
 
 const components = MDXComponents as Record<string, ComponentType>;
 
-export const metadata = {
-  title: "Door Sensor w/ Reed Switch & Piezo — Project",
-  description: "Full write-up with images, BOM, analysis, and appendix.",
-};
+function readDoorSensorMDX() {
+  const candidates = [
+    path.join(process.cwd(), "src", "app", "projects", "door-sensor", "door-sensor.mdx"),
+    path.join(process.cwd(), "app", "projects", "door-sensor", "door-sensor.mdx"),
+  ];
+  for (const f of candidates) {
+    if (fs.existsSync(f)) {
+      const raw = fs.readFileSync(f, "utf8");
+      // Remove HTML comments and <!DOCTYPE ...> or any <! ... >
+      return raw
+        .replace(/<!--[\s\S]*?-->/g, "")
+        .replace(/<!DOCTYPE[^>]*>/gi, "")
+        .replace(/<![^>]*>/g, "");
+    }
+  }
+  return null;
+}
 
 export default function DoorSensorProjectPage() {
-  const file = path.join(
-    process.cwd(),
-    "src",
-    "app",
-    "projects",
-    "door-sensor",
-    "door-sensor.mdx"
-  );
-
-  const mdx = fs.readFileSync(file, "utf8");
+  const mdx = readDoorSensorMDX();
 
   return (
     <main
@@ -39,31 +43,24 @@ export default function DoorSensorProjectPage() {
         <h1 className="text-3xl font-extrabold tracking-tight">
           Door Sensor w/ Reed Switch &amp; Piezo
         </h1>
-        <Link
-          href="/#projects"
-          className="text-sm underline text-slate-600 hover:text-slate-900"
-        >
+        <Link href="/#projects" className="text-sm underline text-slate-600 hover:text-slate-900">
           ← Back to Projects
         </Link>
       </div>
 
       <div className="mt-6 prose prose-slate max-w-none prose-img:rounded-xl">
-        <MDXRemote
-          source={mdx}
-          options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
-          components={components}
-        />
-      </div>
-
-      <div className="mt-8">
-        <a
-          href="/projects/door-sensor/Door_Sensor_Final_Report.pdf"
-          className="inline-flex items-center gap-2 rounded-xl bg-slate-900 text-white px-4 py-2 text-sm"
-        >
-          Download PDF
-        </a>
+        {mdx ? (
+          <MDXRemote
+            source={mdx}
+            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            components={components}
+          />
+        ) : (
+          <p className="text-slate-600">
+            (Couldn’t load <code>door-sensor.mdx</code> at build time.)
+          </p>
+        )}
       </div>
     </main>
   );
 }
-
