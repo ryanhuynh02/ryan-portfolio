@@ -177,8 +177,8 @@ export default function Portfolio() {
             <Image
               src="/profile-logo.svg"
               alt="Ryan Huynh"
-              width={36}
-              height={36}
+              width={50}
+              height={50}
               className="object-cover w-full h-full"
             />
           </div>
