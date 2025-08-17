@@ -14,7 +14,6 @@ export const metadata = {
 };
 
 export default function DoorSensorProjectPage() {
-  // Read MDX that lives next to this page: src/app/projects/door-sensor/door-sensor.mdx
   const file = path.join(
     process.cwd(),
     "src",
@@ -25,13 +24,12 @@ export default function DoorSensorProjectPage() {
   );
 
   const mdx = fs.readFileSync(file, "utf8");
-  
+
   return (
     <main
       className="max-w-4xl mx-auto px-4 py-10 bg-white text-slate-900 min-h-screen"
       style={
         {
-          // Ensure any var-based colors resolve to light-on-white
           "--background": "white",
           "--foreground": "#0f172a",
         } as React.CSSProperties
@@ -48,7 +46,7 @@ export default function DoorSensorProjectPage() {
           ← Back to Projects
         </Link>
       </div>
-  
+
       <div className="mt-6 prose prose-slate max-w-none prose-img:rounded-xl">
         <MDXRemote
           source={mdx}
@@ -56,7 +54,7 @@ export default function DoorSensorProjectPage() {
           components={components}
         />
       </div>
-  
+
       <div className="mt-8">
         <a
           href="/projects/door-sensor/Door_Sensor_Final_Report.pdf"
@@ -67,5 +65,5 @@ export default function DoorSensorProjectPage() {
       </div>
     </main>
   );
-  
 }
+
