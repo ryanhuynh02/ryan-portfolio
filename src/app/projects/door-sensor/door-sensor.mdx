@@ -231,11 +231,40 @@ The concepts were evaluated against key criteria such as **cost**, **reliability
 ## 5.0 Configuration Design
 
 ### 5.1 Layout Sketch
-Transmitter housing is attached to the frame and contains the reed switch, buzzer, and battery. A magnet housing is mounted on the door. When the door opens, the magnet moves away, the reed switch changes state, and the buzzer activates.
+The door sensor consists of two housings:
+
+<br />
+<ul className="list-disc pl-6">
+  <li>
+    <strong>Transmitter Housing:</strong> Attached to the door frame, containing the reed switch, battery, piezo buzzer, and wiring.
+  </li>
+  <li>
+    <strong>Magnet Housing:</strong> A small enclosure mounted on the door, aligned with the reed switch to maintain a closed circuit while the door is shut.
+  </li>
+</ul>
+
+<br />
+When the door opens, the magnet moves away from the reed switch, causing it to close the circuit and activate the buzzer. The device operates independently without requiring Wi-Fi or an external power source.
 
 <figure className="my-6">
   <img src="/projects/door-sensor/assets/image14.png" alt="Overall layout sketch of housings" className="w-full max-w-3xl" />
   <figcaption className="text-sm text-slate-500 mt-2">Layout sketch — transmitter housing on the frame; magnet on the door.</figcaption>
+</figure>
+
+### 5.2 Functional Decomposition
+
+<br />
+<figure className="my-6">
+  <img src="/projects/door-sensor/assets/image13.png" alt="Door Sensor Functional Decomposition" className="w-full max-w-3xl" />
+  <figcaption className="text-sm text-slate-500 mt-2">Functional Door Sensor.</figcaption>
+</figure>
+
+### 5.3 Component Decomposition
+
+<br />
+<figure className="my-6">
+  <img src="/projects/door-sensor/assets/image1.png" alt="Door Sensor Component Decomposition" className="w-full max-w-3xl" />
+  <figcaption className="text-sm text-slate-500 mt-2">Component Door Sensor.</figcaption>
 </figure>
 
 ## 6.0 Parametric Design
