@@ -12,11 +12,65 @@ In Spring 2025, our final project for Engineering 11 was to design and prototype
 While many commercial door sensors exist, many are expensive, bulky, or require Wi-Fi and smartphone integration. Our goal was to build a low-cost, battery-powered, stand-alone door sensor with audible feedback, suitable for dorms, homes, or tool sheds.
 
 ### 2.2 Market Surveying
-We explored multiple concepts before settling on our final design:
 
-- **Tracking Bracelet** — a sensor near the entrance detects the wearer crossing the threshold and triggers an alarm. *(~$50)*
-- **Ring-style Camera System** — sends smartphone alerts with motion/video. *(~$80)*
-- **RFID System** — detects tagged items passing through a gate. *(~$60–$100)*
+We explored multiple concepts before settling on our final design. Below are our initial and alternative ideas:
+
+<div className="not-prose grid gap-8">
+
+  {/* Concept 1 — Tracking Bracelet */}
+  <div className="grid gap-6 md:grid-cols-2 items-center">
+    <img
+      src="/projects/door-sensor/assets/image6.png"
+      alt="Tracking Bracelet concept"
+      className="rounded-xl w-full max-w-md mx-auto"
+    />
+    <div className="prose prose-slate max-w-none">
+      <h4>Tracking Bracelet</h4>
+      <p>
+        A sensor placed near the entrance detects if the wearer crosses the threshold
+        and triggers an alarm, alerting caretakers. This idea was appealing but
+        limited in scenarios with many people in a room.
+      </p>
+      <p><strong>Price Estimate:</strong> $50</p>
+    </div>
+  </div>
+
+  {/* Concept 2 — Ring-style Camera */}
+  <div className="grid gap-6 md:grid-cols-2 items-center">
+    <img
+      src="/projects/door-sensor/assets/image7.png"
+      alt="Ring-style camera monitoring"
+      className="rounded-xl w-full max-w-md mx-auto"
+    />
+    <div className="prose prose-slate max-w-none">
+      <h4>Ring-style Camera Monitoring</h4>
+      <p>
+        A camera near the door monitors activity and sends alerts to a smartphone.
+        Provides strong monitoring but is costly and requires internet connectivity.
+      </p>
+      <p><strong>Price Estimate:</strong> $80</p>
+    </div>
+  </div>
+
+  {/* Concept 3 — RFID System */}
+  <div className="grid gap-6 md:grid-cols-2 items-center">
+    <img
+      src="/projects/door-sensor/assets/image7.png"
+      alt="RFID-based system concept"
+      className="rounded-xl w-full max-w-md mx-auto"
+    />
+    <div className="prose prose-slate max-w-none">
+      <h4>RFID-based System</h4>
+      <p>
+        RFID tags and a reader at the door detect passage of tracked individuals or
+        objects. Effective but more expensive and requires tag management.
+      </p>
+      <p><strong>Price Estimate:</strong> $60–$100</p>
+    </div>
+  </div>
+
+</div>
+
 
 ### 2.3 Performance Requirements
 - Cost under $200  
