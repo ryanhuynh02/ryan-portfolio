@@ -38,7 +38,7 @@ We explored multiple concepts before settling on our final design. Below are our
   {/* Concept 2 — Ring-style Camera */}
   <div className="grid gap-6 md:grid-cols-2 items-center">
     <img
-      src="/projects/door-sensor/assets/image7.png"
+      src="/projects/door-sensor/assets/image8.png"
       alt="Ring-style camera monitoring"
       className="rounded-xl w-full max-w-md mx-auto"
     />
@@ -80,7 +80,52 @@ We explored multiple concepts before settling on our final design. Below are our
 - Indoor use (32°F–104°F / 0°C–40°C); keep dry; avoid direct sun/moisture
 
 ### 2.4 Customer Satisfaction Curves
-User satisfaction was mapped vs. runtime, price, and power consumption.
+
+To evaluate user satisfaction, we developed a set of curves illustrating how customer
+satisfaction varies with different performance factors. These include runtime (before
+battery change), price, and power consumption. Our goal was to ensure that our design
+choices align with the expectations and preferences of potential users.
+
+<div className="grid gap-10 md:grid-cols-3 not-prose my-8">
+
+  {/* Runtime Satisfaction */}
+  <figure className="flex flex-col items-center">
+    <img
+      src="/projects/door-sensor/assets/image10.png"
+      alt="Runtime Satisfaction curve"
+      className="rounded-lg w-full max-w-xs"
+    />
+    <figcaption className="text-sm text-slate-600 mt-2 text-center">
+      Runtime Satisfaction — increases steadily with longer runtime before battery change.
+    </figcaption>
+  </figure>
+
+  {/* Price Satisfaction */}
+  <figure className="flex flex-col items-center">
+    <img
+      src="/projects/door-sensor/assets/image9.png"
+      alt="Price Satisfaction curve"
+      className="rounded-lg w-full max-w-xs"
+    />
+    <figcaption className="text-sm text-slate-600 mt-2 text-center">
+      Price Satisfaction — decreases as cost increases.
+    </figcaption>
+  </figure>
+
+  {/* Power Consumption Satisfaction */}
+  <figure className="flex flex-col items-center">
+    <img
+      src="/projects/door-sensor/assets/image12.png"
+      alt="Power Consumption Satisfaction curve"
+      className="rounded-lg w-full max-w-xs"
+    />
+    <figcaption className="text-sm text-slate-600 mt-2 text-center">
+      Power Consumption Satisfaction — lower consumption leads to higher satisfaction.
+    </figcaption>
+  </figure>
+
+</div>
+
 
 ## 3.0 Project Engineering
 
