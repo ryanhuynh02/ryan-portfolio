@@ -1,6 +1,6 @@
 // src/components/MDXComponents.tsx
 import React from "react";
-
+import type { ComponentProps } from "react";
 export const MDXComponents = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className="mt-8 text-3xl font-extrabold tracking-tight" {...props} />
@@ -16,5 +16,11 @@ export const MDXComponents = {
   ),
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a className="underline hover:no-underline" {...props} />
+  ),
+  h3: (props: ComponentProps<"h3">) => (
+    <h3
+      className="text-[#4f81bd] mt-6 mb-4 font-semibold"
+      {...props}
+    />
   ),
 };
