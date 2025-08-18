@@ -1,721 +1,124 @@
----
-title: "Door Sensor w/ Reed Switch & Piezo"
-date: "2025-05-01"
-summary: "Engineering project: reed switch–based door sensor with piezo buzzer."
-tags: ["embedded", "hardware", "sensor"]
----
 
-# Door Sensor — Final Report (Extracted)
+<div className="prose prose-slate max-w-none">
 
+# Door Sensor Final Report
 
-<!-- Page 1 -->
+## 1.0 Introduction
 
-DOOR SENSOR FINAL REPORT 
-1.0 INTRODUCTION 
- 
-1.1 Background 
+### 1.1 Background
 In Spring 2025, our final project for Engineering 11 was to design and prototype a practical 
-engineering product. After brainstorming and evaluating multiple ideas, we decided to 
-create a door sensor. The purpose of this device is to detect the opening of a door using a 
-magnetic switch and to alert the user with a sound via a mini piezo buzzer. This simple, 
-compact, and effective system enhances home security and accessibility, especially for 
-individuals needing sound-based alerts. 
-2.0 DESIGN PROBLEM FORMULATION 
- 
-2.1 Filling a Niche 
-While many commercial door sensors exist, many are expensive, bulky, or require Wi-Fi and 
-smartphone integration. Our goal was to build a low-cost, battery-powered, stand-alone 
-door sensor with audible feedback, suitable for dorms, homes, or tool sheds. 
- 
-2.2 Market Surveying 
-We explored multiple concepts before settling on our final design. Below are our initial and 
-alternative ideas: 
- 
-1.
+engineering product. After brainstorming and evaluating multiple ideas, we decided to create a door sensor. 
+The purpose of this device is to detect the opening of a door using a magnetic switch and to alert the user with a sound via a mini piezo buzzer. 
+This simple, compact, and effective system enhances home security and accessibility, especially for individuals needing sound-based alerts.
 
+## 2.0 Design Problem Formulation
 
-<!-- Page 2 -->
+### 2.1 Filling a Niche
+While many commercial door sensors exist, many are expensive, bulky, or require Wi-Fi and smartphone integration. 
+Our goal was to build a low-cost, battery-powered, stand-alone door sensor with audible feedback, suitable for dorms, homes, or tool sheds.
 
-**Tracking Bracelet**:  A sensor placed 
-near the entrance would detect if the 
-wearer crossed the threshold and trigger 
-an alarm, alerting caretakers. This idea 
-was appealing but limited to the quantity 
-if there are too many people in a room. 
-Price Estimate: $50 
- 
- 
-2.  
- 
-**Ring Camera System**: It would 
-notify users on their smartphones 
-whenever someone exited a predefined 
-boundary. While functional and 
-modern, it required a Wi-Fi module, 
-mobile app integration, and a 
-camera—all of which were costly and 
-time-consuming. 
-Price Estimate: $80 
- 
- 
- 
-3.
+### 2.2 Market Surveying
+We explored multiple concepts before settling on our final design:
 
+- **Tracking Bracelet**: A sensor placed near the entrance would detect if the wearer crossed the threshold and trigger an alarm. Price ~$50.
+- **Ring Camera System**: Would notify users on their smartphones whenever someone exited. Price ~$80.
+- **RFID System**: Detects tags as they pass through. Price ~$60–$100.
 
-<!-- Page 3 -->
+### 2.3 Performance Requirements
+- Cost under $200  
+- Fit within 1.5×1×1 cm housing  
+- Audible buzzer when door opens  
+- Run on a small battery for 3–6 months  
+- Indoor use (32°F–104°F)  
 
-**RFID**: RFID (Radio Frequency 
-Identification) systems are commonly used 
-in retail and library environments to detect 
-tagged items as they pass through a sensor 
-gate. In our context, a similar system could 
-be used to detect when a person or pet 
-(wearing an RFID tag) exits a space. The 
-system uses passive or active RFID tags and 
-a reader module near the door, but it 
-becomes expensive when scaling up 
- 
- 
- Price Estimate: $60–$100 for a basic RFID reader and tag set 
-  
- 
- 
-2.3 Performance Requirements 
- 
-Function and Performance: 
-- Must cost under $200 to build 
-- Must fit within a 1.5x1x1 cm housing 
-- Must sound piezo buzzer when the door is opened 
-- Must run on a small battery (e.g., coin cell or AA) 
-- Must work for over 3 months without battery replacement 
- 
-Operating Environment: 
-This device is designed for indoor residential use. It should operate within a temperature 
-range of 32°F to 104°F (0°C to 40°C). It is not waterproof and must be kept dry. It should be 
-mounted on a door frame away from direct sunlight or moisture. 
- 
-Life Expectancy: 
-The device is expected to last over 2 years with normal use. The reed switch and piezo 
-buzzer have no moving parts and are rated for tens of thousands of cycles. Battery life will 
-depend on usage and power-saving techniques but is estimated at 3–6 months before 
-replacement.
+### 2.4 Customer Satisfaction Curves
+User satisfaction was mapped vs. runtime, price, and power consumption.
 
+## 3.0 Project Engineering
 
-<!-- Page 4 -->
+### 3.1 Work Scope
+- 6 weeks development  
+- Weekly meetings, Discord + Drive for collaboration  
+- Deliverables: prototype, CAD sketches, test report, BOM, final report  
 
-Repair, Disposal, and Maintenance: 
-This is a low-cost device intended for minimal maintenance. The battery should be replaced 
-when depleted. If the device malfunctions, basic repairs like replacing the reed switch or 
-piezo buzzer may be possible if soldering tools are available. Otherwise, the unit can be 
-recycled or disposed of in accordance with electronic waste regulations. The plastic housing 
-should be recycled if possible. 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-2.4 Customer Satisfaction Curves 
- 
-To evaluate user satisfaction, we developed a set of curves illustrating how customer 
-satisfaction varies with different performance factors. These include runtime (before 
-battery change), price, and power consumption. Our goal was to ensure that our design 
-choices align with the expectations and preferences of potential users.
+### 3.2 Team Roles
+- **Ryan Huynh**: Circuit design, CAD modeling, writing/editing  
+- **Adrian Vinuya**: Assembly, soldering, BOM  
+- **Arielah Arana**: Prototyping, 3D printing, cost estimation  
 
+## 4.0 Conceptual Design
 
-<!-- Page 5 -->
+- **Concept 1 – Wearable Safe Space Alarm**  
+- **Concept 2 – Ring Camera System**  
+- **Concept 3 – Final Design: Reed Switch + Piezo Buzzer** ✅
 
+## 5.0 Configuration Design
 
+- **Transmitter Housing**: Reed switch, buzzer, battery  
+- **Magnet Housing**: Mounted on door  
 
+When door opens, magnet moves away, switch closes, buzzer activates.
 
-<!-- Page 6 -->
+## 6.0 Parametric Design
 
-3.0 Project Engineering 
- 
-3.1 Work Scope 
- 
-The development of the door sensor project was completed over the course of 6 weeks. The 
-scope of work included idea generation, component research, prototyping, testing, and 
-documentation. A Gantt chart was used to plan and track progress throughout the phases of 
-the project (see Appendix A). Team meetings were held weekly to share updates, 
-troubleshoot issues, and assign tasks. Communication was maintained through group 
-messaging and shared documents on Discord and Drive. 
-The final deliverables included: 
-● A working prototype of the door sensor 
- 
-● CAD sketches of the housing 
- 
-● A performance test report 
- 
-● A finalized bill of materials
+### 6.1 Design for Assembly
+- Minimal part count  
+- Snap-fit housing  
+- Coin cell battery holder  
+- Easy maintenance  
 
+### 6.2 Design for Function
+- Durable plastic housing  
+- Low power consumption (~6 months CR2032)  
+- Loud (~85 dB) buzzer  
+- Safe 3V operation  
 
-<!-- Page 7 -->
+## 7.0 Engineering Analysis
 
-● Full project documentation including this report 
- 
-3.2 Team Roles and Responsibilities 
-Each team member contributed to the design and execution of the project. While roles 
-overlapped in certain areas, the responsibilities were distributed as follows: 
-● Ryan Huynh 
- 
-○ Circuit design and breadboarding 
-○ Report writing and editing 
-○ 3D housing design and CAD modeling 
- 
-● Adrian Vinuya 
- 
-○ Final assembly and testing 
-○ Soldering and reed switch integration 
-○ Bill of materials organization 
- 
-● Arielah Arana 
- 
-○ Prototyping and debugging 
-○ 3D printing and enclosure assembly 
-○ Maintenance planning and cost estimation 
-The team collaborated closely to ensure all deadlines were met, with flexibility built into the 
-schedule to allow for iterative improvements and troubleshooting. 
- 
-4.0 Conceptual Design 
- 
-4.1 Design Concept Alternatives 
-During the early stages of brainstorming, our team considered multiple designs to address 
-the goal of detecting when a person or pet leaves a defined safe space. Below are the 
-concepts we explored: 
-Concept 1 – Safe Space Alarm with Wearables
+### 7.1 Power & Battery Life
+- Piezo ~15 mA when active  
+- ~20 door openings/day, 2 sec each  
+- Avg draw ~0.057 mA → Battery life 5–6 months  
 
+### 7.2 Response Time
+- Reed switch: <1 ms  
+- Alert delay: <10 ms  
 
-<!-- Page 8 -->
+### 7.3 Sound Output
+- ~85 dB at 1 meter  
 
-This concept involved using wearable trackers (bracelets or collars) for individuals or pets. 
-A sensor placed near a doorway would detect when the wearer exited and trigger a central 
-alarm. 
-  
-Pros: 
-● Continuous monitoring 
- 
-● Works for multiple users 
- Cons: 
- 
-● Costly due to multiple devices 
- 
-● Complex pairing and communication 
- 
-● Requires power-hungry wireless modules 
- 
-Concept 2 – Ring-Style Camera Monitoring System 
- 
-This idea involved using a camera and software to detect motion or exits, then send 
-smartphone notifications. 
- 
- Pros: 
-● Visual confirmation 
- 
-● Remote alert system 
- Cons: 
- 
-● Requires internet connection 
- 
-● Complex setup and privacy concerns 
- 
-● Expensive (camera, Wi-Fi, app)
+### 7.4 Range & Alignment
+- Reliable within 10 mm  
+- Neodymium magnet preferred  
 
+## 8.0 Testing
 
-<!-- Page 9 -->
+- **Test 1**: Circuit works, buzzer triggers instantly  
+- **Test 2**: Reed switch range ~10 mm  
+- **Test 3**: Sound level ~85 dB  
+- **Test 4**: Battery ~5–6 months  
 
-Concept 3 – Final Design: Door Sensor with Reed Switch and Piezo Buzzer 
- 
-The final concept is a cost-effective and simplified solution. It consists of a magnetic reed 
-switch, a piezo buzzer, and a CR2032 battery. When the door opens and the magnetic 
-contact is broken, the reed switch closes the circuit, triggering the buzzer. 
-  
-Pros: 
-● Very low cost 
- 
-● Simple to build and reliable 
- 
-● Low power consumption 
- Cons: 
-● No remote alert (local only) 
- 
-● One-directional detection (door opens only) 
- 
- 
-4.2 Weighted Rating Matrix 
-We evaluated each concept using a weighted matrix to determine the most appropriate 
-solution based on our key criteria:
+## 8.5 Conclusion & Recommendations
+- Meets goals: compact, reliable, cost-effective  
+- Future improvements: add wireless alerts, weatherproofing, PCB design, LED/buzzer customization  
 
+## Appendix
 
-<!-- Page 10 -->
-
-Based on the results of this matrix, we chose the reed switch door sensor design for its 
-superior cost-efficiency, simplicity, and ease of implementation. 
- 
- 
- 
-5.0 Configuration Design 
- 
-5.1 Layout Sketch 
-The door sensor consists of two housings: 
-● Transmitter Housing: Attached to the door frame, containing the reed switch, 
-battery, piezo buzzer, and wiring. 
- 
-● Magnet Housing: A small enclosure mounted on the door, aligned with the reed 
-switch to maintain a closed circuit while the door is shut. 
- 
-When the door opens, the magnet moves away from the reed switch, causing it to close the 
-circuit and activate the buzzer. The device operates independently without requiring Wi-Fi 
-or an external power source.
-
-
-<!-- Page 11 -->
-
-5.2 Functional Decomposition
-
-
-<!-- Page 12 -->
-
-5.3 Component Decomposition 
- 
- 
- 
- 
- 
-6.0 Parametric Design
- 
-6.1 DFX 
- 
-Design for Assembly 
-To ensure simplicity and reliability, the door sensor was designed using as few components 
-as necessary. The assembly process was optimized for minimal tools, ease of alignment, and 
-safe handling. 
-Design for Assembly Checklist: 
-● ✅ Minimal part count (magnet, reed switch, buzzer, battery, and housing) 
- 
-● ✅ No soldering required if using jumper clips or pre-soldered components
-
-
-<!-- Page 13 -->
-
-● ✅ Snap-fit or screw-in housing for easy access 
- 
-● ✅ Standard, low-cost components 
- 
-● ✅ Compact modular design (sensor unit and magnet housing) 
- 
-● ✅ Assembly instructions included 
- 
-● ✅ Minimal tools required (small screwdriver or adhesive tape) 
- 
-Key Features: 
-● The housing is made of two 3D-printed or plastic parts that align with door and 
-frame edges. 
- 
-● The reed switch and buzzer are pre-positioned and require minimal wiring. 
- 
-● A coin cell battery snaps into a holder, eliminating the need for power cables. 
- 
- 
- Design for Function (DFF) 
-The door sensor is engineered to be energy-efficient, responsive, and durable for indoor 
-residential use. 
-Design for Function Checklist: 
-● ✅ Strong plastic housing for durability 
- 
-● ✅ Low power consumption for long battery life (~6 months on CR2032) 
- 
-● ✅ Reed switch for fast, passive sensing 
- 
-● ✅ Loud mini piezo buzzer (~85 dB) for clear alerts 
- 
-● ✅ Safe, low-voltage operation (3V) 
- 
-● ✅ Compact size for discreet installation 
- 
-● ✅ Simple wiring minimizes failure points
-
-
-<!-- Page 14 -->
-
-● ✅ Reliable magnetic alignment system 
- 
-● ✅ Easy access for battery replacement 
- 
-Functional Performance Goals: 
-● Must alert immediately upon door opening 
- 
-● Must reset automatically once door is closed 
- 
-● Must operate reliably for over 1,000 cycles 
- 
-● Must require no maintenance other than battery replacement 
- 
-6.2 CAD & Assembly Drawing 
- 
-Door Sensor Housing
-
-
-<!-- Page 15 -->
-
-There are two cutouts in the housing design. The rectangular hole is for the on/off switch, 
-allowing users to easily enable or disable the alarm system. The circular hole is positioned 
-to align with the mini piezo buzzer, allowing the sound to pass clearly through the enclosure 
-for effective audio alerts. 
-Additionally, there is a slot at the top designed for a sliding lid. This feature allows users to 
-open the housing conveniently to replace the battery, perform maintenance, or upgrade 
-components. It also supports easier disassembly for recycling at the end of the device’s life 
-cycle. 
-Inside the main housing, we securely place the reed switch, battery holder, and power 
-switch, then solder the connections to complete the circuit.
-
-
-<!-- Page 16 -->
-
-Sliding cover
-
-
-<!-- Page 17 -->
-
-This is the sliding lid for the main housing. We designed a chambered cutout to provide 
-users with a convenient grip area, making it easy to slide the lid open or closed. Additionally, 
-the rails were precisely cut and fitted to ensure the lid aligns securely with the housing, 
-forming a tight seal that helps prevent water and dirt from entering and damaging the 
-internal components. 
- 
- 
- 
- 
- 
- 
-Magnet Housing
-
-
-<!-- Page 18 -->
-
-This is the magnet holder, designed to be mounted on the door frame, positioned close to 
-the main housing. The main housing, which contains the electronics, is mounted on the 
-moving part of the door. When the door is closed, the magnet aligns with the reed switch in 
-the main housing to maintain the circuit’s inactive state. Opening the door causes the 
-magnet to move away, triggering the alarm.
-
-
-<!-- Page 19 -->
-
-Magnet cover
-
-
-<!-- Page 20 -->
-
-The magnet cover serves to protect the magnet from physical damage and environmental 
-exposure while also providing a clean, aesthetically pleasing appearance. 
- 
- 
-7.0 Engineering Analysis 
- 
- 
-7.1 Power Consumption and Battery Life 
-The door sensor is powered by a CR2032 coin cell battery (3V, ~220 mAh). The circuit 
-consists of a reed switch (passive), a mini piezo buzzer, and minimal wiring. Most of the 
-time, the device draws virtually no current due to the open reed switch. Current only flows 
-when the door is opened and the circuit is triggered. 
-Assumptions:
-
-
-<!-- Page 21 -->
-
-● Reed switch: passive (0 mA) 
- 
-● Piezo buzzer: draws ~15 mA when active 
- 
-● Buzz duration: ~2 seconds per activation 
- 
-● Door opens ~20 times per day 
- 
- 
- 
-Add estimated idle leakage current: ~0.05 mA 
- Total average current draw ≈ 0.057 mA 
- 
- Estimated Battery Life: ~5 to 6 months 
- 
-7.2 Response Time 
-The reed switch closes almost instantaneously (~1 ms) when the magnet moves away. The 
-piezo buzzer activates immediately upon switch closure. This ensures the alert is triggered 
-as soon as the door opens, with near real-time feedback. 
-Conclusion: 
-● Switch Response Time: <1 ms 
- 
-● Audible Alert Delay: <10 ms 
- 
-● System responsiveness is excellent for the intended use. 
- 
- 
-7.3 Sound Output
-
-
-<!-- Page 22 -->
-
-The mini piezo buzzer emits sound in the range of 80–90 dB, sufficient to alert someone in a 
-small room or hallway. This level was chosen to be noticeable but not irritating. 
- 
-7.4 Range and Alignment 
-The magnetic reed switch activates when the magnet is within approximately 10 mm. 
-Careful alignment of the sensor housing and magnet enclosure ensures consistent 
-triggering. 
-Key Notes: 
-● Misalignment beyond 10 mm may prevent activation. 
- 
-● Neodymium magnets are preferred for stronger fields. 
- 
-8.0 Engineering Analysis 
- 
-8.1 Test 1 - Circuit Functionality 
-Objective: Verify that the reed switch properly triggers the piezo buzzer when the magnetic 
-field is disrupted. 
-Clarification: The reed switch used in our circuit has three wires: one input wire, and two 
-output wires (a short leg and a long leg). The short leg corresponds to a normally closed 
-(NC) contact, while the long leg is the normally open (NO) contact. 
-Since we want the mini piezo buzzer to activate when no magnet is detected (i.e., when the 
-door is open), we connect the long leg (NO contact) to the piezo buzzer. This ensures that 
-when the magnet is present, the circuit is open and the buzzer is off. When the magnet 
-moves away, the circuit closes through the NO contact, allowing current to flow and the 
-buzzer to sound. 
- 
-Procedure: 
- 
-● Connected the reed switch, piezo buzzer, and CR2032 battery on a breadboard.
-
-
-<!-- Page 23 -->
-
-● Aligned a neodymium magnet with the reed switch. 
- 
-● Moved the magnet away to simulate a door opening. 
- 
-Result: 
- The buzzer activated immediately upon moving the magnet, confirming that the reed switch 
-triggered correctly. The circuit returned to idle when the magnet was brought back. The 
-response time was under 10 ms. 
- 
-8.2 Test 2 - Alignment Sensitivity 
-Objective: Determine the maximum distance at which the reed switch responds to the 
-magnet. 
-Procedure: 
-● Incrementally increased the distance between the magnet and the reed switch. 
- 
-● Recorded the maximum gap at which the circuit still activated the buzzer. 
- 
- 
-Result: 
- The reed switch consistently triggered at a distance up to ~10 mm. Beyond that, activation 
-became unreliable. Alignment is critical for consistent functionality.
-
-
-<!-- Page 24 -->
-
-8.3 Test 3 - Sound Audibility 
-Objective: Evaluate the loudness of the buzzer in a typical indoor environment. 
-Procedure: 
-● Activated the buzzer in a quiet room. 
- 
-● Used a sound level meter to measure the decibel output at 1 meter. 
- 
- 
- 
-Result: 
- The buzzer produced ~85 dB, sufficient to alert someone in the same room or adjacent 
-hallway. 
- 
-8.4 Test 4 - Battery Life 
-Objective: Estimate battery longevity under realistic usage conditions. 
-Assumptions:
-
-
-<!-- Page 25 -->
-
-● 20 door openings per day 
- 
-● 2-second buzzer activation per event 
- 
-● 0.057 mA average current draw (as calculated in Section 7) 
- 
- 
-Result: 
- Theoretical runtime is ~5–6 months per CR2032 battery. A long-duration real-world test is 
-in progress to verify this projection. 
- 
- 
-8.5 Conclusion and Recommendations 
-Conclusion 
-Through iterative prototyping and testing, our team successfully developed a compact, 
-low-cost, and energy-efficient door sensor. The device performs reliably using a magnetic 
-reed switch and piezo buzzer to alert users when a door is opened. Key test results 
-demonstrated: 
-● Immediate response (<10 ms) upon magnetic disruption
-
-
-<!-- Page 26 -->
-
-● Audible buzzer output around 85 dB, effective for indoor alerts 
- 
-● Reliable activation within a 10 mm magnet range 
- 
-● Projected battery life of approximately 5–6 months using a CR2032 coin cell 
- 
-The overall system met its core performance goals and user-centered design criteria, 
-including ease of use, modular construction, and minimal maintenance. 
-Recommendations 
-For future improvement and scaling, we recommend: 
-1. Adding Wireless Capabilities 
- Integrating a low-power wireless module (e.g., BLE or LoRa) could enable remote 
-notifications to smartphones or smart home hubs. 
- 
-2. Weatherproofing the Housing 
- Sealing the housing with gaskets or silicone would allow for outdoor or 
-semi-outdoor use. 
- 
-3. PCB Integration 
- Replacing hand-wiring with a printed circuit board (PCB) would improve durability, 
-consistency, and ease of assembly. 
- 
-4. User Interface Enhancement 
- Incorporating an LED indicator or adjustable buzzer tone could improve user 
-interaction and accessibility. 
- 
-5. Modular Battery Design 
- Designing for AA or rechargeable battery packs could provide longer life or 
-environmental benefits. 
- 
- 
-FINAL TEST DATA
-
-
-<!-- Page 27 -->
-
-
-
-
-<!-- Page 28 -->
-
-APPENDIX
-
-
-<!-- Page 29 -->
-
-A. Gantt Chart Schedule 
- 
- 
- 
-B. Bill of Materials (BOM) 
- 
-Component 
-Description 
-Quantity 
-Estimated Cost (USD) 
-Reed Switch 
-Magnetic door sensor 
-1 
-$1.60 
-Mini Piezo Buzzer 
-3V buzzer, 85 dB 
-1 
-$3.00 
-CR2032 Battery 
-3V coin cell 
-1 
-$1.00 
-Battery Holder 
-For CR2032 
-1 
-$0.60 
-SPDT Switch 
-Toggle on/off 
-1 
-$0.60
-
-
-<!-- Page 30 -->
-
-Neodymium Magnet 
-Small round magnet 
-1 
-$0.80 
-Plastic Housing 
-3D printed enclosure 
-1 set 
-$4.50 
-Jumper Wires/Solder 
-For connections 
-- 
-$0.40 
-Total 
- 
- 
-~$12.50 
- 
- 
-C. OPERATION 
-        Instructions for Use 
-1. Mount the Sensor: 
- 
-○ Attach the main housing (with reed switch and buzzer) to the door using 
-adhesive or screws. 
- 
-○ Align and mount the magnet housing on the door frame, directly across 
-from the reed switch. 
- 
-2. Insert Battery: 
- 
-○ Slide open the top lid. 
- 
-○ Insert a CR2032 coin cell battery into the holder with correct polarity. 
- 
-○ Close the lid securely. 
- 
-3. Activate the Alarm: 
- 
-○ Use the power switch to turn the sensor on. 
- 
-○ When the door opens (magnet moves away), the buzzer will sound. 
- 
-4. Turn Off the Alarm: 
- 
-○ Slide the switch to the off position to disable the buzzer.
-
-
-<!-- Page 31 -->
-
-
-## Figures
-
-![Figure](/projects/door-sensor/img-01.jpg)
-![Figure](/projects/door-sensor/img-02.jpg)
-![Figure](/projects/door-sensor/img-03.jpg)
-![Figure](/projects/door-sensor/img-04.jpg)
-![Figure](/projects/door-sensor/img-05.jpg)
-![Figure](/projects/door-sensor/img-06.jpg)
-![Figure](/projects/door-sensor/img-07.jpg)
-![Figure](/projects/door-sensor/img-08.jpg)
-![Figure](/projects/door-sensor/img-09.jpg)
-![Figure](/projects/door-sensor/img-10.jpg)
-![Figure](/projects/door-sensor/img-11.jpg)
-![Figure](/projects/door-sensor/img-12.jpg)
-![Figure](/projects/door-sensor/img-13.jpg)
-![Figure](/projects/door-sensor/img-14.jpg)
-![Figure](/projects/door-sensor/img-15.jpg)
-![Figure](/projects/door-sensor/img-16.jpg)
-![Figure](/projects/door-sensor/img-17.jpg)
-![Figure](/projects/door-sensor/img-18.jpg)
-![Figure](/projects/door-sensor/img-19.jpg)
-![Figure](/projects/door-sensor/img-20.jpg)
-![Figure](/projects/door-sensor/img-21.jpg)
-![Figure](/projects/door-sensor/img-22.jpg)
-![Figure](/projects/door-sensor/img-23.jpg)
-![Figure](/projects/door-sensor/img-24.jpg)
-![Figure](/projects/door-sensor/img-25.jpg)
-![Figure](/projects/door-sensor/img-26.jpg)
+### Bill of Materials
+- Reed Switch – $1.60  
+- Mini Piezo Buzzer – $3.00  
+- CR2032 Battery – $1.00  
+- Battery Holder – $0.60  
+- SPDT Switch – $0.60  
+- Neodymium Magnet – $0.80  
+- Plastic Housing – $4.50  
+- Jumper Wires/Solder – $0.40  
+- **Total ~ $12.50**
+
+### Operation Instructions
+1. Mount sensor & magnet housing on door  
+2. Insert CR2032 battery  
+3. Power on with switch → buzzer sounds when door opens  
+4. Power off to disable  
+
+</div>
