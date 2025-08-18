@@ -173,12 +173,45 @@ Each team member contributed to the design and execution of the project. While r
   <li>Maintenance planning and cost estimation</li>
 </ul>
 
+<br />
 The team collaborated closely to ensure all deadlines were met, with flexibility built into the schedule to allow for iterative improvements and troubleshooting.
+
 ## 4.0 Conceptual Design
 
-- **Concept 1 – Wearable Safe-Space Alarm**  
-- **Concept 2 – Ring-style Camera Monitoring**  
-- **Concept 3 – Final Design: Reed Switch + Piezo Buzzer** ✅
+In the conceptual design phase, our team explored and evaluated multiple possible solutions before selecting the final approach. Each concept offered distinct advantages and trade-offs, which were compared using a weighted rating matrix.
+
+### 4.1 Design Concept Alternatives
+
+**Concept 1 — Wearable Safe-Space Alarm**  
+A system using trackers worn by individuals. If a tracked person exits through the door, the receiver triggers an alarm to alert caregivers.  
+- **Pros:** Provides monitoring for vulnerable users (e.g., elderly or children).  
+- **Cons:** Requires every user to wear a device; higher cost and complexity.
+
+**Concept 2 — Ring-style Camera Monitoring**  
+A camera mounted near the entrance detects movement and sends notifications to a smartphone app.  
+- **Pros:** Remote monitoring, integrates with smart devices.  
+- **Cons:** Expensive, requires Wi-Fi and app setup, higher maintenance.
+
+**Concept 3 — Final Design (Chosen)**✅  
+A simple reed switch paired with a piezo buzzer and coin-cell battery. When the door opens, the magnet separates from the reed switch, closing the circuit and activating the buzzer.  
+- **Pros:** Low cost, simple construction, reliable, energy efficient.  
+- **Cons:** Provides only local alerts, requires proper magnet alignment.
+
+### 4.2 Weighted Rating Matrix
+
+The concepts were evaluated against key criteria such as **cost**, **reliability**, **simplicity**, and **power consumption**. The reed-switch design achieved the highest score, making it the preferred solution.
+
+<figure className="not-prose my-6 flex flex-col items-center">
+  <img
+    src="/projects/door-sensor/assets/image11.png"
+    alt="Weighted rating matrix for concept selection"
+    className="rounded-lg w-full max-w-2xl"
+  />
+  <figcaption className="text-sm text-slate-600 mt-2 text-center">
+    Weighted rating matrix — reed switch design scored highest overall.
+  </figcaption>
+</figure>
+
 
 ## 5.0 Configuration Design
 
