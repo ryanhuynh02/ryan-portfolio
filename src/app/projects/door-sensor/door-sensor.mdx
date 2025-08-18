@@ -251,6 +251,7 @@ When the door opens, the magnet moves away from the reed switch, causing it to c
   <figcaption className="text-sm text-slate-500 mt-2">Layout sketch — transmitter housing on the frame; magnet on the door.</figcaption>
 </figure>
 
+<br />
 ### 5.2 Functional Decomposition
 
 <br />
@@ -271,9 +272,56 @@ When the door opens, the magnet moves away from the reed switch, causing it to c
 ## 6.0 Parametric Design
 
 ### 6.1 Design for Assembly (DFA)
-- Minimal part count (magnet, reed switch, buzzer, battery, housing)  
-- Snap-fit/screw-in housing; standard, low-cost parts  
-- Coin-cell holder (simple battery swap); minimal tools required
+
+<br />
+To ensure simplicity and reliability, the door sensor was designed using as few components as necessary. The assembly process was optimized for minimal tools, ease of alignment, and safe handling.
+
+<br />
+**Design for Assembly Checklist:**
+
+<ul className="list-disc pl-6">
+  <li>✅ Minimal part count (magnet, reed switch, buzzer, battery, and housing)</li>
+  <li>✅ No soldering required if using jumper clips or pre-soldered components</li>
+  <li>✅ Snap-fit or screw-in housing for easy access</li>
+  <li>✅ Standard, low-cost components</li>
+  <li>✅ Compact modular design (sensor unit and magnet housing)</li>
+  <li>✅ Assembly instructions included</li>
+  <li>✅ Minimal tools required (small screwdriver or adhesive tape)</li>
+</ul>
+
+<br />
+**Key Features:**
+- The housing is made of two 3D-printed or plastic parts that align with door and frame edges.  
+- The reed switch and buzzer are pre-positioned and require minimal wiring.  
+- A coin cell battery snaps into a holder, eliminating the need for power cables.  
+
+<br />
+The door sensor is engineered to be energy-efficient, responsive, and durable for indoor residential use.
+
+<br />
+**Design for Function Checklist:**
+
+<ul className="list-disc pl-6">
+  <li>✅ Strong plastic housing for durability</li>
+  <li>✅ Low power consumption for long battery life (~6 months on CR2032)</li>
+  <li>✅ Reed switch for fast, passive sensing</li>
+  <li>✅ Loud mini piezo buzzer (~85 dB) for clear alerts</li>
+  <li>✅ Safe, low-voltage operation (3V)</li>
+  <li>✅ Compact size for discreet installation</li>
+  <li>✅ Simple wiring minimizes failure points</li>
+  <li>✅ Reliable magnetic alignment system</li>
+  <li>✅ Easy access for battery replacement</li>
+</ul>
+
+<br />
+**Functional Performance Goals:**
+<ul className="list-disc pl-6">
+  <liv> Must alert immediately upon door opening </liv> 
+  <liv> Must reset automatically once door is closed </liv>  
+  <liv> Must operate reliably for over 1,000 cycles </liv>  
+  <liv> Must require no maintenance other than battery replacement </liv> 
+</ul> 
+
 
 ### 6.2 Design for Function (DFF)
 - Durable plastic housing; **low power** (~6 months on CR2032)  
