@@ -1,4 +1,3 @@
-
 <div className="prose prose-slate max-w-none">
 
 # Door Sensor Final Report
@@ -6,30 +5,26 @@
 ## 1.0 Introduction
 
 ### 1.1 Background
-In Spring 2025, our final project for Engineering 11 was to design and prototype a practical 
-engineering product. After brainstorming and evaluating multiple ideas, we decided to create a door sensor. 
-The purpose of this device is to detect the opening of a door using a magnetic switch and to alert the user with a sound via a mini piezo buzzer. 
-This simple, compact, and effective system enhances home security and accessibility, especially for individuals needing sound-based alerts.
+In Spring 2025, our final project for Engineering 11 was to design and prototype a practical engineering product. After brainstorming and evaluating multiple ideas, we decided to create a door sensor. The purpose of this device is to detect the opening of a door using a magnetic switch and to alert the user with a sound via a mini piezo buzzer. This simple, compact, and effective system enhances home security and accessibility, especially for individuals needing sound-based alerts.
 
 ## 2.0 Design Problem Formulation
 
 ### 2.1 Filling a Niche
-While many commercial door sensors exist, many are expensive, bulky, or require Wi-Fi and smartphone integration. 
-Our goal was to build a low-cost, battery-powered, stand-alone door sensor with audible feedback, suitable for dorms, homes, or tool sheds.
+While many commercial door sensors exist, many are expensive, bulky, or require Wi-Fi and smartphone integration. Our goal was to build a low-cost, battery-powered, stand-alone door sensor with audible feedback, suitable for dorms, homes, or tool sheds.
 
 ### 2.2 Market Surveying
 We explored multiple concepts before settling on our final design:
 
-- **Tracking Bracelet**: A sensor placed near the entrance would detect if the wearer crossed the threshold and trigger an alarm. Price ~$50.
-- **Ring Camera System**: Would notify users on their smartphones whenever someone exited. Price ~$80.
-- **RFID System**: Detects tags as they pass through. Price ~$60–$100.
+- **Tracking Bracelet** — a sensor near the entrance detects the wearer crossing the threshold and triggers an alarm. *(~$50)*
+- **Ring-style Camera System** — sends smartphone alerts with motion/video. *(~$80)*
+- **RFID System** — detects tagged items passing through a gate. *(~$60–$100)*
 
 ### 2.3 Performance Requirements
 - Cost under $200  
-- Fit within 1.5×1×1 cm housing  
-- Audible buzzer when door opens  
-- Run on a small battery for 3–6 months  
-- Indoor use (32°F–104°F)  
+- Fit within **1.5 × 1 × 1 cm** housing  
+- Sound a piezo buzzer when the door opens  
+- Run on a small battery **~3–6 months**  
+- Indoor use (32°F–104°F / 0°C–40°C); keep dry; avoid direct sun/moisture
 
 ### 2.4 Customer Satisfaction Curves
 User satisfaction was mapped vs. runtime, price, and power consumption.
@@ -37,88 +32,255 @@ User satisfaction was mapped vs. runtime, price, and power consumption.
 ## 3.0 Project Engineering
 
 ### 3.1 Work Scope
-- 6 weeks development  
-- Weekly meetings, Discord + Drive for collaboration  
-- Deliverables: prototype, CAD sketches, test report, BOM, final report  
+Six weeks of development covering idea generation, component research, prototyping, testing, and documentation. Weekly meetings; Discord + Drive for collaboration. Deliverables: working prototype, CAD sketches, test report, BOM, and this write-up.
 
 ### 3.2 Team Roles
-- **Ryan Huynh**: Circuit design, CAD modeling, writing/editing  
-- **Adrian Vinuya**: Assembly, soldering, BOM  
-- **Arielah Arana**: Prototyping, 3D printing, cost estimation  
+- **Ryan Huynh** — circuit design & breadboarding; report writing/editing; CAD modeling  
+- **Adrian Vinuya** — final assembly & testing; soldering; BOM organization  
+- **Arielah Arana** — prototyping/debugging; 3D printing & enclosure; maintenance planning & cost estimate
 
 ## 4.0 Conceptual Design
 
-- **Concept 1 – Wearable Safe Space Alarm**  
-- **Concept 2 – Ring Camera System**  
+- **Concept 1 – Wearable Safe-Space Alarm**  
+- **Concept 2 – Ring-style Camera Monitoring**  
 - **Concept 3 – Final Design: Reed Switch + Piezo Buzzer** ✅
 
 ## 5.0 Configuration Design
 
-- **Transmitter Housing**: Reed switch, buzzer, battery  
-- **Magnet Housing**: Mounted on door  
+### 5.1 Layout Sketch
+Transmitter housing is attached to the frame and contains the reed switch, buzzer, and battery. A magnet housing is mounted on the door. When the door opens, the magnet moves away, the reed switch changes state, and the buzzer activates.
 
-When door opens, magnet moves away, switch closes, buzzer activates.
+<figure className="my-6">
+  <img src="/projects/door-sensor/assets/door-sensor-imgage14.png" alt="Overall layout sketch of housings" className="w-full max-w-3xl" />
+  <figcaption className="text-sm text-slate-500 mt-2">Layout sketch — transmitter housing on the frame; magnet on the door.</figcaption>
+</figure>
 
 ## 6.0 Parametric Design
 
-### 6.1 Design for Assembly
-- Minimal part count  
-- Snap-fit housing  
-- Coin cell battery holder  
-- Easy maintenance  
+### 6.1 Design for Assembly (DFA)
+- Minimal part count (magnet, reed switch, buzzer, battery, housing)  
+- Snap-fit/screw-in housing; standard, low-cost parts  
+- Coin-cell holder (simple battery swap); minimal tools required
 
-### 6.2 Design for Function
-- Durable plastic housing  
-- Low power consumption (~6 months CR2032)  
-- Loud (~85 dB) buzzer  
-- Safe 3V operation  
+### 6.2 Design for Function (DFF)
+- Durable plastic housing; **low power** (~6 months on CR2032)  
+- **~85 dB** buzzer; safe **3V** operation; compact and reliable  
+- Simple wiring, easy battery replacement, good magnetic alignment
+
+<figure className="my-4">
+  <img src="/projects/door-sensor/assets/door-sensor-img-p13-01.png" alt="Main housing CAD" className="w-full max-w-3xl" />
+  <figcaption className="text-sm text-slate-500 mt-2">CAD — main housing with cutouts for switch and buzzer.</figcaption>
+</figure>
+
+<div className="grid sm:grid-cols-2 gap-4 my-4">
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p14-02.png" alt="Sliding cover CAD" />
+    <figcaption className="text-sm text-slate-500 mt-1">Sliding cover with rails & grip for battery access.</figcaption>
+  </figure>
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p15-01.png" alt="Magnet housing CAD" />
+    <figcaption className="text-sm text-slate-500 mt-1">Magnet housing positions opposite the reed switch.</figcaption>
+  </figure>
+</div>
 
 ## 7.0 Engineering Analysis
 
 ### 7.1 Power & Battery Life
-- Piezo ~15 mA when active  
-- ~20 door openings/day, 2 sec each  
-- Avg draw ~0.057 mA → Battery life 5–6 months  
+- Piezo ≈ **15 mA** when active  
+- ~20 door openings/day, **2 s** each  
+- Idle leakage ≈ **0.05 mA**  
+- Average ≈ **0.057 mA** → Estimated battery life **~5–6 months**
 
 ### 7.2 Response Time
-- Reed switch: <1 ms  
-- Alert delay: <10 ms  
+- Reed switch closes **< 1 ms**  
+- Audible alert latency **< 10 ms**
 
 ### 7.3 Sound Output
-- ~85 dB at 1 meter  
+- Buzzer emits **~85 dB** at 1 m
 
 ### 7.4 Range & Alignment
-- Reliable within 10 mm  
-- Neodymium magnet preferred  
+- Reliable triggering within **~10 mm**; alignment is important  
+- Prefer **neodymium** magnets for stronger fields
 
 ## 8.0 Testing
 
-- **Test 1**: Circuit works, buzzer triggers instantly  
-- **Test 2**: Reed switch range ~10 mm  
-- **Test 3**: Sound level ~85 dB  
-- **Test 4**: Battery ~5–6 months  
+**Test 1 – Circuit Functionality:** Buzzer activates immediately when magnet moves away; resets when closed.  
+**Test 2 – Alignment Sensitivity:** Consistent activation up to ~10 mm.  
+**Test 3 – Sound Audibility:** ~85 dB at 1 m in a quiet room.  
+**Test 4 – Battery Life Projection:** ~5–6 months (based on usage assumptions).
 
 ## 8.5 Conclusion & Recommendations
-- Meets goals: compact, reliable, cost-effective  
-- Future improvements: add wireless alerts, weatherproofing, PCB design, LED/buzzer customization  
+The system met goals for cost, reliability, and simplicity.  
+**Future work:** add wireless alerts (BLE/LoRa), weatherproof the housing, switch to PCB, add LED/adjustable tones, and consider AA/rechargeable power options.
 
 ## Appendix
 
-### Bill of Materials
-- Reed Switch – $1.60  
-- Mini Piezo Buzzer – $3.00  
-- CR2032 Battery – $1.00  
-- Battery Holder – $0.60  
-- SPDT Switch – $0.60  
-- Neodymium Magnet – $0.80  
-- Plastic Housing – $4.50  
-- Jumper Wires/Solder – $0.40  
-- **Total ~ $12.50**
+### Bill of Materials (BOM)
+- Reed Switch — $1.60  
+- Mini Piezo Buzzer — $3.00  
+- CR2032 Battery — $1.00  
+- Battery Holder — $0.60  
+- SPDT Switch — $0.60  
+- Neodymium Magnet — $0.80  
+- Plastic Housing — $4.50  
+- Jumper Wires/Solder — $0.40  
+**Total:** ~$12.50
 
-### Operation Instructions
-1. Mount sensor & magnet housing on door  
-2. Insert CR2032 battery  
-3. Power on with switch → buzzer sounds when door opens  
-4. Power off to disable  
+### Operation
+1) Mount sensor & magnet housings on door/frame  
+2) Insert CR2032 battery (correct polarity)  
+3) Power ON — buzzer sounds when door opens  
+4) Power OFF to disable
+
+---
+
+## Figures
+
+<div className="grid sm:grid-cols-2 gap-6">
+
+  {/* Market survey / concepts */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p02-01.png" alt="Concept alternative: tracking bracelet" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Concept alternative — Tracking bracelet idea (caregiver alert).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p02-02.png" alt="Concept alternative: ring-style camera" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Concept alternative — Ring-style camera monitoring system.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p03-01.png" alt="Concept alternative: RFID system" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Concept alternative — RFID-based exit detection.</figcaption>
+  </figure>
+
+  {/* Satisfaction curves / matrix */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p05-01.png" alt="Customer satisfaction curves" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Customer satisfaction curves (runtime, price, power).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p05-02.png" alt="Weighted rating matrix" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Weighted rating matrix — final concept selection.</figcaption>
+  </figure>
+
+  {/* Scope / team visual (if present) */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p06-01.png" alt="Project scope timeline" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Project engineering scope & timeline.</figcaption>
+  </figure>
+
+  {/* Functional + component decomposition */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p09-01.png" alt="Functional decomposition diagram" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Functional decomposition — sensing, power, alert.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p11-01.png" alt="Component decomposition overview" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Components — reed switch, buzzer, battery, switch.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p11-02.png" alt="Component interfaces/wiring map" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Interfaces & wiring map.</figcaption>
+  </figure>
+
+  {/* Layout + CADs */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p12-01.png" alt="Overall layout sketch" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Layout — transmitter & magnet housings.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p14-01.png" alt="CAD detail for switch/buzzer openings" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">CAD detail — openings for switch & buzzer.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p14-02.png" alt="Sliding cover CAD with rails and grip" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">CAD — sliding cover (rails & grip).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p15-01.png" alt="Magnet housing CAD near frame" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">CAD — magnet housing opposite the reed switch.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p15-02.png" alt="Magnet cover CAD" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">CAD — magnet cover for protection/finish.</figcaption>
+  </figure>
+
+  {/* Prototype photos */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p16-01.png" alt="Prototype wiring or assembly" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Prototype assembly — wiring & placement.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p17-01.png" alt="Enclosure with sliding cover fitted" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Enclosure with sliding cover installed.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p17-02.png" alt="Magnet alignment on door/frame" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Magnet alignment — door vs. frame positioning.</figcaption>
+  </figure>
+
+  {/* Analysis: power/response/range/sound */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p18-01.png" alt="Power/current consumption chart" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Power model — average draw & battery life.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p19-01.png" alt="Response time diagram or note" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Response — switch close & alert latency.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p20-01.png" alt="Range/alignment diagram or chart" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Range — reliable activation up to ~10 mm.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p21-01.png" alt="Sound measurement figure 1 (dB)" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Sound — ~85 dB at 1 m (measurement 1).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p21-02.png" alt="Sound measurement figure 2 (dB)" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Sound — consistent 80–90 dB range (measurement 2).</figcaption>
+  </figure>
+
+  {/* Appendix: Gantt + BOM + Ops */}
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p22-01.png" alt="Gantt chart schedule" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Appendix — Gantt chart (6-week schedule & milestones).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p23-01.png" alt="Bill of Materials table (visual)" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Appendix — Bill of Materials (components & cost).</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p24-01.png" alt="BOM or operation illustrations" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Appendix — operation steps visual / BOM view.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p25-01.png" alt="Operation instructions diagram 1" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Operation — mount, insert battery, power on.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="/projects/door-sensor/assets/door-sensor-img-p26-01.png" alt="Operation instructions diagram 2 / checklist" className="rounded-xl" />
+    <figcaption className="text-sm text-slate-500 mt-2">Operation — buzzer behavior, off switch, checklist.</figcaption>
+  </figure>
+
+</div>
 
 </div>
