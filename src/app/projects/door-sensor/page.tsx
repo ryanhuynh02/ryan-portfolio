@@ -37,7 +37,7 @@ export default function DoorSensorProjectPage() {
 
   return (
     <main
-      className="max-w-4xl mx-auto px-4 py-10 bg-white text-slate-900 min-h-screen"
+      className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-10 bg-white text-slate-900 min-h-screen"
       style={
         {
           "--background": "white",
