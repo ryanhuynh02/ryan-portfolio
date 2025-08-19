@@ -18,7 +18,7 @@ const CONFIG = {
     github: "https://github.com/ryanhuynh02", // TODO: update
     linkedin: "https://www.linkedin.com/in/ryan-huynh2", // TODO: update
   },
-  resumeUrl: "/Ryan_Huynh_Resume.pdf", // TODO: add a real file
+  resumeUrl: "/Ryan_Huynh_Resume.pdf?v=2025-08-19", // TODO: add a real file
   skills: [
     "C/C++",
     "Python",
@@ -202,7 +202,9 @@ export default function Portfolio() {
             ))}
             <a
               href={CONFIG.resumeUrl}
+              download                // ⬅️ add this
               className="inline-flex items-center gap-2 text-sm bg-slate-900 text-white px-4 py-2 rounded-xl shadow-sm hover:shadow transition"
+              aria-label="Download my resume (PDF)"
             >
               <Download className="size-4" /> Resume
             </a>
@@ -253,7 +255,9 @@ export default function Portfolio() {
       ))}
       <a
         href={CONFIG.resumeUrl}
+        download                // ⬅️ add this
         className="mt-2 w-full inline-flex items-center justify-center gap-2 text-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-sm hover:shadow transition"
+        aria-label="Download my resume (PDF)"
       >
         <Download className="size-4" /> Download Resume
       </a>
