@@ -406,29 +406,85 @@ The door sensor is engineered to be energy-efficient, responsive, and durable fo
 <br />
 ## 7.0 Engineering Analysis
 
-### 7.1 Power & Battery Life
-- Piezo ≈ **15 mA** when active  
-- ~20 door openings/day, **2 s** each  
-- Idle leakage ≈ **0.05 mA**  
-- Average ≈ **0.057 mA** → Estimated battery life **~5–6 months**
+### 7.1 Power Consumption and Battery Life
+
+The door sensor is powered by a CR2032 coin cell battery (3V, ~220 mAh). The circuit consists of a reed switch (passive), a mini piezo buzzer, and minimal wiring. Most of the time, the device draws virtually no current due to the open reed switch. Current only flows when the door is opened and the circuit is triggered.
+
+<br />
+**Assumptions:**
+<ul className="list-disc pl-6 space-y-1">
+  <li>Reed switch: passive (0 mA)</li>
+  <li>Piezo buzzer: draws ~15 mA when active</li>
+  <li>Buzz duration: ~2 seconds per activation</li>
+  <li>Door opens ~20 times per day</li>
+</ul>
+
+<figure className="not-prose my-6 flex flex-col items-center">
+  <img
+    src="/projects/door-sensor/assets/image23.jpg"
+    alt="Weighted rating matrix for concept selection"
+    className="rounded-lg w-full max-w-2xl"
+  />
+  <figcaption className="text-sm text-slate-600 mt-2 text-center">
+    Power consumption calculation — average daily current draw estimated.
+  </figcaption>
+</figure>
+
+Add estimated idle leakage current: ~0.05 mA
+**Total average current draw** ≈ 0.057 mA
+**Estimated Battery Life:** ~5 to 6 months
 
 ### 7.2 Response Time
-- Reed switch closes **< 1 ms**  
-- Audible alert latency **< 10 ms**
+
+The reed switch closes almost instantaneously (~1 ms) when the magnet moves away. The piezo buzzer activates immediately upon switch closure. This ensures the alert is triggered as soon as the door opens, providing near real-time feedback.
+
+**Conclusion:**
+
+<ul className="list-disc pl-6 space-y-1">
+  <li>Switch Response Time: &lt;1 ms</li>
+  <li>Audible Alert Delay: &lt;10 ms</li>
+  <li>System responsiveness is excellent for the intended use</li>
+</ul>
 
 ### 7.3 Sound Output
-- Buzzer emits **~85 dB** at 1 m
+
+The mini piezo buzzer emits sound in the range of 80–90 dB, sufficient to alert someone in a small room or hallway. This level was chosen to be noticeable but not irritating.
 
 ### 7.4 Range & Alignment
-- Reliable triggering within **~10 mm**; alignment is important  
-- Prefer **neodymium** magnets for stronger fields
+
+The magnetic reed switch activates when the magnet is within approximately 10 mm. Careful alignment of the sensor housing and magnet enclosure ensures consistent triggering.
+
+**Key Notes:**
+
+<ul className="list-disc pl-6 space-y-1">
+  <li>Misalignment beyond 10 mm may prevent activation</li>
+  <li>Neodymium magnets are preferred for stronger fields</li>
+</ul>
 
 ## 8.0 Testing
 
-**Test 1 – Circuit Functionality:** Buzzer activates immediately when magnet moves away; resets when closed.  
-**Test 2 – Alignment Sensitivity:** Consistent activation up to ~10 mm.  
-**Test 3 – Sound Audibility:** ~85 dB at 1 m in a quiet room.  
-**Test 4 – Battery Life Projection:** ~5–6 months (based on usage assumptions).
+### 8.1 Test 1 – Circuit Functionality
+
+**Objective:**  
+Verify that the reed switch properly triggers the piezo buzzer when the magnetic field is disrupted.
+
+**Clarification:**  
+The reed switch used in our circuit has three wires: one input wire, and two output wires (a short leg and a long leg).  
+- The **short leg** corresponds to a normally closed (NC) contact.  
+- The **long leg** corresponds to a normally open (NO) contact.  
+
+Since we want the mini piezo buzzer to activate when no magnet is detected (i.e., when the door is open), we connect the **long leg (NO contact)** to the piezo buzzer. This ensures that when the magnet is present, the circuit is open and the buzzer is off. When the magnet moves away, the circuit closes through the NO contact, allowing current to flow and the buzzer to sound.
+
+**Procedure:**
+
+<ul className="list-disc pl-6 space-y-1">
+  <li>Connected the reed switch, piezo buzzer, and CR2032 battery on a breadboard</li>
+  <li>Aligned a neodymium magnet with the reed switch</li>
+  <li>Moved the magnet away to simulate a door opening</li>
+</ul>
+
+**Result:**  
+The buzzer activated immediately upon moving the magnet, confirming that the reed switch triggered correctly. The circuit returned to idle when the magnet was brought back. The response time was **under 10 ms**.
 
 ## 8.5 Conclusion & Recommendations
 The system met goals for cost, reliability, and simplicity.  
