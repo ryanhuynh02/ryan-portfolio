@@ -422,7 +422,7 @@ The door sensor is powered by a CR2032 coin cell battery (3V, ~220 mAh). The cir
 <figure className="not-prose my-6 flex flex-col items-center">
   <img
     src="/projects/door-sensor/assets/image23.jpg"
-    alt="Weighted rating matrix for concept selection"
+    alt="Power consumption calculation — average daily current draw estimated"
     className="rounded-lg w-full max-w-2xl"
   />
   <figcaption className="text-sm text-slate-600 mt-2 text-center">
@@ -438,6 +438,7 @@ Add estimated idle leakage current: ~0.05 mA
 
 The reed switch closes almost instantaneously (~1 ms) when the magnet moves away. The piezo buzzer activates immediately upon switch closure. This ensures the alert is triggered as soon as the door opens, providing near real-time feedback.
 
+<br />
 **Conclusion:**
 
 <ul className="list-disc pl-6 space-y-1">
@@ -454,6 +455,7 @@ The mini piezo buzzer emits sound in the range of 80–90 dB, sufficient to aler
 
 The magnetic reed switch activates when the magnet is within approximately 10 mm. Careful alignment of the sensor housing and magnet enclosure ensures consistent triggering.
 
+<br />
 **Key Notes:**
 
 <ul className="list-disc pl-6 space-y-1">
@@ -468,6 +470,7 @@ The magnetic reed switch activates when the magnet is within approximately 10 mm
 **Objective:**  
 Verify that the reed switch properly triggers the piezo buzzer when the magnetic field is disrupted.
 
+<br />
 **Clarification:**  
 The reed switch used in our circuit has three wires: one input wire, and two output wires (a short leg and a long leg).  
 - The **short leg** corresponds to a normally closed (NC) contact.  
@@ -475,6 +478,7 @@ The reed switch used in our circuit has three wires: one input wire, and two out
 
 Since we want the mini piezo buzzer to activate when no magnet is detected (i.e., when the door is open), we connect the **long leg (NO contact)** to the piezo buzzer. This ensures that when the magnet is present, the circuit is open and the buzzer is off. When the magnet moves away, the circuit closes through the NO contact, allowing current to flow and the buzzer to sound.
 
+<br />
 **Procedure:**
 
 <ul className="list-disc pl-6 space-y-1">
@@ -483,12 +487,32 @@ Since we want the mini piezo buzzer to activate when no magnet is detected (i.e.
   <li>Moved the magnet away to simulate a door opening</li>
 </ul>
 
+<br />
 **Result:**  
 The buzzer activated immediately upon moving the magnet, confirming that the reed switch triggered correctly. The circuit returned to idle when the magnet was brought back. The response time was **under 10 ms**.
 
-## 8.5 Conclusion & Recommendations
-The system met goals for cost, reliability, and simplicity.  
-**Future work:** add wireless alerts (BLE/LoRa), weatherproof the housing, switch to PCB, add LED/adjustable tones, and consider AA/rechargeable power options.
+### 8.2 Test 2 – Magnetic Range
+
+**Objective:**  
+Determine the maximum distance at which the reed switch responds to the magnet.
+
+**Procedure:**
+
+<ul className="list-disc pl-6 space-y-1">
+  <li>Incrementally increased the distance between the magnet and the reed switch</li>
+  <li>Recorded the maximum gap at which the circuit still activated the buzzer</li>
+</ul>
+
+<figure className="not-prose my-6 flex flex-col items-center">
+  <img
+    src="/projects/door-sensor/assets/image4.png"
+    alt="Reed switch trigger response vs. magnet distance — the switch activates reliably up to ~10 mm"
+    className="rounded-lg w-full max-w-2xl"
+  />
+  <figcaption className="text-sm text-slate-600 mt-2 text-center">
+    Reed switch trigger response vs. magnet distance — the switch activates reliably up to ~10 mm.
+  </figcaption>
+</figure>
 
 ## Appendix
 
