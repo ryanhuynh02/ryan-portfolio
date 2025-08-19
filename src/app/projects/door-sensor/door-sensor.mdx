@@ -324,10 +324,30 @@ The door sensor is engineered to be energy-efficient, responsive, and durable fo
 </ul>
 
 
-### 6.2 Design for Function (DFF)
-- Durable plastic housing; **low power** (~6 months on CR2032)  
-- **~85 dB** buzzer; safe **3V** operation; compact and reliable  
-- Simple wiring, easy battery replacement, good magnetic alignment
+### 6.2 CAD & Assembly Drawing
+
+**Door Sensor Housing**
+
+<figure className="my-4">
+  <img src="/projects/door-sensor/assets/image15.png" alt="Main housing CAD & Orthographic views" className="w-full max-w-3xl" />
+  <figcaption className="text-sm text-slate-500 mt-2">CAD — Main housing Orthographic views.</figcaption>
+</figure>
+
+<br />
+<figure className="my-4">
+  <img src="/projects/door-sensor/assets/image16.png" alt="Main housing CAD" className="w-full max-w-3xl" />
+  <figcaption className="text-sm text-slate-500 mt-2">CAD — main housing with cutouts for switch and buzzer.</figcaption>
+</figure>
+
+<br />
+<ul className="list-disc pl-6 space-y-1">
+  <li>There are two cutouts in the housing design. The rectangular hole is for the on/off switch, allowing users to easily enable or disable the alarm system. The circular hole is positioned to align with the mini piezo buzzer, allowing the sound to pass clearly through the enclosure for effective audio alerts.</li> 
+  <li>Additionally, there is a slot at the top designed for a sliding lid. This feature allows users to open the housing conveniently to replace the battery, perform maintenance, or upgrade components. It also supports easier disassembly for recycling at the end of the device’s life cycle.</li>
+  <li>Inside the main housing, we securely place the reed switch, battery holder, and power switch, then solder the connections to complete the circuit.</li>
+</ul>
+
+<br />
+**Sliding Cover**
 
 <figure className="my-4">
   <img src="/projects/door-sensor/assets/door-sensor-img-p13-01.png" alt="Main housing CAD" className="w-full max-w-3xl" />
