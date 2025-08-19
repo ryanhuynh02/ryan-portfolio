@@ -496,6 +496,7 @@ The buzzer activated immediately upon moving the magnet, confirming that the ree
 **Objective:**  
 Determine the maximum distance at which the reed switch responds to the magnet.
 
+<br />
 **Procedure:**
 
 <ul className="list-disc pl-6 space-y-1">
@@ -513,6 +514,92 @@ Determine the maximum distance at which the reed switch responds to the magnet.
     Reed switch trigger response vs. magnet distance — the switch activates reliably up to ~10 mm.
   </figcaption>
 </figure>
+
+**Result:**  
+The reed switch consistently activated the buzzer when the magnet was within approximately **10 mm**. Beyond this distance, the circuit failed to trigger reliably.
+
+### 8.3 Test 3 – Sound Audibility
+
+**Objective:**  
+Evaluate the loudness of the buzzer in a typical indoor environment.
+
+<br />
+**Procedure:**
+
+<ul className="list-disc pl-6 space-y-1">
+  <li>Activated the buzzer in a quiet room</li>
+  <li>Used a sound level meter to measure the decibel output at 1 meter</li>
+</ul>
+
+<figure className="not-prose my-6 flex flex-col items-center">
+  <img
+    src="/projects/door-sensor/assets/image2.png"
+    alt="Mini piezo buzzer sound vs. distance — sound level"
+    className="rounded-lg w-full max-w-2xl"
+  />
+  <figcaption className="text-sm text-slate-600 mt-2 text-center">
+    Mini piezo buzzer sound vs. distance — sound level.
+  </figcaption>
+</figure>
+
+**Result:**  
+The buzzer produced a sound level of approximately **85 dB at 1 meter**, which is comparable to the loudness of city traffic and sufficient to alert users in a household environment.
+
+### 8.4 Test 4 – Battery Life
+
+**Objective:**  
+Estimate battery longevity under realistic usage conditions.
+
+<br />
+**Assumptions:**
+
+<ul className="list-disc pl-6 space-y-1">
+  <li>20 door openings per day</li>
+  <li>2-second buzzer activation per event</li>
+  <li>0.057 mA average current draw (as calculated in Section 7)</li>
+</ul>
+
+<figure className="not-prose my-6 flex flex-col items-center">
+  <img
+    src="/projects/door-sensor/assets/image3.png"
+    alt="Estimated battery life vs. door opens per day — battery longevity"
+    className="rounded-lg w-full max-w-2xl"
+  />
+  <figcaption className="text-sm text-slate-600 mt-2 text-center">
+    Estimated battery life vs. door opens per day — battery longevity.
+  </figcaption>
+</figure>
+
+**Result:**  
+Based on the assumptions, the CR2032 coin cell battery is expected to last approximately **180 days (6 months)** under typical use. Increased door activity shortens battery life, while fewer daily activations extend it.
+
+### 8.5 Conclusion and Recommendations
+
+**Conclusion**  
+Through iterative prototyping and testing, our team successfully developed a compact, low-cost, and energy-efficient door sensor. The device performs reliably using a magnetic reed switch and piezo buzzer to alert users when a door is opened. Key test results demonstrated:
+
+<ul className="list-disc pl-6 space-y-1">
+  <li>Immediate response (<10 ms) upon magnetic disruption</li>
+  <li>Audible buzzer output around 85 dB, effective for indoor alerts</li>
+  <li>Reliable activation within a 10 mm magnet range</li>
+  <li>Projected battery life of approximately 5–6 months using a CR2032 coin cell</li>
+</ul>
+
+<br />
+The overall system met its core performance goals and user-centered design criteria, including ease of use, modular construction, and minimal maintenance.
+
+<br />
+**Recommendations**  
+For future improvement and scaling, we recommend:
+
+<ul className="list-disc pl-6 space-y-1">
+  <li><strong>Adding Wireless Capabilities</strong> – Integrating a low-power wireless module (e.g., BLE or LoRa) could enable remote notifications to smartphones or smart home hubs.</li>
+  <li><strong>Weatherproofing the Housing</strong> – Sealing the housing with gaskets or silicone would allow for outdoor or semi-outdoor use.</li>
+  <li><strong>PCB Integration</strong> – Replacing hand-wiring with a printed circuit board (PCB) would improve durability, consistency, and ease of assembly.</li>
+  <li><strong>User Interface Enhancement</strong> – Incorporating an LED indicator or adjustable buzzer tone could improve user interaction and accessibility.</li>
+  <li><strong>Modular Battery Design</strong> – Designing for AA or rechargeable battery packs could provide longer life or environmental benefits.</li>
+</ul>
+
 
 ## Appendix
 
