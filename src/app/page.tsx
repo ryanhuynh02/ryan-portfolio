@@ -155,7 +155,7 @@ function ExperienceMoreSFSU() {
             AAC (Augmented and Alternative Communication) and VSD (Visual Scene Display) into our Carmen to make it behave more like a humanoid and assist people with cognitive disabilities
           </p>
           <p>
-            When I first started my internship in the lab, I felt overwhelmed because there were many tasks to complete, and I wasn’t sure which assignments to focus on. I also wondered whether we could finish everything within two months. Fortunately, my mentor was very friendly, helpful, and informative. He regularly checked on our progress, made sure we didn’t get stuck, and guided us on how to solve problems.
+            When I first started my internship in the lab, I felt overwhelmed because there were many tasks to complete, and I wasn’t sure which ones to prioritize. I also wondered whether we could finish everything within two months. Fortunately, my mentor, Mathew, was very friendly, helpful, and supportive. He regularly checked on our progress, ensured we didn’t get stuck, and guided us in solving problems. I am especially thankful to him for his hard work and valuable advice, and I have learned many meaningful things from him.
           </p>
           <p>
             The most challenging part we faced was setting up the Raspberry Pi, which took nearly three weeks. We had to figure out and test the default position while installing the Dynamixel packages, and we had to flash our drive multiple times while trying to install ROS on the Pi. During the internship, each lab had to give two presentations. I wasn’t very confident speaking in front of a large audience, but it turned out to be a valuable practice environment that helped me improve my communication skills.
