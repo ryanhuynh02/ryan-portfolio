@@ -306,7 +306,7 @@ export default function Portfolio() {
                 href={`mailto:${CONFIG.email}`}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
               >
-                <Mail className="size-4" /> Contact
+                <Mail className="size-4" /> Email
               </a>
               <a
                 href={CONFIG.socials.github}
