@@ -37,7 +37,7 @@ const CONFIG = {
       title: "Door Sensor w/ Reed Switch & Piezo",
       description:
         "Designed a low-power door sensor using a magnet and reed switch with audible alert; modeled behavior and tuned thresholds.",
-      tags: ["Soldering", "Hardware", "Electrical"],
+      tags: ["Soldering", "Hardware", "Wiring"],
       href: "/projects/door-sensor",
       images: [
         "/projects/doorSlide1.jpg",
@@ -204,7 +204,6 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
               loading={i === 0 ? "eager" : "lazy"}
               decoding="async"
               draggable={false}
-              unoptimized
             />
           </div>
         ))}
