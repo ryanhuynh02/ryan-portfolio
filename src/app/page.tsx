@@ -459,11 +459,17 @@ export default function Portfolio() {
             <Card key={p.title}>
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-semibold text-lg">{p.title}</h3>
-                <Link href={p.href} className="text-sm text-slate-500 hover:text-slate-900">View</Link>
+                <Link href={p.href} className="text-base font-medium text-slate-600 hover:text-slate-900">
+                  View
+                </Link>
               </div>
               {/* ⬇️ add this line */}
-              {p.images?.length ? <ProjectCarousel images={p.images} title={p.title} /> : null}
-
+              {p.images?.length ? (
+                <div className="mt-2">
+                  <ProjectCarousel images={p.images} title={p.title} />
+                </div>
+              ) : null}
+              
               <p className="mt-2 text-slate-700">{p.description}</p>
 
               <div className="mt-3 flex flex-wrap gap-2">
