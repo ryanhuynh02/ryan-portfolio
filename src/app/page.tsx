@@ -94,8 +94,8 @@ function AboutCollapse() {
       {open && (
         <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
           <p>
-            I’m a passionate Computer Engineering student with a strong foundation in both hardware and software development.
-            Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue expanding my expertise
+            I’m a passionate Computer Engineering student with practical experience in both hardware and software development.
+            Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue expanding my knoweledge
             in cutting-edge technologies.
           </p>
           <p>
@@ -105,6 +105,12 @@ function AboutCollapse() {
           <p>
             I’m excited about the intersection of hardware and software, with particular interests in embedded systems,
             machine learning, and innovative computing solutions that can make a positive impact on society.
+          </p>
+          <p>
+            In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While soccer was once my primary focus, I recently learned the others with guidance from friends who patiently coached me step by step; I am grateful for their support and the memories we’ve made.
+          </p>
+          <p>
+            I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new flavors and expand my culinary skills.
           </p>
         </div>
       )}
