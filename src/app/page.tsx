@@ -191,7 +191,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         {images.map((src, i) => (
           <div
             key={src}
-            className="relative snap-start shrink-0 w-64 h-40 md:w-72 md:h-44
+            className="relative snap-start shrink-0 w-[85vw] sm:w-64 h-40 md:w-72 md:h-44
                        rounded-xl overflow-hidden border border-slate-200"
           >
             <Image
@@ -258,7 +258,7 @@ export default function Portfolio() {
   }, [open]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 to-white text-slate-900">
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200/60">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -453,7 +453,7 @@ export default function Portfolio() {
 
       {/* Projects */}
       <Section id="projects" title="Projects" icon={<Github className="size-5" />}>        
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {CONFIG.projects.map((p) => (
             <Card key={p.title}>
               <div className="flex items-start justify-between gap-3">
@@ -558,8 +558,9 @@ function Section({ id, title, icon, children }: { id: string; title: string; ico
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow transition">
+    <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow transition">
       {children}
     </div>
   );
 }
+
