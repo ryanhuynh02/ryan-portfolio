@@ -107,7 +107,7 @@ function AboutCollapse() {
             machine learning, and innovative computing solutions that can make a positive impact on society.
           </p>
           <p>
-            In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While soccer was once my primary focus, I recently learned the others with guidance from friends who patiently coached me step by step; I am grateful for their support and the memories we’ve made.
+            In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While soccer was once my primary focus, I recently learned the others with guidance from friends who patiently guided me step by step; I am grateful for their support and the memories we’ve made.
           </p>
           <p>
             I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new flavors and expand my culinary skills.
