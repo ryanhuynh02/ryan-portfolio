@@ -261,7 +261,8 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 to-white text-slate-900">
       {/* Header */}
-      <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200/60">
+      <header className="sticky top-0 z-50 border-b border-slate-200
+                         bg-white supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
           <div className="flex items-center gap-3">
@@ -469,7 +470,7 @@ export default function Portfolio() {
                   <ProjectCarousel images={p.images} title={p.title} />
                 </div>
               ) : null}
-              
+
               <p className="mt-2 text-slate-700">{p.description}</p>
 
               <div className="mt-3 flex flex-wrap gap-2">
@@ -551,9 +552,19 @@ export default function Portfolio() {
   );
 }
 
-function Section({ id, title, icon, children }: { id: string; title: string; icon?: React.ReactNode; children: React.ReactNode }) {
+function Section({
+  id,
+  title,
+  icon,
+  children,
+}: {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
-    <section id={id} className="max-w-6xl mx-auto px-4 py-10">
+    <section id={id} className="max-w-6xl mx-auto px-4 py-10 scroll-mt-24">
       <div className="flex items-center gap-2 mb-6">
         {icon}
         <h2 className="text-2xl font-bold">{title}</h2>
