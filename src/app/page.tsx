@@ -200,6 +200,10 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
               fill
               className="object-cover"
               sizes="(min-width:1024px) 288px, (min-width:768px) 288px, 256px"
+              priority={i === 0}                 // ⬅️ force the first one to load
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+              draggable={false}
             />
           </div>
         ))}
