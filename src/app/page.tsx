@@ -124,7 +124,7 @@ function AboutCollapse() {
             machine learning, and innovative computing solutions that can make a positive impact on society.
           </p>
           <p>
-            In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While soccer was once my primary focus, I recently learned the others with guidance from friends who patiently guided me step by step; I am grateful for their support and the memories we’ve made.
+            In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While soccer was once my primary focus, I recently learned the others when I hang out with my friends. They are really nice and show me step by step on how to play these sports; I am grateful for their support and the memories we’ve made.
           </p>
           <p>
             I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new flavors and expand my culinary skills.
@@ -163,7 +163,10 @@ function ExperienceMoreSFSU() {
             AAC (Augmented and Alternative Communication) and VSD (Visual Scene Display) into our Carmen to make it behave more like a humanoid and assist people with cognitive disabilities
           </p>
           <p>
-            When I first started my internship in the lab, I felt overwhelmed because there were many tasks to complete, and I wasn’t sure which ones to prioritize. I also wondered whether we could finish everything within two months. Fortunately, my mentor, Mathew, was very friendly, helpful, and supportive. He regularly checked on our progress, ensured we didn’t get stuck, and guided us in solving problems. I am especially thankful to him for his hard work and valuable advice, and I have learned many meaningful things from him.
+            When I first started my internship in the lab, I felt overwhelmed and a little bit of nervous because this was my first internship. Additionally, there were many tasks to complete, and I also wasn’t sure which ones to prioritize. I also wondered whether we could finish everything within two months.
+          </p>
+          <p>
+            As time went on, I had to adapt quickly to the workflow and build connections with my teammates by learning from them and through self-teaching. Fortunately, my mentor, Mathew, was very friendly, helpful, and supportive. He regularly checked on our progress, ensured we didn’t get stuck, and guided us in solving problems. I am especially thankful to him for his hard work and valuable advice, and I have learned many meaningful things from him.
           </p>
           <p>
             The most challenging part we faced was setting up the Raspberry Pi, which took nearly three weeks. We had to figure out and test the default position while installing the Dynamixel packages, and we had to flash our drive multiple times while trying to install ROS on the Pi. During the internship, each lab had to give two presentations. I wasn’t very confident speaking in front of a large audience, but it turned out to be a valuable practice environment that helped me improve my communication skills.
