@@ -414,13 +414,16 @@ export default function Portfolio() {
       </Section>
 
       {/* Education */}
-      <Section id="education" title="Education" icon={<School className="size-5" />}>        
+      <Section id="education" title="Education" icon={<School className="size-5" />}>
         {CONFIG.education.map((ed) => (
           <Card key={ed.school}>
             <div className="flex items-center justify-between gap-3">
               <div>
                 <div className="font-semibold">{ed.school}</div>
                 <div className="text-slate-600">{ed.degree}</div>
+                {ed.location && (
+                  <div className="mt-1 text-sm text-slate-500">{ed.location}</div>
+                )}
               </div>
               <div className="text-sm text-slate-500 whitespace-nowrap">{ed.period}</div>
             </div>
