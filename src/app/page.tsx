@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { User } from "lucide-react"
 import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight, ChevronDown } from "lucide-react";
@@ -39,6 +39,14 @@ const CONFIG = {
         "Designed a low-power door sensor using a magnet and reed switch with audible alert; modeled behavior and tuned thresholds.",
       tags: ["Soldering", "Hardware", "Electrical"],
       href: "/projects/door-sensor",
+      images: [
+        "/public/projects/doorSlide1.jpg",
+        "/public/projects/doorSlide2.jpg",
+        "/public/projects/doorSlide3.jpg",
+        "/public/projects/doorSlide5.jpg",
+        "/public/projects/doorSlide6.jpg",
+        "/public/projects/doorSlide7.jpg",
+      ],
     },
     {
       title: "Color & Math Game (Ionic)",
@@ -165,6 +173,63 @@ function ExperienceMoreSFSU() {
     </div>
   );
 }
+
+function ProjectCarousel({ images, title }: { images: string[]; title: string }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const nudge = (dx: number) => ref.current?.scrollBy({ left: dx, behavior: "smooth" });
+  if (!images?.length) return null;
+
+  return (
+    <div className="relative">
+      <div
+        ref={ref}
+        className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4
+                   [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        aria-label={`${title} images`}
+        role="group"
+      >
+        {images.map((src, i) => (
+          <div
+            key={src}
+            className="relative snap-start shrink-0 w-64 h-40 md:w-72 md:h-44
+                       rounded-xl overflow-hidden border border-slate-200"
+          >
+            <Image
+              src={src}
+              alt={`${title} image ${i + 1}`}
+              fill
+              className="object-cover"
+              sizes="(min-width:1024px) 288px, (min-width:768px) 288px, 256px"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* optional nudge buttons on desktop */}
+      <button
+        type="button"
+        onClick={() => nudge(-280)}
+        aria-label="Scroll images left"
+        className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2
+                   h-8 w-8 items-center justify-center rounded-full bg-white/90
+                   border border-slate-200 shadow hover:bg-white"
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        onClick={() => nudge(280)}
+        aria-label="Scroll images right"
+        className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2
+                   h-8 w-8 items-center justify-center rounded-full bg-white/90
+                   border border-slate-200 shadow hover:bg-white"
+      >
+        ›
+      </button>
+    </div>
+  );
+}
+
 
 export default function Portfolio() {
   const [open, setOpen] = useState(false);
@@ -395,7 +460,11 @@ export default function Portfolio() {
                 <h3 className="font-semibold text-lg">{p.title}</h3>
                 <Link href={p.href} className="text-sm text-slate-500 hover:text-slate-900">View</Link>
               </div>
+              {/* ⬇️ add this line */}
+              {p.images?.length ? <ProjectCarousel images={p.images} title={p.title} /> : null}
+
               <p className="mt-2 text-slate-700">{p.description}</p>
+
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
                   <span key={t} className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1">{t}</span>
