@@ -75,6 +75,14 @@ const CONFIG = {
       degree: "B.S. in Computer Engineering (Incoming)",
       period: "Starting Fall 2025",
     },
+
+    {
+      school: "Chabot College",
+      degree: "A.S. in Liberal Arts: Science & Math",
+      location: "Hayward, CA",
+      period: "Graduated June 2025"
+    }
+    
   ],
 };
 function AboutCollapse() {
@@ -417,6 +425,19 @@ export default function Portfolio() {
             </div>
           </Card>
         ))}
+
+        {/* Chabot College */}
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm mt-4">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+            <div>
+              <div className="font-semibold text-lg">Chabot College</div>
+              <div className="text-slate-600">A.S. in Liberal Arts: Science &amp; Math</div>
+              <div className="mt-2 text-sm text-slate-500">Hayward, CA</div>
+            </div>
+            <div className="text-sm text-slate-500 whitespace-nowrap">Graduated June 2025</div>
+          </div>
+        </div>
+
       </Section>
 
       {/* Contact */}
