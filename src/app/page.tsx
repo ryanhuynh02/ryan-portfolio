@@ -40,12 +40,12 @@ const CONFIG = {
       tags: ["Soldering", "Hardware", "Electrical"],
       href: "/projects/door-sensor",
       images: [
-        "/public/projects/doorSlide1.jpg",
-        "/public/projects/doorSlide2.jpg",
-        "/public/projects/doorSlide3.jpg",
-        "/public/projects/doorSlide5.jpg",
-        "/public/projects/doorSlide6.jpg",
-        "/public/projects/doorSlide7.jpg",
+        "/projects/doorSlide1.jpg",
+        "/projects/doorSlide2.jpg",
+        "/projects/doorSlide3.jpg",
+        "/projects/doorSlide5.jpg",
+        "/projects/doorSlide6.jpg",
+        "/projects/doorSlide7.jpg",
       ],
     },
     {
