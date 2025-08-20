@@ -204,6 +204,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
               loading={i === 0 ? "eager" : "lazy"}
               decoding="async"
               draggable={false}
+              unoptimized
             />
           </div>
         ))}
