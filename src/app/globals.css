@@ -21,4 +21,8 @@
 
 html, body { @apply bg-white text-slate-900; }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
