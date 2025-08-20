@@ -259,10 +259,12 @@ export default function Portfolio() {
   }, [open]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 to-white text-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 to-white text-slate-900 pt-16">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-slate-200
-                         bg-white supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:backdrop-blur-md">
+      <header
+        className="fixed inset-x-0 top-0 z-50 border-b border-slate-200
+                  bg-white supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:backdrop-blur-md"
+      >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
           <div className="flex items-center gap-3">
