@@ -191,7 +191,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         {images.map((src, i) => (
           <div
             key={src}
-            className="relative snap-start shrink-0 w-[80vw] sm:w-64 aspect-[4/3]
+            className="relative snap-start shrink-0 w-[60vw] sm:w-64 aspect-[4/3]
                        rounded-xl overflow-hidden border border-slate-200"
           >
             <Image
@@ -203,6 +203,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
             />
           </div>
         ))}
+        <div className="shrink-0 w-3" />
       </div>
 
       {/* optional nudge buttons on desktop */}
