@@ -310,12 +310,16 @@ export default function Portfolio() {
               </a>
               <a
                 href={CONFIG.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
               >
                 <Github className="size-4" /> GitHub
               </a>
               <a
                 href={CONFIG.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
               >
                 <Linkedin className="size-4" /> LinkedIn
@@ -438,9 +442,23 @@ export default function Portfolio() {
         <Card>
           <p className="text-slate-700">Want to collaborate or chat? Reach out and I’ll get back quickly.</p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <a href={`mailto:${CONFIG.email}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"><Mail className="size-4"/> Email</a>
-            <a href={CONFIG.socials.github} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"><Github className="size-4"/> GitHub</a>
-            <a href={CONFIG.socials.linkedin} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"><Linkedin className="size-4"/> LinkedIn</a>
+          <a
+            href={CONFIG.socials.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
+          >
+            <Github className="size-4" /> GitHub
+          </a>
+
+          <a
+            href={CONFIG.socials.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
+          >
+            <Linkedin className="size-4" /> LinkedIn
+          </a>
           </div>
         </Card>
       </Section>
