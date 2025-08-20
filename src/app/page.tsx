@@ -442,6 +442,11 @@ export default function Portfolio() {
         <Card>
           <p className="text-slate-700">Want to collaborate or chat? Reach out and I’ll get back quickly.</p>
           <div className="mt-4 flex flex-wrap gap-3">
+            <a 
+            href={`mailto:${CONFIG.email}`}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100">
+            <Mail className="size-4"/> Email
+            </a>
           <a
             href={CONFIG.socials.github}
             target="_blank"
