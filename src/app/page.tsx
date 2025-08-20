@@ -191,14 +191,14 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         {images.map((src, i) => (
           <div
             key={src}
-            className="relative snap-start shrink-0 w-[75vw] sm:w-64 aspect-[4/3]
-                       rounded-xl overflow-hidden border border-slate-200 bg-white"
+            className="relative snap-start shrink-0 w-[80vw] sm:w-64 aspect-[4/3]
+                       rounded-xl overflow-hidden border border-slate-200"
           >
             <Image
               src={src}
               alt={`${title} image ${i + 1}`}
               fill
-              className="object-contain p-2"
+              className="object-cover"
               sizes="(min-width:1024px) 288px, (min-width:768px) 288px, 256px"
             />
           </div>
