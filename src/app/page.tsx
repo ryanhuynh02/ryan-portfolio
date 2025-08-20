@@ -459,27 +459,32 @@ export default function Portfolio() {
           </div>
           <div className="relative">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-3">
-              <div className="flex items-center gap-3">
-              <div className="min-w-[80px] min-h-[80px] rounded-full overflow-hidden flex-shrink-0">
-                <Image
-                  src="/profile-picture.jpeg" // make sure the file is in /public with this name
-                  alt="Ryan Huynh"
-                  width={80}
-                  height={80}
-                  className="object-cover w-full h-full"
-                />
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+            <div className="w-28 h-28 sm:w-24 sm:h-24 rounded-full overflow-hidden shrink-0">
+              <Image
+                src="/profile-picture.jpeg"
+                alt="Ryan Huynh"
+                width={112}
+                height={112}
+                className="object-cover w-full h-full"
+                priority
+              />
+            </div>
+
+            {/* min-w-0 lets long text wrap inside flex rows; use smaller line-heights to avoid crowding */}
+            <div className="min-w-0 flex-1 text-center sm:text-left">
+              <div className="text-xl sm:text-2xl font-semibold leading-tight break-words">
+                {CONFIG.name}
               </div>
-              <div className="leading-tight">
-                <div className="font-semibold">{CONFIG.name}</div>
-                <div className="text-xs text-slate-500">{CONFIG.location}</div>
+              <div className="text-slate-600 font-semibold leading-snug break-words">
+                Computer Engineering
+              </div>
+              <div className="text-xs text-slate-500">
+                {CONFIG.location} · UC Davis · Fall 2025
               </div>
             </div>
-                <div>
-                  <div className="font-semibold">Computer Engineering</div>
-                  <div className="text-sm text-slate-500">UC Davis · Fall 2025</div>
-                </div>
-              </div>
+          </div>
+
               <ul className="mt-4 space-y-2 text-sm text-slate-700">
                 <li className="flex items-center gap-2"><Cpu className="size-4"/> Digital logic, microcontrollers, and systems</li>
                 <li className="flex items-center gap-2"><Rocket className="size-4"/> Curious, fast-learner, team collaborator</li>
