@@ -176,7 +176,56 @@ function ExperienceMoreSFSU() {
 
 function ProjectCarousel({ images, title }: { images: string[]; title: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const nudge = (dx: number) => ref.current?.scrollBy({ left: dx, behavior: "smooth" });
+  const [idx, setIdx] = useState(0);
+  const [step, setStep] = useState(0); // slide width + gap in px
+
+  // measure slide width + gap so scrolling snaps correctly across breakpoints
+  const measure = () => {
+    const el = ref.current;
+    if (!el) return;
+    const first = el.querySelector('[data-slide="0"]') as HTMLElement | null;
+    const gapPx = parseFloat(getComputedStyle(el).gap || "0");
+    const w = (first?.clientWidth ?? 0) + gapPx;
+    setStep(w || 1);
+  };
+
+  useEffect(() => {
+    measure();
+    const onResize = () => measure();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // keep index in sync when the user swipes/scrolls
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !step) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const i = Math.round(el.scrollLeft / step);
+        setIdx(Math.max(0, Math.min(images.length - 1, i)));
+      });
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [step, images.length]);
+
+  const scrollToIndex = (i: number) => {
+    const el = ref.current;
+    if (!el || !step) return;
+    const clamped = Math.max(0, Math.min(images.length - 1, i));
+    el.scrollTo({ left: clamped * step, behavior: "smooth" });
+    setIdx(clamped);
+  };
+
+  const atStart = idx <= 0;
+  const atEnd = idx >= images.length - 1;
+
   if (!images?.length) return null;
 
   return (
@@ -191,6 +240,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         {images.map((src, i) => (
           <div
             key={src}
+            data-slide={i}
             className="relative snap-start shrink-0 w-[60vw] sm:w-64 aspect-[4/3]
                        rounded-xl overflow-hidden border border-slate-200"
           >
@@ -199,42 +249,46 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
               alt={`${title} image ${i + 1}`}
               fill
               className="object-cover"
-              sizes="(min-width:1024px) 288px, (min-width:768px) 288px, 256px"
-              priority={i === 0}                 // ⬅️ force the first one to load
+              sizes="(min-width:1024px) 288px, (min-width:768px) 288px, 60vw"
+              priority={i === 0}
               loading={i === 0 ? "eager" : "lazy"}
               decoding="async"
               draggable={false}
             />
           </div>
         ))}
+        {/* tiny end spacer so last slide isn't glued to the edge */}
         <div className="shrink-0 w-3" />
       </div>
 
-      {/* optional nudge buttons on desktop */}
+      {/* Left arrow: hidden on first image */}
       <button
         type="button"
-        onClick={() => nudge(-280)}
-        aria-label="Scroll images left"
-        className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2
-                   h-8 w-8 items-center justify-center rounded-full bg-white/90
-                   border border-slate-200 shadow hover:bg-white"
+        onClick={() => scrollToIndex(idx - 1)}
+        aria-label="Previous image"
+        className={`hidden md:flex absolute left-2 top-1/2 -translate-y-1/2
+                    h-8 w-8 items-center justify-center rounded-full bg-white/90
+                    border border-slate-200 shadow hover:bg-white transition
+                    ${atStart ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
         ‹
       </button>
+
+      {/* Right arrow: hidden on last image */}
       <button
         type="button"
-        onClick={() => nudge(280)}
-        aria-label="Scroll images right"
-        className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2
-                   h-8 w-8 items-center justify-center rounded-full bg-white/90
-                   border border-slate-200 shadow hover:bg-white"
+        onClick={() => scrollToIndex(idx + 1)}
+        aria-label="Next image"
+        className={`hidden md:flex absolute right-2 top-1/2 -translate-y-1/2
+                    h-8 w-8 items-center justify-center rounded-full bg-white/90
+                    border border-slate-200 shadow hover:bg-white transition
+                    ${atEnd ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       >
         ›
       </button>
     </div>
   );
 }
-
 
 export default function Portfolio() {
   const [open, setOpen] = useState(false);
