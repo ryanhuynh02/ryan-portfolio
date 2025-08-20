@@ -415,6 +415,7 @@ export default function Portfolio() {
 
       {/* Education */}
       <Section id="education" title="Education" icon={<School className="size-5" />}>
+        <div className="space-y-4">  {/* adds gap between items */}
         {CONFIG.education.map((ed) => (
           <Card key={ed.school}>
             <div className="flex items-center justify-between gap-3">
@@ -429,6 +430,7 @@ export default function Portfolio() {
             </div>
           </Card>
         ))}
+        </div>
       </Section>
 
       {/* Contact */}
