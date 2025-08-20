@@ -140,6 +140,11 @@ function ExperienceMoreSFSU() {
             My role in the lab involved constructing the Carmen robot hardware and translating the iOS app game into a web version 
             that aids children with complex communication needs in expressing their internal states and individuals with cognitive impairments.
           </p>
+          <p>
+            There were lots of documents I needed to read on how robots will impact not only physically but also emotionally to human life. 
+            Our labs also work with clinicians to better understand how to engage patients with our Carmen robots. We also have to implement the study of 
+            AAC (Augmented and Alternative Communication) and VSD (Visual Scene Display) into our Carmen to make it behave more like humanoid and assist people with cognitive disabilities
+          </p>
         </div>
       )}
     </div>
