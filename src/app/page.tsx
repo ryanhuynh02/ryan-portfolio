@@ -97,22 +97,12 @@ const CONFIG = {
 
 function AboutCollapse() {
   const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-
-  // Close while preserving the user's viewport position
-  const hideToAbout = () => {
-    setOpen(false);
-    requestAnimationFrame(() => {
-      const el = document.getElementById("about");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  };
 
   return (
-    <div ref={wrapRef} className="mt-4">
+    <div className="mt-4">
       {open ? (
         <>
-          {/* keep your existing paragraphs/content here */}
+          {/* expanded text */}
           <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
             <p>
               I’m a passionate Computer Engineering student with practical experience in both hardware and software
@@ -141,10 +131,10 @@ function AboutCollapse() {
             </p>
           </div>
 
-          {/* Close button at the bottom */}
+          {/* close button at the bottom */}
           <button
             type="button"
-            onClick={hideToAbout}
+            onClick={() => setOpen(false)}
             aria-expanded={open}
             className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
           >
@@ -153,6 +143,7 @@ function AboutCollapse() {
           </button>
         </>
       ) : (
+        // closed state: only the open button
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -169,21 +160,12 @@ function AboutCollapse() {
 
 function ExperienceMoreSFSU() {
   const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-
-  const hideToExperience = () => {
-    setOpen(false);
-    requestAnimationFrame(() => {
-      const el = document.getElementById("experience");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  };
 
   return (
-    <div ref={wrapRef} className="mt-4">
+    <div className="mt-4">
       {open ? (
         <>
-          {/* your expanded details */}
+          {/* expanded details */}
           <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
             <p>
               I’ve been selected as a Summer Training Academy for Research Scholars (STARS) Program.
@@ -208,10 +190,10 @@ function ExperienceMoreSFSU() {
             </p>
           </div>
 
-          {/* Close button at the bottom */}
+          {/* close button at the bottom */}
           <button
             type="button"
-            onClick={hideToExperience}
+            onClick={() => setOpen(false)}
             aria-expanded={open}
             className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
           >
@@ -220,6 +202,7 @@ function ExperienceMoreSFSU() {
           </button>
         </>
       ) : (
+        // closed state: only the open button
         <button
           type="button"
           onClick={() => setOpen(true)}
