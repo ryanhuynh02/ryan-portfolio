@@ -482,7 +482,7 @@ export default function Portfolio() {
               </div>
 
               {/* Location BELOW name */}
-              <div className="mt-1 text-slate-600 leading-snug">
+              <div className="mt-1 text-slate-600 text-xs leading-snug">
                 {CONFIG.location}
               </div>
 
@@ -497,7 +497,7 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
-          
+
               <ul className="mt-4 space-y-2 text-sm text-slate-700">
                 <li className="flex items-center gap-2"><Cpu className="size-4"/> Digital logic, microcontrollers, and systems</li>
                 <li className="flex items-center gap-2"><Rocket className="size-4"/> Curious, fast-learner, team collaborator</li>
