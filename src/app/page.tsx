@@ -94,65 +94,42 @@ const CONFIG = {
     
   ],
 };
-
 function AboutCollapse() {
   const [open, setOpen] = useState(false);
-
   return (
     <div className="mt-4">
-      {open ? (
-        <>
-          {/* expanded text */}
-          <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
-            <p>
-              I’m a passionate Computer Engineering student with practical experience in both hardware and software
-              development. Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue expanding
-              my knoweledge in cutting-edge technologies.
-            </p>
-            <p>
-              During my internship at San Francisco State University from June to August 2025, I gained hands-on experience
-              in real-world engineering projects, collaborating with teams and applying theoretical knowledge to practical
-              solutions.
-            </p>
-            <p>
-              I’m excited about the intersection of hardware and software, with particular interests in embedded systems,
-              machine learning, and innovative computing solutions that can make a positive impact on society.
-            </p>
-            <p>
-              In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While
-              soccer was once my primary focus, I recently learned the others when I hang out with my friends. They are
-              really nice and show me step by step on how to play these sports; I am grateful for their support and the
-              memories we’ve made.
-            </p>
-            <p>
-              I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and
-              learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new flavors and
-              expand my culinary skills.
-            </p>
-          </div>
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
+        aria-expanded={open}
+      >
+        <span className="font-medium text-slate-700">More about me</span>
+        <ChevronDown className={`h-4 w-4 text-slate-600 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
 
-          {/* close button at the bottom */}
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            aria-expanded={open}
-            className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
-          >
-            <span className="font-medium text-slate-700">Hide</span>
-            <ChevronDown className="h-4 w-4 text-slate-600 rotate-180 transition-transform" />
-          </button>
-        </>
-      ) : (
-        // closed state: only the open button
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-expanded={open}
-          className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
-        >
-          <span className="font-medium text-slate-700">More about me</span>
-          <ChevronDown className="h-4 w-4 text-slate-600 transition-transform" />
-        </button>
+      {open && (
+        <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
+          <p>
+            I’m a passionate Computer Engineering student with practical experience in both hardware and software development.
+            Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue expanding my knoweledge
+            in cutting-edge technologies.
+          </p>
+          <p>
+            During my internship at San Francisco State University from June to August 2025, I gained hands-on experience
+            in real-world engineering projects, collaborating with teams and applying theoretical knowledge to practical solutions.
+          </p>
+          <p>
+            I’m excited about the intersection of hardware and software, with particular interests in embedded systems,
+            machine learning, and innovative computing solutions that can make a positive impact on society.
+          </p>
+          <p>
+            In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While soccer was once my primary focus, I recently learned the others when I hang out with my friends. They are really nice and show me step by step on how to play these sports; I am grateful for their support and the memories we’ve made.
+          </p>
+          <p>
+            I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new flavors and expand my culinary skills.
+          </p>
+        </div>
       )}
     </div>
   );
@@ -160,58 +137,42 @@ function AboutCollapse() {
 
 function ExperienceMoreSFSU() {
   const [open, setOpen] = useState(false);
-
   return (
     <div className="mt-4">
-      {open ? (
-        <>
-          {/* expanded details */}
-          <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
-            <p>
-              I’ve been selected as a Summer Training Academy for Research Scholars (STARS) Program.
-              During my research, I collaborated with Professor Alyssa Kubota at the Personalized Health
-              and Assistive Technologies Laboratory (PHAST Lab) at San Francisco State University.
-              My role in the lab involved constructing the Carmen robot hardware and translating the iOS app game into a web version
-              that aids children with complex communication needs in expressing their internal states and individuals with cognitive impairments.
-            </p>
-            <p>
-              There were lots of documents I needed to read on how robots will impact not only physically but also emotionally to human life.
-              Our labs also work with clinicians to better understand how to engage patients with our Carmen robots. We also have to implement the study of
-              AAC (Augmented and Alternative Communication) and VSD (Visual Scene Display) into our Carmen to make it behave more like a humanoid and assist people with cognitive disabilities
-            </p>
-            <p>
-              When I first started my internship in the lab, I felt overwhelmed and a little bit of nervous because this was my first internship. Additionally, there were many tasks to complete, and I also wasn’t sure which ones to prioritize. I also wondered whether we could finish everything within two months.
-            </p>
-            <p>
-              As time went on, I had to adapt quickly to the workflow and build connections with my teammates by learning from them and through self-teaching. Fortunately, my mentor, Mathew, was very friendly, helpful, and supportive. He regularly checked on our progress, ensured we didn’t get stuck, and guided us in solving problems. I am especially thankful to him for his hard work and valuable advice, and I have learned many meaningful things from him.
-            </p>
-            <p>
-              The most challenging part we faced was setting up the Raspberry Pi, which took nearly three weeks. We had to figure out and test the default position while installing the Dynamixel packages, and we had to flash our drive multiple times while trying to install ROS on the Pi. During the internship, each lab had to give two presentations. I wasn’t very confident speaking in front of a large audience, but it turned out to be a valuable practice environment that helped me improve my communication skills.
-            </p>
-          </div>
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
+        aria-expanded={open}
+      >
+        <span className="font-medium text-slate-700">More details</span>
+        <ChevronDown className={`h-4 w-4 text-slate-600 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
 
-          {/* close button at the bottom */}
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            aria-expanded={open}
-            className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
-          >
-            <span className="font-medium text-slate-700">Hide details</span>
-            <ChevronDown className="h-4 w-4 text-slate-600 rotate-180 transition-transform" />
-          </button>
-        </>
-      ) : (
-        // closed state: only the open button
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-expanded={open}
-          className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
-        >
-          <span className="font-medium text-slate-700">More details</span>
-          <ChevronDown className="h-4 w-4 text-slate-600 transition-transform" />
-        </button>
+      {open && (
+        <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
+          <p>
+            I’ve been selected as a Summer Training Academy for Research Scholars (STARS) Program. 
+            During my research, I collaborated with Professor Alyssa Kubota at the Personalized Health
+            and Assistive Technologies Laboratory (PHAST Lab) at San Francisco State University. 
+            My role in the lab involved constructing the Carmen robot hardware and translating the iOS app game into a web version 
+            that aids children with complex communication needs in expressing their internal states and individuals with cognitive impairments.
+          </p>
+          <p>
+            There were lots of documents I needed to read on how robots will impact not only physically but also emotionally to human life. 
+            Our labs also work with clinicians to better understand how to engage patients with our Carmen robots. We also have to implement the study of 
+            AAC (Augmented and Alternative Communication) and VSD (Visual Scene Display) into our Carmen to make it behave more like a humanoid and assist people with cognitive disabilities
+          </p>
+          <p>
+            When I first started my internship in the lab, I felt overwhelmed and a little bit of nervous because this was my first internship. Additionally, there were many tasks to complete, and I also wasn’t sure which ones to prioritize. I also wondered whether we could finish everything within two months.
+          </p>
+          <p>
+            As time went on, I had to adapt quickly to the workflow and build connections with my teammates by learning from them and through self-teaching. Fortunately, my mentor, Mathew, was very friendly, helpful, and supportive. He regularly checked on our progress, ensured we didn’t get stuck, and guided us in solving problems. I am especially thankful to him for his hard work and valuable advice, and I have learned many meaningful things from him.
+          </p>
+          <p>
+            The most challenging part we faced was setting up the Raspberry Pi, which took nearly three weeks. We had to figure out and test the default position while installing the Dynamixel packages, and we had to flash our drive multiple times while trying to install ROS on the Pi. During the internship, each lab had to give two presentations. I wasn’t very confident speaking in front of a large audience, but it turned out to be a valuable practice environment that helped me improve my communication skills.
+          </p>
+        </div>
       )}
     </div>
   );
