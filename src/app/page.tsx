@@ -100,15 +100,11 @@ function AboutCollapse() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
   // Close while preserving the user's viewport position
-  const closeAndPreserve = () => {
-    const el = wrapRef.current;
-    const prevTop = el?.getBoundingClientRect().top ?? 0;
-    const prevY = window.scrollY;
+  const hideToAbout = () => {
     setOpen(false);
     requestAnimationFrame(() => {
-      const nextTop = el?.getBoundingClientRect().top ?? 0;
-      const delta = nextTop - prevTop; // how much the element moved due to collapse
-      if (delta) window.scrollTo({ top: prevY + delta }); // keep the same visual position
+      const el = document.getElementById("about");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
 
@@ -148,7 +144,7 @@ function AboutCollapse() {
           {/* Close button at the bottom */}
           <button
             type="button"
-            onClick={closeAndPreserve}
+            onClick={hideToAbout}
             aria-expanded={open}
             className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
           >
@@ -175,15 +171,11 @@ function ExperienceMoreSFSU() {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
-  const closeAndPreserve = () => {
-    const el = wrapRef.current;
-    const prevTop = el?.getBoundingClientRect().top ?? 0;
-    const prevY = window.scrollY;
+  const hideToExperience = () => {
     setOpen(false);
     requestAnimationFrame(() => {
-      const nextTop = el?.getBoundingClientRect().top ?? 0;
-      const delta = nextTop - prevTop;
-      if (delta) window.scrollTo({ top: prevY + delta });
+      const el = document.getElementById("experience");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
 
@@ -219,7 +211,7 @@ function ExperienceMoreSFSU() {
           {/* Close button at the bottom */}
           <button
             type="button"
-            onClick={closeAndPreserve}
+            onClick={hideToExperience}
             aria-expanded={open}
             className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
           >
