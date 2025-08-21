@@ -87,7 +87,7 @@ const CONFIG = {
 
     {
       school: "Chabot College",
-      degree: "A.S. in Liberal Arts: Science & Math",
+      degree: "A.S. in Liberal Arts of Science & Math",
       location: "Hayward, CA",
       period: "Graduated June 2025"
     }
@@ -476,18 +476,28 @@ export default function Portfolio() {
 
             {/* min-w-0 lets long text wrap inside flex rows; use smaller line-heights to avoid crowding */}
             <div className="min-w-0 flex-1 text-center sm:text-left">
+              {/* Name */}
               <div className="text-xl sm:text-2xl font-semibold leading-tight break-words">
                 {CONFIG.name}
               </div>
-              <div className="text-slate-600 font-semibold leading-snug break-words">
+
+              {/* Location BELOW name */}
+              <div className="mt-1 text-slate-600 leading-snug">
+                {CONFIG.location}
+              </div>
+
+              {/* Computer Engineering BELOW location */}
+              <div className="mt-1 text-slate-800 font-semibold leading-snug">
                 Computer Engineering
               </div>
-              <div className="text-xs text-slate-500">
-                {CONFIG.location} · UC Davis · Fall 2025
+
+              {/* UC Davis BELOW computer engineering */}
+              <div className="mt-1 text-xs text-slate-500">
+                UC Davis · Fall 2025
               </div>
             </div>
           </div>
-
+          
               <ul className="mt-4 space-y-2 text-sm text-slate-700">
                 <li className="flex items-center gap-2"><Cpu className="size-4"/> Digital logic, microcontrollers, and systems</li>
                 <li className="flex items-center gap-2"><Rocket className="size-4"/> Curious, fast-learner, team collaborator</li>
