@@ -94,14 +94,29 @@ const CONFIG = {
     
   ],
 };
+
 function AboutCollapse() {
   const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  // Close while preserving the user's viewport position
+  const closeAndPreserve = () => {
+    const el = wrapRef.current;
+    const prevTop = el?.getBoundingClientRect().top ?? 0;
+    const prevY = window.scrollY;
+    setOpen(false);
+    requestAnimationFrame(() => {
+      const nextTop = el?.getBoundingClientRect().top ?? 0;
+      const delta = nextTop - prevTop; // how much the element moved due to collapse
+      if (delta) window.scrollTo({ top: prevY + delta }); // keep the same visual position
+    });
+  };
 
   return (
-    <div className="mt-4">
+    <div ref={wrapRef} className="mt-4">
       {open ? (
         <>
-          {/* expanded text */}
+          {/* keep your existing paragraphs/content here */}
           <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
             <p>
               I’m a passionate Computer Engineering student with practical experience in both hardware and software
@@ -130,10 +145,10 @@ function AboutCollapse() {
             </p>
           </div>
 
-          {/* close button at the bottom */}
+          {/* Close button at the bottom */}
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={closeAndPreserve}
             aria-expanded={open}
             className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
           >
@@ -142,7 +157,6 @@ function AboutCollapse() {
           </button>
         </>
       ) : (
-        // closed state: only the open button
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -159,12 +173,25 @@ function AboutCollapse() {
 
 function ExperienceMoreSFSU() {
   const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  const closeAndPreserve = () => {
+    const el = wrapRef.current;
+    const prevTop = el?.getBoundingClientRect().top ?? 0;
+    const prevY = window.scrollY;
+    setOpen(false);
+    requestAnimationFrame(() => {
+      const nextTop = el?.getBoundingClientRect().top ?? 0;
+      const delta = nextTop - prevTop;
+      if (delta) window.scrollTo({ top: prevY + delta });
+    });
+  };
 
   return (
-    <div className="mt-4">
+    <div ref={wrapRef} className="mt-4">
       {open ? (
         <>
-          {/* expanded details */}
+          {/* your expanded details */}
           <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
             <p>
               I’ve been selected as a Summer Training Academy for Research Scholars (STARS) Program.
@@ -189,10 +216,10 @@ function ExperienceMoreSFSU() {
             </p>
           </div>
 
-          {/* close button at the bottom */}
+          {/* Close button at the bottom */}
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={closeAndPreserve}
             aria-expanded={open}
             className="mt-4 w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
           >
@@ -201,7 +228,6 @@ function ExperienceMoreSFSU() {
           </button>
         </>
       ) : (
-        // closed state: only the open button
         <button
           type="button"
           onClick={() => setOpen(true)}
