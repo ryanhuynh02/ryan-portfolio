@@ -533,34 +533,46 @@ export default function Portfolio() {
       </Section>
 
       {/* Projects */}
-      <Section id="projects" title="Projects" icon={<Github className="size-5" />}>        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {CONFIG.projects.map((p) => (
-            <Card key={p.title}>
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="font-semibold text-lg">{p.title}</h3>
-                <Link href={p.href} className="text-base font-medium text-slate-600 hover:text-slate-900">
-                  View
-                </Link>
-              </div>
-              {/* ⬇️ add this line */}
-              {p.images?.length ? (
-                <div className="mt-2">
-                  <ProjectCarousel images={p.images} title={p.title} />
-                </div>
-              ) : null}
+<Section id="projects" title="Projects" icon={<Github className="size-5" />}>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {CONFIG.projects.map((p) => (
+      <Link
+        key={p.title}
+        href={p.href}
+        className="group block rounded-3xl focus:outline-none focus:ring-2 focus:ring-slate-400"
+        aria-label={p.title}
+      >
+        <Card>
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-semibold text-lg group-hover:text-slate-900">
+              {p.title}
+            </h3>
+            {/* removed the small “View” link */}
+          </div>
 
-              <p className="mt-2 text-slate-700">{p.description}</p>
+          {p.images?.length ? (
+            <div className="mt-2">
+              <ProjectCarousel images={p.images} title={p.title} />
+            </div>
+          ) : null}
 
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1">{t}</span>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Section>
+          <p className="mt-2 text-slate-700">{p.description}</p>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {p.tags.map((t) => (
+              <span
+                key={t}
+                className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </Card>
+      </Link>
+    ))}
+  </div>
+</Section>
 
       {/* Skills */}
       <Section id="skills" title="Skills" icon={<Cpu className="size-5" />}>        
@@ -655,9 +667,11 @@ function Section({
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow transition">
+    <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition
+                    cursor-pointer group-hover:shadow-lg group-hover:bg-slate-50">
       {children}
     </div>
   );
 }
+
 
