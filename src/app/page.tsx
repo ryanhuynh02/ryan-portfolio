@@ -246,8 +246,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
             key={src}
             data-slide={i}
             className="relative snap-start shrink-0 w-[60vw] sm:w-64 aspect-[4/3]
-                       rounded-xl overflow-hidden border border-slate-200
-                       transition-transform duration-300 group-hover:scale-[1.03]"
+                       rounded-xl overflow-hidden border border-slate-200"
           >
             <Image
               src={src}
@@ -262,13 +261,14 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
             />
           </div>
         ))}
+        {/* tiny end spacer so last slide isn't glued to the edge */}
         <div className="shrink-0 w-3" />
       </div>
 
-      {/* Left arrow */}
+      {/* Left arrow: hidden on first image */}
       <button
         type="button"
-        onClick={(e) => { e.stopPropagation(); e.preventDefault(); scrollToIndex(idx - 1); }}
+        onClick={() => scrollToIndex(idx - 1)}
         aria-label="Previous image"
         className={`hidden md:flex absolute left-2 top-1/2 -translate-y-1/2
                     h-8 w-8 items-center justify-center rounded-full bg-white/90
@@ -278,10 +278,10 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         ‹
       </button>
 
-      {/* Right arrow */}
+      {/* Right arrow: hidden on last image */}
       <button
         type="button"
-        onClick={(e) => { e.stopPropagation(); e.preventDefault(); scrollToIndex(idx + 1); }}
+        onClick={() => scrollToIndex(idx + 1)}
         aria-label="Next image"
         className={`hidden md:flex absolute right-2 top-1/2 -translate-y-1/2
                     h-8 w-8 items-center justify-center rounded-full bg-white/90
@@ -533,48 +533,34 @@ export default function Portfolio() {
       </Section>
 
       {/* Projects */}
-<Section id="projects" title="Projects" icon={<Github className="size-5" />}>
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    {CONFIG.projects.map((p) => (
-      <Card key={p.title}>
-        {/* CLICKABLE AREA: title + image */}
-        <Link
-          href={p.href}
-          className="block group cursor-pointer"
-          aria-label={p.title}
-        >
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="font-semibold text-lg transition
-                           group-hover:text-slate-900 group-hover:underline underline-offset-4">
-              {p.title}
-            </h3>
-          </div>
+      <Section id="projects" title="Projects" icon={<Github className="size-5" />}>        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {CONFIG.projects.map((p) => (
+            <Card key={p.title}>
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="font-semibold text-lg">{p.title}</h3>
+                <Link href={p.href} className="text-base font-medium text-slate-600 hover:text-slate-900">
+                  View
+                </Link>
+              </div>
+              {/* ⬇️ add this line */}
+              {p.images?.length ? (
+                <div className="mt-2">
+                  <ProjectCarousel images={p.images} title={p.title} />
+                </div>
+              ) : null}
 
-          {p.images?.length ? (
-            <div className="mt-2">
-              <ProjectCarousel images={p.images} title={p.title} />
-            </div>
-          ) : null}
-        </Link>
+              <p className="mt-2 text-slate-700">{p.description}</p>
 
-        {/* NON-CLICKABLE AREA: description + tags */}
-        <p className="mt-2 text-slate-700">{p.description}</p>
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          {p.tags.map((t) => (
-            <span
-              key={t}
-              className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1"
-            >
-              {t}
-            </span>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {p.tags.map((t) => (
+                  <span key={t} className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1">{t}</span>
+                ))}
+              </div>
+            </Card>
           ))}
         </div>
-      </Card>
-    ))}
-  </div>
-</Section>
-
+      </Section>
 
       {/* Skills */}
       <Section id="skills" title="Skills" icon={<Cpu className="size-5" />}>        
@@ -669,13 +655,9 @@ function Section({
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition
-                    group-hover:shadow-lg group-hover:bg-slate-50">
+    <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow transition">
       {children}
     </div>
   );
 }
-
-
-
 
