@@ -572,7 +572,6 @@ export default function Portfolio() {
     ))}
   </div>
 </Card>
-
       </Link>
     ))}
   </div>
