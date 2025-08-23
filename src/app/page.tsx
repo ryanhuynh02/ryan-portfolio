@@ -246,7 +246,8 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
             key={src}
             data-slide={i}
             className="relative snap-start shrink-0 w-[60vw] sm:w-64 aspect-[4/3]
-                       rounded-xl overflow-hidden border border-slate-200"
+                rounded-xl overflow-hidden border border-slate-200
+                transform transition duration-300 md:group-hover:scale-105 md:group-hover:shadow-md"
           >
             <Image
               src={src}
@@ -538,7 +539,9 @@ export default function Portfolio() {
           {CONFIG.projects.map((p) => (
             <Card key={p.title}>
               <div className="flex items-start justify-between gap-3">
-                <h3 className="font-semibold text-lg">{p.title}</h3>
+              <h3 className="font-semibold text-lg transition group-hover:text-slate-900 group-hover:underline underline-offset-4">
+                {p.title}
+              </h3>
                 <Link
                   href={p.href}
                   className="px-4 py-1 rounded-full border border-slate-300 text-slate-600
@@ -662,7 +665,7 @@ function Section({
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow transition">
+    <div className="group w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow">
       {children}
     </div>
   );
