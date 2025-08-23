@@ -539,7 +539,11 @@ export default function Portfolio() {
             <Card key={p.title}>
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-semibold text-lg">{p.title}</h3>
-                <Link href={p.href} className="text-base font-medium text-slate-600 hover:text-slate-900">
+                <Link
+                  href={p.href}
+                  className="px-4 py-1 rounded-full border border-slate-300 text-slate-600 
+                            hover:bg-[#4f81bd] hover:text-white transition-colors duration-200"
+                >
                   View
                 </Link>
               </div>
