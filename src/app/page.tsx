@@ -230,6 +230,18 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
   const atStart = idx <= 0;
   const atEnd = idx >= images.length - 1;
 
+  // Desktop edge-guard: prevent history back/forward when swiping past ends
+  const onWheelEdgeGuard: React.WheelEventHandler<HTMLDivElement> = (e) => {
+    // Only care about horizontal wheel gestures (trackpads)
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    // If we're at the start and user swipes right (negative deltaX), or
+    // at the end and user swipes left (positive deltaX), block it.
+    if ((atStart && e.deltaX < 0) || (atEnd && e.deltaX > 0)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+  
   if (!images?.length) return null;
 
   return (
@@ -237,7 +249,9 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
       <div
         ref={ref}
         className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4
-                   [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                  md:[overscroll-behavior-x:contain] md:[overscroll-behavior-y:none]"
+        onWheel={onWheelEdgeGuard}
         aria-label={`${title} images`}
         role="group"
       >
