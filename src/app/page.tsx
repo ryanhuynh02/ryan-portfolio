@@ -541,11 +541,14 @@ export default function Portfolio() {
                 <h3 className="font-semibold text-lg">{p.title}</h3>
                 <Link
                   href={p.href}
-                  className="px-4 py-1 rounded-full border border-slate-300 text-slate-600 
-                            hover:bg-[#4f81bd] hover:text-white transition-colors duration-200"
+                  className="px-4 py-1 rounded-full border border-slate-300 text-slate-600
+                            hover:bg-[#007AFF] hover:text-white
+                            active:bg-[#007AFF] active:text-white
+                            transition-colors duration-200"
                 >
                   View
                 </Link>
+
               </div>
               {/* ⬇️ add this line */}
               {p.images?.length ? (
