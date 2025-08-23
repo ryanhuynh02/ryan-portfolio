@@ -542,33 +542,37 @@ export default function Portfolio() {
         className="group block rounded-3xl focus:outline-none focus:ring-2 focus:ring-slate-400"
         aria-label={p.title}
       >
-        <Card>
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="font-semibold text-lg group-hover:text-slate-900">
-              {p.title}
-            </h3>
-            {/* removed the small “View” link */}
-          </div>
+<Card key={p.title}>
+  {/* Make header + image clickable */}
+  <Link href={p.href} className="block group cursor-pointer">
+    <div className="flex items-start justify-between gap-3">
+      <h3 className="font-semibold text-lg group-hover:text-slate-900">
+        {p.title}
+      </h3>
+    </div>
 
-          {p.images?.length ? (
-            <div className="mt-2">
-              <ProjectCarousel images={p.images} title={p.title} />
-            </div>
-          ) : null}
+    {p.images?.length ? (
+      <div className="mt-2">
+        <ProjectCarousel images={p.images} title={p.title} />
+      </div>
+    ) : null}
+  </Link>
 
-          <p className="mt-2 text-slate-700">{p.description}</p>
+  {/* Leave description OUTSIDE the link so it isn’t clickable */}
+  <p className="mt-2 text-slate-700">{p.description}</p>
 
-          <div className="mt-3 flex flex-wrap gap-2">
-            {p.tags.map((t) => (
-              <span
-                key={t}
-                className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </Card>
+  <div className="mt-3 flex flex-wrap gap-2">
+    {p.tags.map((t) => (
+      <span
+        key={t}
+        className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1"
+      >
+        {t}
+      </span>
+    ))}
+  </div>
+</Card>
+
       </Link>
     ))}
   </div>
