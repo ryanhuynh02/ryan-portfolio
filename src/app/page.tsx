@@ -267,29 +267,37 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
 
       {/* Left arrow: hidden on first image */}
       <button
-        type="button"
-        onClick={() => scrollToIndex(idx - 1)}
-        aria-label="Previous image"
-        className={`hidden md:flex absolute left-2 top-1/2 -translate-y-1/2
-                    h-8 w-8 items-center justify-center rounded-full bg-white/90
-                    border border-slate-200 shadow hover:bg-white transition
-                    ${atStart ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-      >
-        ‹
-      </button>
+  type="button"
+  onClick={(e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    scrollToIndex(idx - 1);
+  }}
+  aria-label="Previous image"
+  className={`hidden md:flex absolute left-2 top-1/2 -translate-y-1/2
+              h-8 w-8 items-center justify-center rounded-full bg-white/90
+              border border-slate-200 shadow hover:bg-white transition
+              ${atStart ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+>
+  ‹
+</button>
 
-      {/* Right arrow: hidden on last image */}
-      <button
-        type="button"
-        onClick={() => scrollToIndex(idx + 1)}
-        aria-label="Next image"
-        className={`hidden md:flex absolute right-2 top-1/2 -translate-y-1/2
-                    h-8 w-8 items-center justify-center rounded-full bg-white/90
-                    border border-slate-200 shadow hover:bg-white transition
-                    ${atEnd ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-      >
-        ›
-      </button>
+{/* Right arrow: hidden on first image */}
+<button
+  type="button"
+  onClick={(e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    scrollToIndex(idx + 1);
+  }}
+  aria-label="Next image"
+  className={`hidden md:flex absolute right-2 top-1/2 -translate-y-1/2
+              h-8 w-8 items-center justify-center rounded-full bg-white/90
+              border border-slate-200 shadow hover:bg-white transition
+              ${atEnd ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+>
+  ›
+</button>
     </div>
   );
 }
@@ -536,43 +544,36 @@ export default function Portfolio() {
 <Section id="projects" title="Projects" icon={<Github className="size-5" />}>
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     {CONFIG.projects.map((p) => (
-      <Link
-        key={p.title}
-        href={p.href}
-        className="group block rounded-3xl focus:outline-none focus:ring-2 focus:ring-slate-400"
-        aria-label={p.title}
-      >
-<Card key={p.title}>
-  {/* Make header + image clickable */}
-  <Link href={p.href} className="block group cursor-pointer">
-    <div className="flex items-start justify-between gap-3">
-      <h3 className="font-semibold text-lg group-hover:text-slate-900">
-        {p.title}
-      </h3>
-    </div>
+      <Card key={p.title}>
+        {/* Clickable: title + image */}
+        <Link href={p.href} className="block group cursor-pointer" aria-label={p.title}>
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-semibold text-lg group-hover:text-slate-900">
+              {p.title}
+            </h3>
+          </div>
 
-    {p.images?.length ? (
-      <div className="mt-2">
-        <ProjectCarousel images={p.images} title={p.title} />
-      </div>
-    ) : null}
-  </Link>
+          {p.images?.length ? (
+            <div className="mt-2">
+              <ProjectCarousel images={p.images} title={p.title} />
+            </div>
+          ) : null}
+        </Link>
 
-  {/* Leave description OUTSIDE the link so it isn’t clickable */}
-  <p className="mt-2 text-slate-700">{p.description}</p>
+        {/* Not clickable: description + tags */}
+        <p className="mt-2 text-slate-700">{p.description}</p>
 
-  <div className="mt-3 flex flex-wrap gap-2">
-    {p.tags.map((t) => (
-      <span
-        key={t}
-        className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1"
-      >
-        {t}
-      </span>
-    ))}
-  </div>
-</Card>
-      </Link>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {p.tags.map((t) => (
+            <span
+              key={t}
+              className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </Card>
     ))}
   </div>
 </Section>
@@ -671,10 +672,11 @@ function Section({
 function Card({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition
-                    cursor-pointer group-hover:shadow-lg group-hover:bg-slate-50">
+                    group-hover:shadow-lg group-hover:bg-slate-50">
       {children}
     </div>
   );
 }
+
 
 
