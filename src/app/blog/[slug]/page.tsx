@@ -7,20 +7,34 @@ import type { ComponentType } from "react";
 import { MDXComponents } from "@/components/MDXComponents";
 import { listPosts, getPostSource } from "@/lib/blog";
 
+// Pre-generate one page per post
 export async function generateStaticParams() {
   return listPosts().map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = listPosts().find((p) => p.slug === params.slug);
+// In Next 15, params is a Promise in generateMetadata
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = listPosts().find((p) => p.slug === slug);
   return {
     title: post ? `${post.title} — Blog` : "Blog post",
     description: post?.summary ?? "Diary entry",
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const source = getPostSource(params.slug);
+// In Next 15, params is also a Promise for the page
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  const source = getPostSource(slug);
   if (!source) return notFound();
 
   const components = MDXComponents as unknown as Record<string, ComponentType>;
