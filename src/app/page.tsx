@@ -371,6 +371,11 @@ export default function Portfolio() {
                 {n.label}
               </button>
             ))}
+
+            <Link href="/blog" className="text-sm text-slate-600 hover:text-slate-900 transition">
+              Blog
+            </Link>
+
             <a
               href={CONFIG.resumeUrl}
               download                // ⬅️ add this
@@ -424,6 +429,15 @@ export default function Portfolio() {
           <ChevronRight className="size-4" />
         </button>
       ))}
+      
+      <Link
+      href="/blog"
+      onClick={() => setOpen(false)}
+      className="mt-2 block w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100"
+    >
+      Blog
+    </Link>
+      
       <a
         href={CONFIG.resumeUrl}
         download                // ⬅️ add this
