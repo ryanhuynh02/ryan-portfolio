@@ -3,10 +3,15 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { User } from "lucide-react"
 import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight, ChevronDown } from "lucide-react";
+import { listPosts } from "@/lib/blog";
 import Link from "next/link";
+import { BookOpen } from "lucide-react";
+
 // Tailwind is available by default in this canvas preview environment.
 // This is a single-file React component you can drop into a Vite/Next/CRA app.
 // Customize the data in the CONFIG section below.
+const latestPosts = listPosts().slice(0, 3);
+
 const CONFIG = {
   name: "Ryan Huynh",
   tagline: "Incoming Computer Engineering student @ UC Davis (Fall 2025)",
@@ -429,7 +434,7 @@ export default function Portfolio() {
           <ChevronRight className="size-4" />
         </button>
       ))}
-      
+
       <Link
       href="/blog"
       onClick={() => setOpen(false)}
@@ -596,6 +601,43 @@ export default function Portfolio() {
           ))}
         </div>
       </Section>
+
+      <Section id="blog" title="Blog" icon={<BookOpen className="size-5" />}>
+  <div className="space-y-4">
+    {latestPosts.map(p => (
+      <Card key={p.slug}>
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <div className="font-semibold">{p.title}</div>
+            <time className="block text-xs text-slate-500 mt-0.5">
+              {new Date(p.date).toLocaleDateString()}
+            </time>
+            {p.summary && <p className="text-slate-700 mt-2">{p.summary}</p>}
+            {p.tags?.length ? (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {p.tags.map(t => (
+                  <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    #{t}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </div>
+          <Link href={`/blog/${p.slug}`} className="text-base font-medium text-slate-600 hover:text-slate-900">
+            Read
+          </Link>
+        </div>
+      </Card>
+    ))}
+
+    <div className="text-right">
+      <Link href="/blog" className="text-sm underline text-slate-600 hover:text-slate-900">
+        View all →
+      </Link>
+    </div>
+  </div>
+</Section>
+
 
       {/* Skills */}
       <Section id="skills" title="Skills" icon={<Cpu className="size-5" />}>        
