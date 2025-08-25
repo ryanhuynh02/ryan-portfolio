@@ -2,11 +2,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { User } from "lucide-react"
-import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight, ChevronDown } from "lucide-react";
+import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight, ChevronDown, BookOpen  } from "lucide-react";
 import Link from "next/link";
 // Tailwind is available by default in this canvas preview environment.
 // This is a single-file React component you can drop into a Vite/Next/CRA app.
 // Customize the data in the CONFIG section below.
+type HomePost = { title: string; date: string; summary?: string; slug: string; tags?: string[] };
+
 const CONFIG = {
   name: "Ryan Huynh",
   tagline: "Incoming Computer Engineering student @ UC Davis (Fall 2025)",
@@ -311,6 +313,18 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
 export default function Portfolio() {
   const [open, setOpen] = useState(false);
 
+    // Blog preview state
+    const [latestPosts, setLatestPosts] = useState<HomePost[]>([]);
+
+    useEffect(() => {
+      let mounted = true;
+      fetch("/api/blog")
+        .then(r => r.json())
+        .then((data: HomePost[]) => { if (mounted) setLatestPosts(data); })
+        .catch(() => {});
+      return () => { mounted = false; };
+    }, []);
+  
   const navItems = [
     { id: "about", label: "About" },
     { id: "experience", label: "Experience" },
@@ -596,6 +610,57 @@ export default function Portfolio() {
           ))}
         </div>
       </Section>
+
+{/* Blog */}
+<Section id="blog" title="Blog" icon={<BookOpen className="size-5" />}>
+  {latestPosts.length === 0 ? (
+    <Card>
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="font-medium">No posts yet</div>
+          <p className="text-slate-600">I’ll start posting soon. Check the full blog page for updates.</p>
+        </div>
+        <Link href="/blog" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+          View all →
+        </Link>
+      </div>
+    </Card>
+  ) : (
+    <div className="space-y-4">
+      {latestPosts.map((p) => (
+        <Card key={p.slug}>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <div className="font-semibold">{p.title}</div>
+              <time className="block text-xs text-slate-500 mt-0.5">
+                {new Date(p.date).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+              </time>
+              {p.summary && <p className="text-slate-700 mt-2">{p.summary}</p>}
+              {p.tags?.length ? (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                      #{t}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+            <Link href={`/blog/${p.slug}`} className="text-sm font-medium text-slate-600 hover:text-slate-900">
+              Read
+            </Link>
+          </div>
+        </Card>
+      ))}
+
+      <div className="text-right">
+        <Link href="/blog" className="text-sm underline text-slate-600 hover:text-slate-900">
+          View all →
+        </Link>
+      </div>
+    </div>
+  )}
+</Section>
 
       {/* Skills */}
       <Section id="skills" title="Skills" icon={<Cpu className="size-5" />}>        
