@@ -205,22 +205,36 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
   // keep index in sync when the user swipes/scrolls
   useEffect(() => {
     const el = ref.current;
-    if (!el || !step) return;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const i = Math.round(el.scrollLeft / step);
-        setIdx(Math.max(0, Math.min(images.length - 1, i)));
-      });
+    if (!el) return;
+  
+    let startX = 0;
+  
+    const onTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
     };
-    el.addEventListener("scroll", onScroll, { passive: true });
+  
+    const onTouchMove = (e: TouchEvent) => {
+      const dx = e.touches[0].clientX - startX;
+  
+      // recompute edges in case layout changed
+      const atStartNow = el.scrollLeft <= 0;
+      const atEndNow = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+  
+      // If swiping outward at an edge, prevent the gesture from escaping
+      if ((atStartNow && dx > 0) || (atEndNow && dx < 0)) {
+        e.preventDefault();
+      }
+    };
+  
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+  
     return () => {
-      el.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
     };
-  }, [step, images.length]);
-
+  }, []);
+  
   const scrollToIndex = (i: number) => {
     const el = ref.current;
     if (!el || !step) return;
@@ -252,7 +266,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         ref={ref}
         className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4
                   [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                  md:[overscroll-behavior-x:contain] md:[overscroll-behavior-y:none]"
+                  overscroll-x-contain touch-pan-x select-none"   // ⬅️ add these
         onWheel={onWheelEdgeGuard}
         aria-label={`${title} images`}
         role="group"
