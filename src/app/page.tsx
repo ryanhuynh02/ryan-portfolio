@@ -309,6 +309,23 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
     </div>
   );
 }
+function formatLocalDate(iso: string) {
+  // If it's just YYYY-MM-DD, parse as local so timezones don't shift the day
+  if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+  // Fallback for full ISO strings with time/offset
+  return new Date(iso).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
 export default function Portfolio() {
   const [open, setOpen] = useState(false);
@@ -633,7 +650,7 @@ export default function Portfolio() {
             <div>
               <div className="font-semibold">{p.title}</div>
               <time className="block text-xs text-slate-500 mt-0.5">
-                {new Date(p.date).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                {formatLocalDate(p.date)}
               </time>
               {p.summary && <p className="text-slate-700 mt-2">{p.summary}</p>}
               {p.tags?.length ? (
