@@ -257,12 +257,15 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         aria-label={`${title} images`}
         role="group"
       >
+        {/* head spacer: creates 'rubber band' space on the left */}
+        <div aria-hidden className="shrink-0 w-6 md:w-12 [scroll-snap-align:none]" />
+
         {images.map((src, i) => (
           <div
             key={src}
             data-slide={i}
             className="relative snap-start shrink-0 w-[60vw] sm:w-64 aspect-[4/3]
-                       rounded-xl overflow-hidden border border-slate-200"
+                      rounded-xl overflow-hidden border border-slate-200"
           >
             <Image
               src={src}
@@ -277,9 +280,11 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
             />
           </div>
         ))}
-        {/* tiny end spacer so last slide isn't glued to the edge */}
-        <div className="shrink-0 w-3" />
+
+        {/* tail spacer: creates 'rubber band' space on the right */}
+        <div aria-hidden className="shrink-0 w-6 md:w-12 [scroll-snap-align:none]" />
       </div>
+
 
       {/* Left arrow: hidden on first image */}
       <button
