@@ -8,6 +8,7 @@ type Frontmatter = {
   date?: string;     // ISO date
   summary?: string;
   tags?: string[];
+  cover?: string;
 };
 
 export type BlogMeta = {
@@ -16,6 +17,7 @@ export type BlogMeta = {
   summary?: string;
   tags?: string[];
   slug: string;      // derived from filename after date prefix
+  cover?: string;
 };
 
 const BLOG_DIR = path.join(process.cwd(), "src", "content", "blog");
@@ -45,6 +47,7 @@ export function listPosts(): BlogMeta[] {
       summary: fm.summary ?? "",
       tags: fm.tags ?? [],
       slug,
+      cover: fm.cover,
     };
   });
 

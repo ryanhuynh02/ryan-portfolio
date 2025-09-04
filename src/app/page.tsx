@@ -7,7 +7,7 @@ import Link from "next/link";
 // Tailwind is available by default in this canvas preview environment.
 // This is a single-file React component you can drop into a Vite/Next/CRA app.
 // Customize the data in the CONFIG section below.
-type HomePost = { title: string; date: string; summary?: string; slug: string; tags?: string[] };
+type HomePost = { title: string; date: string; summary?: string; slug: string; tags?: string[]; cover?: string | null; };
 
 const CONFIG = {
   name: "Ryan Huynh",
@@ -654,29 +654,56 @@ export default function Portfolio() {
   ) : (
     <div className="space-y-4">
       {latestPosts.map((p) => (
-        <Card key={p.slug}>
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <div className="font-semibold">{p.title}</div>
-              <time className="block text-xs text-slate-500 mt-0.5">
+        <Link
+          key={p.slug}
+          href={`/blog/${p.slug}`}
+          className="group block rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-sm transition"
+        >
+          <div className="flex items-start gap-4">
+            {/* thumbnail (left) */}
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200">
+              <Image
+                src={p.cover ?? "/file.svg"}   // fallback icon in /public
+                alt=""
+                fill
+                className="object-cover"
+                sizes="112px"
+              />
+            </div>
+
+            {/* text (right) */}
+            <div className="min-w-0">
+              <h3 className="text-lg font-semibold leading-snug">
+                <span
+                  className="bg-[linear-gradient(transparent,transparent),linear-gradient(#99f6e4,#99f6e4)]
+                            bg-[0_100%,0_100%] bg-no-repeat
+                            [background-size:100%_0.08em,0_0.35em]
+                            group-hover:[background-size:100%_0.08em,100%_0.35em]
+                            transition-[background-size] duration-300"
+                >
+                  {p.title}
+                </span>
+              </h3>
+              <time className="block text-xs text-slate-500 mt-1">
                 {formatLocalDate(p.date)}
               </time>
-              {p.summary && <p className="text-slate-700 mt-2">{p.summary}</p>}
+              {p.summary && <p className="text-slate-700 mt-2 line-clamp-2">{p.summary}</p>}
+
               {p.tags?.length ? (
                 <div className="mt-2 flex flex-wrap gap-2">
                   {p.tags.map((t) => (
-                    <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    <span
+                      key={t}
+                      className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200"
+                    >
                       #{t}
                     </span>
                   ))}
                 </div>
               ) : null}
             </div>
-            <Link href={`/blog/${p.slug}`} className="text-sm font-medium text-slate-600 hover:text-slate-900">
-              Read
-            </Link>
           </div>
-        </Card>
+        </Link>
       ))}
 
       <div className="text-right">
