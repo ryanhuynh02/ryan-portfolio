@@ -234,15 +234,18 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
 
   // Desktop edge-guard: prevent history back/forward when swiping past ends
   const onWheelEdgeGuard: React.WheelEventHandler<HTMLDivElement> = (e) => {
-    // Only care about horizontal wheel gestures (trackpads)
-    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-    // If we're at the start and user swipes right (negative deltaX), or
-    // at the end and user swipes left (positive deltaX), block it.
-    if ((atStart && e.deltaX < 0) || (atEnd && e.deltaX > 0)) {
+    // If vertical dominates, let it bubble so the page can scroll.
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) * 1.25) return;
+  
+    // Only guard at the ends on strong horizontal gestures.
+    const strongHorizontal = Math.abs(e.deltaX) > 2 && Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.25;
+  
+    if (strongHorizontal && ((atStart && e.deltaX < 0) || (atEnd && e.deltaX > 0))) {
       e.preventDefault();
       e.stopPropagation();
     }
   };
+  
   
   if (!images?.length) return null;
 
@@ -252,7 +255,8 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         ref={ref}
         className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4
                   [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                  md:[overscroll-behavior-x:contain] md:[overscroll-behavior-y:none]"
+                  md:[overscroll-behavior-x:contain] [touch-action:pan-y]"
+
         onWheel={onWheelEdgeGuard}
         aria-label={`${title} images`}
         role="group"
