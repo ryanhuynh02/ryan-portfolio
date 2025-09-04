@@ -659,34 +659,29 @@ export default function Portfolio() {
           href={`/blog/${p.slug}`}
           className="group block rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-sm transition"
         >
-          <div className="flex items-start gap-4">
-            {/* thumbnail (left) */}
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200">
-              <Image
-                src={p.cover ?? "/file.svg"}   // fallback icon in /public
-                alt=""
-                fill
-                className="object-cover"
-                sizes="112px"
-              />
-            </div>
-
-            {/* text (right) */}
-            <div className="min-w-0">
+          <div className="flex items-center gap-4">
+            {/* text (left) */}
+            <div className="min-w-0 flex-1">
               <h3 className="text-lg font-semibold leading-snug">
+                {/* thin underline that grows from 0% to 100% at the BOTTOM on hover */}
                 <span
-                  className="bg-[linear-gradient(transparent,transparent),linear-gradient(#99f6e4,#99f6e4)]
-                            bg-[0_100%,0_100%] bg-no-repeat
-                            [background-size:100%_0.08em,0_0.35em]
-                            group-hover:[background-size:100%_0.08em,100%_0.35em]
-                            transition-[background-size] duration-300"
+                  className="
+                    bg-[linear-gradient(#14b8a6,#14b8a6)]
+                    bg-no-repeat
+                    [background-position:0_100%]              /* bottom */
+                    [background-size:0%_2px]                  /* thin 2px line */
+                    group-hover:[background-size:100%_2px]
+                    transition-[background-size] duration-300
+                  "
                 >
                   {p.title}
                 </span>
               </h3>
+
               <time className="block text-xs text-slate-500 mt-1">
                 {formatLocalDate(p.date)}
               </time>
+
               {p.summary && <p className="text-slate-700 mt-2 line-clamp-2">{p.summary}</p>}
 
               {p.tags?.length ? (
@@ -701,6 +696,17 @@ export default function Portfolio() {
                   ))}
                 </div>
               ) : null}
+            </div>
+
+            {/* thumbnail (right) */}
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200 ml-2">
+              <Image
+                src={p.cover ?? "/file.svg"}  // fallback in /public
+                alt=""
+                fill
+                className="object-cover"
+                sizes="112px"
+              />
             </div>
           </div>
         </Link>
