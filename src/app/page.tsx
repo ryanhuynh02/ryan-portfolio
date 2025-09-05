@@ -666,12 +666,13 @@ export default function Portfolio() {
                 {/* thin underline that grows from 0% to 100% at the BOTTOM on hover */}
                 <span
                   className="
-                    bg-[linear-gradient(#007AFF,#007AFF)]
-                    bg-no-repeat
-                    [background-position:0_100%]              /* bottom */
-                    [background-size:0%_2px]                  /* thin 2px line */
-                    group-hover:[background-size:100%_2px]
-                    transition-[background-size] duration-300
+                    group-hover:text-[#007AFF]
+                        bg-[linear-gradient(#007AFF,#007AFF)]
+                        bg-no-repeat
+                        [background-position:0_100%]            /* bottom */
+                        [background-size:0%_2px]                /* thin line */
+                        group-hover:[background-size:100%_2px]  /* animate on hover */
+                        transition-[background-size] duration-300
                   "
                 >
                   {p.title}
