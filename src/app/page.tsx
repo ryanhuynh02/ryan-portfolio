@@ -55,7 +55,7 @@ const CONFIG = {
       description:
         "A mini suite of color-based memory and recognition games; built reusable components and state management.",
       tags: ["Ionic", "TypeScript", "Mobile"],
-      href: "#",
+      href: "/projects/color-games",
     },
     {
       title: "City Flights (C++ Graphs)",

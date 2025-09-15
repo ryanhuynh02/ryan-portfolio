@@ -1,0 +1,48 @@
+import Image from "next/image"
+
+# Math & Color Games — Web Translation of iOS App
+
+During my internship with the PHAST Lab at SFSU, **I translated a set of cognitive games from an iOS app into a responsive web app**. I used Ionic (Angular, HTML, CSS, TypeScript) to make the games more accessible across devices and easier to maintain.
+
+## What I Built
+- **Math Game** — I created a numeric input game with a large on-screen keypad and clear prompts.  
+- **Color Memory Game** — I developed a sequence-recall game where users remember and select colors in the correct order.  
+- **Color Recognition Game** — I implemented a multiple-choice activity where users identify the correct name for a displayed color.  
+- **Toggle Feature** — I added a switcher so users can move easily between games.  
+
+## Why It Matters
+- Encourages engagement through play while supporting cognitive training goals.  
+- Strengthens memory, attention, and visual sequencing—aligned with home-based interventions.  
+- Accessibility-first UI with large, clear components and responsive layouts.  
+
+## My Contributions & Challenges
+After I finished building the game, I pushed my code to GitHub so I could pull it onto Carmen, our robot platform, for testing. This testing phase helped me adjust the scaling of the text prompts, number pad, and response pop-up. I intentionally made these UI elements larger to accommodate users with cognitive impairments, ensuring that everything is easy to read and interact with.
+
+When I did this work, there were a lot of problems setting up the environment and managing GitHub. My mentor, Mathew, and another teammate named Daniel worked together with me to solve those issues.  
+
+One of the challenges I encountered was configuring the correct scaling and resolution when deploying to Carmen. The Raspberry Pi didn’t automatically detect the default resolution of our tablet display. To fix this, we had to manually set the HDMI output through the Pi terminal. This step was important; without it, applications would overflow the screen and become unreadable.
+
+Currently, the web app runs on the Raspberry Pi but there is no connection between the web app and the robot software. I have built cognitive games, and the next step is to enable the web app to send and receive messages from the robot. For example: the robot could respond dynamically to a user’s answer in the math or color game. Additionally, I also attempted to add a login page to enhance the system’s security.
+
+Another issue occurred when updating our code on GitHub. I didn’t realize at the time that I needed to pull the latest changes before pushing my updates. As a result, I encountered a merge conflict while backing up and pushing the code, which ultimately required us to reinstall everything from scratch.
+
+During this internship, I learned how to collaborate and communicate effectively with my teammates, mentor, and professor. It also helped me improve my self-study skills, problem-solving abilities, and gain more hands-on experience with coding.
+
+## Screens & UI
+
+<div className="grid sm:grid-cols-2 gap-4 not-prose">
+  <div className="relative aspect-[4/3] rounded-xl overflow-hidden border">
+    <Image src="/images/projects/color-math/math-game.png" alt="Math Game numeric input UI" fill className="object-cover" />
+  </div>
+  <div className="relative aspect-[4/3] rounded-xl overflow-hidden border">
+    <Image src="/images/projects/color-math/color-recognition.png" alt="Color Recognition multiple choice UI" fill className="object-cover" />
+  </div>
+  <div className="relative aspect-[4/3] rounded-xl overflow-hidden border sm:col-span-2">
+    <Image src="/images/projects/color-math/color-sequence.png" alt="Color Memory sequence UI" fill className="object-cover" />
+  </div>
+</div>
+
+## Next Steps
+- Add more levels and variety to the color game.  
+- Continue improving cross-device compatibility and performance.  
+- Work on deeper integration with robotic therapy (CARMEN) workflows.  
