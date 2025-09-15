@@ -3,10 +3,34 @@ import path from "path";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import type { ComponentType } from "react";
+import type { ComponentProps } from "react";
+import type { MDXComponents as MDXRemoteComponents } from "mdx/types"; // ✅ use MDX type
 import { MDXComponents } from "@/components/MDXComponents";
+import NextImage from "next/image"; // ✅
 
-const components = MDXComponents as Record<string, ComponentType>;
+/** --- typed wrapper for Next/Image shown to MDX --- */
+type NextImageProps = ComponentProps<typeof NextImage>;
+
+function MdxImage(props: NextImageProps) {
+  const { src, alt, ...rest } = props ?? {};
+  // Pretty placeholder if you haven't uploaded images yet
+  if (!src) {
+    return (
+      <div className="relative aspect-[4/3] rounded-xl border bg-slate-100 grid place-items-center text-xs text-slate-500">
+        Image placeholder
+      </div>
+    );
+  }
+  return <NextImage src={src} alt={alt ?? ""} {...rest} />;
+}
+
+/** --- components passed into <MDXRemote> --- */
+const components: MDXRemoteComponents = {
+  ...MDXComponents,
+  Image: MdxImage, // ✅ no 'any', no cast, no ESLint error
+};
+
+
 
 function sanitizeForMDX(raw: string): string {
   return raw
