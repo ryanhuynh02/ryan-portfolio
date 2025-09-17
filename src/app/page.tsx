@@ -254,15 +254,14 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
       <div
         ref={ref}
         className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4
-           overscroll-x-contain [touch-action:pan-x]
-           [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        style={{ WebkitOverflowScrolling: "touch" }}
-
-
+                  [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+                  md:[overscroll-behavior-x:contain] md:[overscroll-behavior-y:none]
+                  [webkit-overflow-scrolling:touch]"
         onWheel={onWheelEdgeGuard}
         aria-label={`${title} images`}
         role="group"
       >
+
         {/* head spacer: creates 'rubber band' space on the left */}
         <div aria-hidden className="shrink-0 w-6 md:w-12 [scroll-snap-align:none]" />
 
