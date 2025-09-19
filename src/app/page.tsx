@@ -240,20 +240,27 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
   const atStart = idx <= 0;
   const atEnd = idx >= images.length - 1;
 
-  // Desktop edge-guard: prevent history back/forward when swiping past ends
-  const onWheelEdgeGuard: React.WheelEventHandler<HTMLDivElement> = (e) => {
-    // If vertical dominates, let it bubble so the page can scroll.
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) * 1.25) return;
-  
-    // Only guard at the ends on strong horizontal gestures.
-    const strongHorizontal = Math.abs(e.deltaX) > 2 && Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.25;
-  
-    if (strongHorizontal && ((atStart && e.deltaX < 0) || (atEnd && e.deltaX > 0))) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
-  
+  // Smart wheel handler: let vertical scroll pass to the page,
+// keep horizontal scrolling for the carousel, and guard browser back/forward at edges.
+const onWheelSmart: React.WheelEventHandler<HTMLDivElement> = (e) => {
+  const verticalIntent = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+
+  // If the user is scrolling mostly vertical, forward it to the page.
+  if (verticalIntent) {
+    e.preventDefault();
+    window.scrollBy({ top: e.deltaY, behavior: "auto" });
+    return;
+  }
+
+  // Horizontal edge-guard (prevents browser back/forward at the ends)
+  const strongHorizontal =
+    Math.abs(e.deltaX) > 2 && Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.25;
+
+  if (strongHorizontal && ((atStart && e.deltaX < 0) || (atEnd && e.deltaX > 0))) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+};
   
   if (!images?.length) return null;
 
@@ -263,9 +270,9 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
         ref={ref}
         className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-px-4
                   [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                  md:[overscroll-behavior-x:contain] md:[overscroll-behavior-y:none]
-                  [webkit-overflow-scrolling:touch]"
-        onWheel={onWheelEdgeGuard}
+                  [overscroll-behavior-x:contain] [overscroll-behavior-y:auto]
+                  [touch-action:auto] [-webkit-overflow-scrolling:touch]"
+        onWheel={onWheelSmart}
         aria-label={`${title} images`}
         role="group"
       >
