@@ -57,11 +57,11 @@ const CONFIG = {
       tags: ["Ionic", "TypeScript", "Mobile"],
       href: "/projects/color-games",
       images: [
+        "/projects/color-math/color-game.jpg",
+        "/projects/color-math/math-game.jpg",
         "/projects/color-math/base.jpg",
         "/projects/color-math/frame.jpg",
         "/projects/color-math/body.jpg",
-        "/projects/color-math/color-game.jpg",
-        "/projects/color-math/math-game.jpg",
         "/projects/color-math/sample.jpg",
       ]
     },
@@ -615,17 +615,18 @@ export default function Portfolio() {
           {CONFIG.projects.map((p) => (
             <Card key={p.title}>
               <div className="flex items-start justify-between gap-3">
-                <h3 className="font-semibold text-lg">{p.title}</h3>
+                <h3 className="font-semibold text-lg leading-snug line-clamp-2 min-h-[3.5rem]">
+                  {p.title}
+                </h3>
                 <Link
                   href={p.href}
                   className="px-4 py-1 rounded-full border border-slate-300 text-slate-600
                             hover:bg-[#007AFF] hover:text-white
                             active:bg-[#007AFF] active:text-white
-                            transition-colors duration-200"
+                            transition-colors duration-200 whitespace-nowrap"
                 >
                   View
                 </Link>
-
               </div>
               {/* ⬇️ add this line */}
               {p.images?.length ? (
