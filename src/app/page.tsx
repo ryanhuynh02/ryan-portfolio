@@ -62,7 +62,7 @@ const CONFIG = {
         "/projects/color-math/body.jpg",
         "/projects/color-math/color-game.jpg",
         "/projects/color-math/math-game.jpg",
-        "/projects/color-math/sample.jpg,"
+        "/projects/color-math/sample.jpg",
       ]
     },
     {
