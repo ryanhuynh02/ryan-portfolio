@@ -38,6 +38,39 @@ When I did this work, there were a lot of problems setting up the environment an
 <br />
 
 One of the challenges I encountered was configuring the correct scaling and resolution when deploying to Carmen. The Raspberry Pi didn’t automatically detect the default resolution of our tablet display. To fix this, we had to manually set the HDMI output through the Pi terminal. This step was important; without it, applications would overflow the screen and become unreadable.
+
+<div className="not-prose grid gap-4 sm:grid-cols-2">
+  {/* BEFORE */}
+  <figure className="rounded-xl border bg-white p-2 shadow-sm">
+    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+      <Image
+        src="/images/projects/color-math/resolution-before.png"
+        alt="Before: UI overflowed because the Pi detected the wrong tablet resolution"
+        fill
+        className="object-contain bg-white"
+      />
+    </div>
+    <figcaption className="mt-2 text-xs text-slate-600">
+      <strong>Before:</strong> Wrong display mode → overflowed UI, unreadable text.
+    </figcaption>
+  </figure>
+
+  {/* AFTER */}
+  <figure className="rounded-xl border bg-white p-2 shadow-sm">
+    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+      <Image
+        src="/images/projects/color-math/resolution-after.png"
+        alt="After: Correct HDMI mode set on Raspberry Pi; UI fits and text is readable"
+        fill
+        className="object-contain bg-white"
+      />
+    </div>
+    <figcaption className="mt-2 text-xs text-slate-600">
+      <strong>After:</strong> Forced HDMI mode on the Pi → proper scaling and readability.
+    </figcaption>
+  </figure>
+</div>
+
 <br />
 
 Currently, the web app runs on the Raspberry Pi but there is no connection between the web app and the robot software. I have built cognitive games, and the next step is to enable the web app to send and receive messages from the robot. For example: the robot could respond dynamically to a user’s answer in the math or color game. Additionally, I also attempted to add a login page to enhance the system’s security.
