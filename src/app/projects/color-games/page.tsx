@@ -69,9 +69,7 @@ export default function ColorGamesProjectPage() {
         </Link>
       </div>
 
-      <div className="mt-10 prose prose-slate max-w-none prose-img:rounded-xl
-                      prose-headings:mt-8 prose-headings:mb-6
-                      prose-ul:mt-4 prose-p:mt-4">
+      <div className="mt-6 prose prose-slate max-w-none prose-img:rounded-xl">
         {mdx ? (
           <MDXRemote
             source={mdx}
