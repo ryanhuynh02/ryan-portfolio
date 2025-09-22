@@ -40,32 +40,28 @@ When I did this work, there were a lot of problems setting up the environment an
 One of the challenges I encountered was configuring the correct scaling and resolution when deploying to Carmen. The Raspberry Pi didn’t automatically detect the default resolution of our tablet display. To fix this, we had to manually set the HDMI output through the Pi terminal. This step was important; without it, applications would overflow the screen and become unreadable.
 <br />
 
-<div className="not-prose grid gap-6">
+<div className="not-prose grid gap-6 sm:grid-cols-2">
   <CompareSlider
-    before="/projects/color-math/resolution-before.png"
-    after="/projects/color-math/resolution-after.png"
+    before="/images/projects/color-math/resolution-before.png"
+    after="/images/projects/color-math/resolution-after.png"
     altBefore="Before: wrong tablet resolution (UI overflow)"
     altAfter="After: proper scaling set on Raspberry Pi"
     aspect="4 / 3"
     labelBefore="Before"
     labelAfter="After"
-    initial={55}
+    showControls={false}   <!-- hides the tip/slider -->
   />
 
-  {/* Two more compact comparisons in a responsive grid */}
-  <div className="grid gap-6 sm:grid-cols-2">
-    <CompareSlider
-      before="/projects/color-math/color-game.jpg"
-      after="/projects/color-math/color-large.jpg"
-      altBefore="Smaller keypad"
-      altAfter="Larger, accessible keypad"
-      aspect="4 / 3"
-      labelBefore="Old"
-      labelAfter="New"
-      showControls={false}
-    />
-
-  </div>
+  <CompareSlider
+    before="/images/projects/color-math/math-small.png"
+    after="/images/projects/color-math/math-large.png"
+    altBefore="Smaller keypad"
+    altAfter="Larger, accessible keypad"
+    aspect="4 / 3"
+    labelBefore="Old"
+    labelAfter="New"
+    showControls={false}   <!-- hides the tip/slider -->
+  />
 </div>
 
 <br />

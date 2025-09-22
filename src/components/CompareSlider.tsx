@@ -30,7 +30,7 @@ export default function CompareSlider({
   labelBefore,
   labelAfter,
   className = '',
-  showControls = true,
+  showControls = false,
 }: Props) {
   const wrap = useRef<HTMLDivElement | null>(null);
   const [pct, setPct] = useState(initial); // 0..100
