@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
+import type React from "react";
 
 type Props = {
   before: string;
@@ -53,14 +54,19 @@ export default function CompareSlider({
     };
   }, [dragging]);
 
+  const startDrag: React.PointerEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    setDragging(true);
+  };
+
   return (
     <figure className={['rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm', className].join(' ')}>
       <div
         ref={wrap}
-        className="relative w-full select-none touch-none cursor-col-resize"
-        style={{ aspectRatio: aspect }}
-        onPointerDown={() => setDragging(true)}
-      >
+           className="relative w-full select-none cursor-col-resize [touch-action:pan-y]"
+           style={{ aspectRatio: aspect }}
+         >
         {/* Left/base = BEFORE */}
         <Image src={before} alt={altBefore} fill className="object-cover" />
 
@@ -73,7 +79,8 @@ export default function CompareSlider({
         <div className="absolute top-0 bottom-0 w-px bg-white/70 mix-blend-difference" style={{ left: `${pct}%` }} />
         <div
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-6 w-6 rounded-full bg-white shadow ring-1 ring-slate-300"
-          style={{ left: `${pct}%` }}
+              style={{ left: `${pct}%` }}
+              onPointerDown={startDrag}
         />
 
         {/* Optional labels */}
