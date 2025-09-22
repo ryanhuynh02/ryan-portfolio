@@ -41,32 +41,32 @@ One of the challenges I encountered was configuring the correct scaling and reso
 
 <div className="not-prose grid gap-4 sm:grid-cols-2">
   {/* BEFORE */}
-  <figure className="rounded-xl border bg-white p-2 shadow-sm">
-    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+  <figure className="rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm">
+    <div className="relative aspect-[4/3]">
       <Image
         src="/projects/color-math/resolution-before.png"
-        alt="Before: UI overflowed because the Pi detected the wrong tablet resolution"
+        alt="Before: wrong tablet resolution (UI overflow)"
         fill
-        className="object-contain bg-white"
+        className="object-cover"        {/* ⬅ was object-contain; removes letterboxing */}
       />
     </div>
-    <figcaption className="mt-2 text-xs text-slate-600">
+    <figcaption className="px-4 py-3 text-xs text-slate-600">
       <strong>Before:</strong> Wrong display mode → overflowed UI, unreadable text.
     </figcaption>
   </figure>
 
   {/* AFTER */}
-  <figure className="rounded-xl border bg-white p-2 shadow-sm">
-    <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+  <figure className="rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm">
+    <div className="relative aspect-[4/3]">
       <Image
         src="/projects/color-math/resolution-after.png"
-        alt="After: Correct HDMI mode set on Raspberry Pi; UI fits and text is readable"
+        alt="After: correct HDMI mode; proper scaling"
         fill
-        className="object-contain bg-white"
+        className="object-cover"        {/* ⬅ same change here */}
       />
     </div>
-    <figcaption className="mt-2 text-xs text-slate-600">
-      <strong>After:</strong> Forced HDMI mode on the Pi → proper scaling and readability.
+    <figcaption className="px-4 py-3 text-xs text-slate-600">
+      <strong>After:</strong> Forced HDMI mode → proper scaling and readability.
     </figcaption>
   </figure>
 </div>
