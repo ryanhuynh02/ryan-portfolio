@@ -42,8 +42,8 @@ One of the challenges I encountered was configuring the correct scaling and reso
 
 <div className="not-prose grid gap-6 sm:grid-cols-2">
   <CompareSlider
-    before="/images/projects/color-math/resolution-before.png"
-    after="/images/projects/color-math/resolution-after.png"
+    before="/projects/color-math/resolution-before.png"
+    after="/projects/color-math/resolution-after.png"
     altBefore="Before: wrong tablet resolution (UI overflow)"
     altAfter="After: proper scaling set on Raspberry Pi"
     aspect="4 / 3"
@@ -53,20 +53,17 @@ One of the challenges I encountered was configuring the correct scaling and reso
   />
 
   <CompareSlider
-    before="/images/projects/color-math/math-small.png"
-    after="/images/projects/color-math/math-large.png"
+    before="/projects/color-math/color-large.jpg"
+    after="/projects/color-math/color-game.jpg"
     altBefore="Smaller keypad"
     altAfter="Larger, accessible keypad"
     aspect="4 / 3"
-    labelBefore="Old"
-    labelAfter="New"
+    labelBefore="Before"
+    labelAfter="After"
     showControls={false}   <!-- hides the tip/slider -->
   />
 </div>
 
-<br />
-
-Currently, the web app runs on the Raspberry Pi but there is no connection between the web app and the robot software. I have built cognitive games, and the next step is to enable the web app to send and receive messages from the robot. For example: the robot could respond dynamically to a user’s answer in the math or color game. Additionally, I also attempted to add a login page to enhance the system’s security.
 <br />
 
 Another issue occurred when updating our code on GitHub. I didn’t realize at the time that I needed to pull the latest changes before pushing my updates. As a result, I encountered a merge conflict while backing up and pushing the code, which ultimately required us to reinstall everything from scratch.
@@ -90,6 +87,9 @@ During this internship, I learned how to collaborate and communicate effectively
 </div>
 
 ## Next Steps
+<br />
+
+- Currently, the web app runs on the Raspberry Pi but there is no connection between the web app and the robot software. I have built cognitive games, and the next step is to enable the web app to send and receive messages from the robot. For example: the robot could respond dynamically to a user’s answer in the math or color game. Additionally, I also attempted to add a login page to enhance the system’s security.
 - Add more levels and variety to the color game.  
 - Continue improving cross-device compatibility and performance.  
 - Work on deeper integration with robotic therapy (CARMEN) workflows.  
