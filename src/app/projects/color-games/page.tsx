@@ -4,9 +4,10 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import type { ComponentProps } from "react";
-import type { MDXComponents as MDXRemoteComponents } from "mdx/types"; // ✅ use MDX type
+import type { MDXComponents as MDXRemoteComponents } from "mdx/types"; //  use MDX type
 import { MDXComponents } from "@/components/MDXComponents";
-import NextImage from "next/image"; // ✅
+import NextImage from "next/image"; // 
+import CompareSlider from "@/components/CompareSlider";
 
 /** --- typed wrapper for Next/Image shown to MDX --- */
 type NextImageProps = ComponentProps<typeof NextImage>;
@@ -27,7 +28,8 @@ function MdxImage(props: NextImageProps) {
 /** --- components passed into <MDXRemote> --- */
 const components: MDXRemoteComponents = {
   ...MDXComponents,
-  Image: MdxImage, // ✅ no 'any', no cast, no ESLint error
+  Image: MdxImage, //  no 'any', no cast, no ESLint error
+  CompareSlider,
 };
 
 
