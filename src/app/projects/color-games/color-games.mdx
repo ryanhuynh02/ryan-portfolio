@@ -39,11 +39,12 @@ When I did this work, there were a lot of problems setting up the environment an
 
 One of the challenges I encountered was configuring the correct scaling and resolution when deploying to Carmen. The Raspberry Pi didn’t automatically detect the default resolution of our tablet display. To fix this, we had to manually set the HDMI output through the Pi terminal. This step was important; without it, applications would overflow the screen and become unreadable.
 
+{/* BEFORE */}
 <div className="not-prose grid gap-4 sm:grid-cols-2">
   <figure className="rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm">
     <div className="relative aspect-[4/3]">
       <Image
-        src="/images/projects/color-math/resolution-before.png"
+        src="/projects/color-math/resolution-before.png"
         alt="Before: wrong tablet resolution (UI overflow)"
         fill
         className="object-cover"
@@ -58,7 +59,7 @@ One of the challenges I encountered was configuring the correct scaling and reso
   <figure className="rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm">
     <div className="relative aspect-[4/3]">
       <Image
-        src="/images/projects/color-math/resolution-after.png"
+        src="/projects/color-math/resolution-after.png"
         alt="After: correct HDMI mode; proper scaling"
         fill
         className="object-cover"
