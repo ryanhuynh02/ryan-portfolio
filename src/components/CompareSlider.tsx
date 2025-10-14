@@ -43,6 +43,22 @@ export default function CompareSlider({
 
   // drag across the image
   useEffect(() => {
+    function move(e: PointerEvent) {
+      if (!dragging || !wrap.current) return;
+      const rect = wrap.current.getBoundingClientRect();
+      const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
+      setPct(Math.round((x / rect.width) * 100));
+    }
+    function up() { setDragging(false); }
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    return () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+  }, [dragging]);
+
+  useEffect(() => {
     if (!wrap.current) return;
   
     const update = () => {
@@ -126,6 +142,7 @@ export default function CompareSlider({
     {labelAfter}
   </span>
 )}
+
       </div>
 
       {showControls && (
