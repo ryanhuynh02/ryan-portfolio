@@ -93,10 +93,10 @@ export default function CompareSlider({
   };
 
   return (
-    <figure className={['rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm', className].join(' ')}>
+    <figure className={['mx-4 sm:mx-0 rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm', className].join(' ')}>
       <div
         ref={wrap}
-           className="relative w-full select-none cursor-col-resize [touch-action:pan-y]"
+           className="relative w-full select-none cursor-col-resize [touch-action:pan-y] [overscroll-behavior-x:contain]"
            style={{ aspectRatio: aspect }}
          >
         {/* Left/base = BEFORE */}
