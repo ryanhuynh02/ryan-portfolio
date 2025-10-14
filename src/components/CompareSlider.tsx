@@ -36,24 +36,40 @@ export default function CompareSlider({
   const wrap = useRef<HTMLDivElement | null>(null);
   const [pct, setPct] = useState(initial); // 0..100
   const [dragging, setDragging] = useState(false);
+  const beforeRef = useRef<HTMLSpanElement | null>(null);
+  const afterRef  = useRef<HTMLSpanElement | null>(null);
+  const [showBefore, setShowBefore] = useState(true);
+  const [showAfter,  setShowAfter]  = useState(true);
 
   // drag across the image
   useEffect(() => {
-    function move(e: PointerEvent) {
-      if (!dragging || !wrap.current) return;
-      const rect = wrap.current.getBoundingClientRect();
-      const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
-      setPct(Math.round((x / rect.width) * 100));
-    }
-    function up() { setDragging(false); }
-    window.addEventListener('pointermove', move);
-    window.addEventListener('pointerup', up);
-    return () => {
-      window.removeEventListener('pointermove', move);
-      window.removeEventListener('pointerup', up);
+    if (!wrap.current) return;
+  
+    const update = () => {
+      const rect = wrap.current!.getBoundingClientRect();
+      const dividerX = (pct / 100) * rect.width; // x relative to the wrapper
+      const M = 6; // small margin so it fades just before touching
+  
+      // Hide BEFORE when divider is to the left of its right edge
+      if (beforeRef.current) {
+        const br = beforeRef.current.getBoundingClientRect();
+        const beforeRight = br.right - rect.left;
+        setShowBefore(dividerX > beforeRight + M);
+      }
+  
+      // Hide AFTER when divider is to the right of its left edge
+      if (afterRef.current) {
+        const ar = afterRef.current.getBoundingClientRect();
+        const afterLeft = ar.left - rect.left;
+        setShowAfter(dividerX < afterLeft - M);
+      }
     };
-  }, [dragging]);
-
+  
+    update(); // run once now
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, [pct]);
+  
   const startDrag: React.PointerEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     e.currentTarget.setPointerCapture?.(e.pointerId);
@@ -83,17 +99,33 @@ export default function CompareSlider({
               onPointerDown={startDrag}
         />
 
-        {/* Optional labels */}
-        {labelBefore && (
-          <span className="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow">
-            {labelBefore}
-          </span>
-        )}
-        {labelAfter && (
-          <span className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow">
-            {labelAfter}
-          </span>
-        )}
+{labelBefore && (
+  <span
+    ref={beforeRef}
+    className={[
+      "absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow",
+      "transition-opacity duration-150",
+      showBefore ? "opacity-100" : "opacity-0 pointer-events-none"
+    ].join(" ")}
+    aria-hidden={!showBefore}
+  >
+    {labelBefore}
+  </span>
+)}
+
+{labelAfter && (
+  <span
+    ref={afterRef}
+    className={[
+      "absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow",
+      "transition-opacity duration-150",
+      showAfter ? "opacity-100" : "opacity-0 pointer-events-none"
+    ].join(" ")}
+    aria-hidden={!showAfter}
+  >
+    {labelAfter}
+  </span>
+)}
       </div>
 
       {showControls && (
