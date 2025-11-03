@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { PointerEventHandler } from 'react';
 
 type Props = {
@@ -14,8 +14,7 @@ type Props = {
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  showControls?: boolean;
-  edgeBufferPct?: number; // keep handle away from bezel (default 5)
+  showControls?: boolean; // default false
 };
 
 export default function CompareSlider({
@@ -29,22 +28,16 @@ export default function CompareSlider({
   labelAfter,
   className = '',
   showControls = false,
-  edgeBufferPct = 5,
 }: Props) {
   const wrap = useRef<HTMLDivElement | null>(null);
-  const handleRef = useRef<HTMLDivElement | null>(null);
-
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
-  // dynamic gap = half of actual handle height (so divider gap always matches)
-  const [gapPx, setGapPx] = useState(8); // default; updated on mount/resize
-
-  // label fade
+  // label fading
   const beforeRef = useRef<HTMLSpanElement | null>(null);
-  const afterRef = useRef<HTMLSpanElement | null>(null);
+  const afterRef  = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
-  const [showAfter, setShowAfter] = useState(true);
+  const [showAfter,  setShowAfter]  = useState(true);
 
   const startDrag: PointerEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
@@ -52,51 +45,26 @@ export default function CompareSlider({
     setDragging(true);
   };
 
-  // measure handle to compute exact divider gap
-  useLayoutEffect(() => {
-    function measure() {
-      if (!handleRef.current) return;
-      const rect = handleRef.current.getBoundingClientRect();
-      setGapPx(rect.height / 2);
-    }
-    measure();
-    // re-measure on resize and on font-size / DPR changes
-    const ro = new ResizeObserver(measure);
-    if (handleRef.current) ro.observe(handleRef.current);
-    window.addEventListener('resize', measure);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener('resize', measure);
-    };
-  }, []);
-
-  // move/up with edge clamp
+  // Move/up — allow full range 0..100
   useEffect(() => {
     function move(e: PointerEvent) {
       if (!dragging || !wrap.current) return;
       const rect = wrap.current.getBoundingClientRect();
       const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
-      let next = Math.round((x / rect.width) * 100);
-
-      const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
-      const min = buffer;
-      const max = 100 - buffer;
-      next = Math.min(max, Math.max(min, next));
-
+      const next = Math.round((x / rect.width) * 100); // 0..100 full range
       setPct(next);
     }
-    function up() {
-      setDragging(false);
-    }
+    function up() { setDragging(false); }
+
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
     return () => {
       window.removeEventListener('pointermove', move);
       window.removeEventListener('pointerup', up);
     };
-  }, [dragging, edgeBufferPct]);
+  }, [dragging]);
 
-  // fade labels when the divider touches them
+  // Fade labels when divider overlaps them
   useEffect(() => {
     if (!wrap.current) return;
     const update = () => {
@@ -117,17 +85,15 @@ export default function CompareSlider({
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // edge flags for half-circle and arrows
-  const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
-  const min = buffer;
-  const max = 100 - buffer;
-  const atLeft = pct <= min + 0.1;
-  const atRight = pct >= max - 0.1;
+  // edge flags for half-circle + arrow visibility (true at real edges)
+  const atLeft  = pct <= 0.5;   // ~0%
+  const atRight = pct >= 99.5;  // ~100%
 
   return (
     <figure
       className={[
-        'mx-auto w-[92vw] sm:w-full max-w-2xl',
+        // smaller on mobile: 86vw. Desktop stays full width.
+        'mx-auto w-[86vw] sm:w-full max-w-2xl',
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
       ].join(' ')}
@@ -146,64 +112,51 @@ export default function CompareSlider({
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* DIVIDER: split into top/bottom with a gap that exactly equals handle radius */}
+        {/* Divider (under the handle) */}
         <div
-          className="absolute left-0 top-0 w-[2px] bg-white/80 z-20"
-          style={{
-            left: `${pct}%`,
-            height: `calc(50% - ${gapPx}px)`,
-            transform: 'translateX(-1px)',
-          }}
-        />
-        <div
-          className="absolute left-0 bottom-0 w-[2px] bg-white/80 z-20"
-          style={{
-            left: `${pct}%`,
-            height: `calc(50% - ${gapPx}px)`,
-            transform: 'translateX(-1px)',
-          }}
+          className="absolute top-0 bottom-0 w-px bg-white/80 z-10"
+          style={{ left: `${pct}%` }}
         />
 
-        {/* HANDLE */}
+        {/* HANDLE — white circle, arrows inside, becomes half at true edges */}
         <div
-          ref={handleRef}
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2
                      h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
                      flex items-center justify-center overflow-hidden
-                     z-50 [touch-action:none]"
+                     z-30 [touch-action:none]"
           style={{
             left: `${pct}%`,
             borderRadius: 9999,
             clipPath: atLeft
-              ? 'inset(0 50% 0 0 round 9999px)'  // show right half only
+              ? 'inset(0 50% 0 0 round 9999px)'   // right half only at 0%
               : atRight
-              ? 'inset(0 0 0 50% round 9999px)'  // show left half only
+              ? 'inset(0 0 0 50% round 9999px)'   // left half only at 100%
               : undefined,
             transition: 'clip-path 150ms ease',
           }}
           onPointerDown={startDrag}
           aria-label="Comparison slider handle"
         >
-          {/* Center mask (ensures no divider peeks through even if blend/antialiasing) */}
-          <span className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3px] bg-white z-50" />
+          {/* tiny center mask to prevent any divider bleed */}
+          <span className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-white z-40" />
 
-          {/* Left arrow (hide when at extreme left) */}
+          {/* Left arrow (hide when at left edge) */}
           {!atLeft && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-50">
-              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           )}
           {/* Spacer when both arrows visible */}
           {!atLeft && !atRight && <span className="w-1" />}
-          {/* Right arrow (hide when at extreme right) */}
+          {/* Right arrow (hide when at right edge) */}
           {!atRight && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-50">
-              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           )}
         </div>
 
-        {/* LABELS */}
+        {/* Labels */}
         {labelBefore && (
           <span
             ref={beforeRef}
