@@ -14,7 +14,7 @@ type Props = {
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  showControls?: boolean; // default false
+  showControls?: boolean; // show range input below (optional)
 };
 
 export default function CompareSlider({
@@ -33,6 +33,7 @@ export default function CompareSlider({
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
+  // Optional label fade when the divider overlaps
   const beforeRef = useRef<HTMLSpanElement | null>(null);
   const afterRef  = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
@@ -63,7 +64,7 @@ export default function CompareSlider({
     };
   }, [dragging]);
 
-  // Fade labels when divider overlaps them
+  // Fade labels when divider overlaps them (optional)
   useEffect(() => {
     if (!wrap.current) return;
     const update = () => {
@@ -84,17 +85,15 @@ export default function CompareSlider({
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // Edge flags for half-circle + arrow visibility
+  // Keep the handle fully visible at extremes
   const atLeft  = pct <= 0.5;   // ~0%
   const atRight = pct >= 99.5;  // ~100%
-
-  // Compute the correct X-translate so the handle never goes off-screen
   const translateX = atLeft ? '0' : atRight ? '-100%' : '-50%';
 
   return (
     <figure
       className={[
-        // smaller on mobile; desktop is full width
+        // Slightly smaller on mobile so it’s not flush to the bezel
         'mx-auto w-[86vw] sm:w-full max-w-2xl',
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
@@ -109,7 +108,7 @@ export default function CompareSlider({
         {/* BEFORE */}
         <Image src={before} alt={altBefore} fill className="object-cover z-0" />
 
-        {/* AFTER */}
+        {/* AFTER (revealed) */}
         <div className="absolute inset-0 overflow-hidden z-0" style={{ clipPath: `inset(0 0 0 ${pct}%)` }}>
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
@@ -120,44 +119,31 @@ export default function CompareSlider({
           style={{ left: `${pct}%` }}
         />
 
-        {/* HANDLE — white circle, arrows, half-circle at true edges; always visible */}
+        {/* HANDLE — always a full circle; arrows inside; stays visible at edges */}
         <div
           className="absolute top-1/2 h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
-                     flex items-center justify-center overflow-hidden z-30 [touch-action:none]"
+                     flex items-center justify-center rounded-full overflow-hidden
+                     z-30 [touch-action:none]"
           style={{
             left: `${pct}%`,
-            transform: `translate(${translateX}, -50%)`, // <-- key fix
-            borderRadius: 9999,
-            clipPath: atLeft
-              ? 'inset(0 50% 0 0 round 9999px)'   // right half only
-              : atRight
-              ? 'inset(0 0 0 50% round 9999px)'   // left half only
-              : undefined,
-            transition: 'clip-path 150ms ease',
+            transform: `translate(${translateX}, -50%)`,
           }}
           onPointerDown={startDrag}
           aria-label="Comparison slider handle"
         >
-          {/* tiny center mask to prevent any divider bleed */}
+          {/* tiny center mask to ensure no divider bleed */}
           <span className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-white z-40" />
-
-          {/* Left arrow (hide when at left edge) */}
-          {!atLeft && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
-              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
-          {/* Spacer when both arrows visible */}
-          {!atLeft && !atRight && <span className="w-1" />}
-          {/* Right arrow (hide when at right edge) */}
-          {!atRight && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
-              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
+          {/* arrows (always visible for a normal look) */}
+          <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+            <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="w-1" />
+          <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+            <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
 
-        {/* Labels */}
+        {/* Optional corner labels */}
         {labelBefore && (
           <span
             ref={beforeRef}
