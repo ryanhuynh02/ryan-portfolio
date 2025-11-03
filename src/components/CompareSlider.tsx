@@ -63,17 +63,14 @@ export default function CompareSlider({
   
     const update = () => {
       const rect = wrap.current!.getBoundingClientRect();
-      const dividerX = (pct / 100) * rect.width; // x relative to the wrapper
-      const M = 6; // small margin so it fades just before touching
+      const dividerX = (pct / 100) * rect.width;
+      const M = 6;
   
-      // Hide BEFORE when divider is to the left of its right edge
       if (beforeRef.current) {
         const br = beforeRef.current.getBoundingClientRect();
         const beforeRight = br.right - rect.left;
         setShowBefore(dividerX > beforeRight + M);
       }
-  
-      // Hide AFTER when divider is to the right of its left edge
       if (afterRef.current) {
         const ar = afterRef.current.getBoundingClientRect();
         const afterLeft = ar.left - rect.left;
@@ -81,7 +78,7 @@ export default function CompareSlider({
       }
     };
   
-    update(); // run once now
+    update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, [pct]);
@@ -96,9 +93,9 @@ export default function CompareSlider({
     <figure className={['mx-4 sm:mx-0 rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm', className].join(' ')}>
       <div
         ref={wrap}
-           className="relative w-full select-none cursor-col-resize [touch-action:pan-y] [overscroll-behavior-x:contain]"
-           style={{ aspectRatio: aspect }}
-         >
+        className="relative w-full select-none cursor-col-resize [touch-action:pan-y] [overscroll-behavior-x:contain]"
+        style={{ aspectRatio: aspect }}
+      >
         {/* Left/base = BEFORE */}
         <Image src={before} alt={altBefore} fill className="object-cover" />
 
@@ -107,42 +104,82 @@ export default function CompareSlider({
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* Divider line + handle */}
-        <div className="absolute top-0 bottom-0 w-px bg-white/70 mix-blend-difference" style={{ left: `${pct}%` }} />
+        {/* Divider line */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-6 w-6 rounded-full bg-white shadow ring-1 ring-slate-300"
-              style={{ left: `${pct}%` }}
-              onPointerDown={startDrag}
+          className="absolute top-0 bottom-0 w-px bg-white/70 mix-blend-difference"
+          style={{ left: `${pct}%` }}
         />
 
-{labelBefore && (
-  <span
-    ref={beforeRef}
-    className={[
-      "absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow",
-      "transition-opacity duration-150",
-      showBefore ? "opacity-100" : "opacity-0 pointer-events-none"
-    ].join(" ")}
-    aria-hidden={!showBefore}
-  >
-    {labelBefore}
-  </span>
-)}
+        {/* Handle (now with arrows) */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-6 w-6 rounded-full bg-white shadow ring-1 ring-slate-300
+                     flex items-center justify-center overflow-hidden z-10"
+          style={{ left: `${pct}%` }}
+          onPointerDown={startDrag}
+        >
+          {/* Left arrow */}
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            className="text-slate-800"
+          >
+            <path
+              d="M15.5 19 8.5 12l7-7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          {/* Small space */}
+          <span className="w-1" />
+          {/* Right arrow */}
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            className="text-slate-800"
+          >
+            <path
+              d="m8.5 19 7-7-7-7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
 
-{labelAfter && (
-  <span
-    ref={afterRef}
-    className={[
-      "absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow",
-      "transition-opacity duration-150",
-      showAfter ? "opacity-100" : "opacity-0 pointer-events-none"
-    ].join(" ")}
-    aria-hidden={!showAfter}
-  >
-    {labelAfter}
-  </span>
-)}
-
+        {/* Labels */}
+        {labelBefore && (
+          <span
+            ref={beforeRef}
+            className={[
+              "absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow",
+              "transition-opacity duration-150",
+              showBefore ? "opacity-100" : "opacity-0 pointer-events-none",
+            ].join(" ")}
+            aria-hidden={!showBefore}
+          >
+            {labelBefore}
+          </span>
+        )}
+        {labelAfter && (
+          <span
+            ref={afterRef}
+            className={[
+              "absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow",
+              "transition-opacity duration-150",
+              showAfter ? "opacity-100" : "opacity-0 pointer-events-none",
+            ].join(" ")}
+            aria-hidden={!showAfter}
+          >
+            {labelAfter}
+          </span>
+        )}
       </div>
 
       {showControls && (
@@ -156,7 +193,9 @@ export default function CompareSlider({
             className="w-full accent-[#007AFF]"
             aria-label="Reveal amount"
           />
-          <p className="mt-2 text-xs text-slate-600">Tip: Drag the handle or use the slider to compare.</p>
+          <p className="mt-2 text-xs text-slate-600">
+            Tip: Drag the handle or use the slider to compare.
+          </p>
         </figcaption>
       )}
     </figure>
