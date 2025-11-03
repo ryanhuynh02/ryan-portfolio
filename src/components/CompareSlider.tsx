@@ -9,17 +9,17 @@ type Props = {
   after: string;
   altBefore?: string;
   altAfter?: string;
-  /** CSS aspect ratio, e.g. "4 / 3" or "16 / 9". Default "4 / 3". */
+  /** CSS aspect ratio, e.g. "4 / 3" or "16 / 9". */
   aspect?: string;
-  /** Initial divider position (0–100). Default 50. */
+  /** Initial divider position (0–100). */
   initial?: number;
-  /** Optional corner labels. */
+  /** Optional corner labels, e.g. "Day 1" / "Day 100" */
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  /** Show the range input under the slider. Default false. */
+  /** Show the range input under the slider. */
   showControls?: boolean;
-  /** Keep the handle away from phone edges (%) to avoid OS gestures. Default 5. */
+  /** Keep the handle away from screen edges (%) to avoid OS gestures. */
   edgeBufferPct?: number;
 };
 
@@ -37,23 +37,23 @@ export default function CompareSlider({
   edgeBufferPct = 5,
 }: Props) {
   const wrap = useRef<HTMLDivElement | null>(null);
-  const [pct, setPct] = useState(initial); // 0..100
+  const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
-  // label refs + visibility (fade out when divider touches them)
+  // labels that fade when the divider overlaps them
   const beforeRef = useRef<HTMLSpanElement | null>(null);
   const afterRef = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
   const [showAfter, setShowAfter] = useState(true);
 
-  // Start drag only from the handle
+  // start drag only from the handle (thumb-friendly, preserves vertical scroll)
   const startDrag: PointerEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     e.currentTarget.setPointerCapture?.(e.pointerId);
     setDragging(true);
   };
 
-  // Pointer move/up — clamp away from the edges for mobile ergonomics
+  // move/up with edge clamp (keeps handle away from bezel)
   useEffect(() => {
     function move(e: PointerEvent) {
       if (!dragging || !wrap.current) return;
@@ -61,16 +61,14 @@ export default function CompareSlider({
       const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
       let next = Math.round((x / rect.width) * 100);
 
-      const buffer = Math.max(2, Math.min(edgeBufferPct, 10)); // 2–10% sane range
+      const buffer = Math.max(2, Math.min(edgeBufferPct, 10)); // 2–10%
       const min = buffer;
       const max = 100 - buffer;
       next = Math.min(max, Math.max(min, next));
 
       setPct(next);
     }
-    function up() {
-      setDragging(false);
-    }
+    function up() { setDragging(false); }
 
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
@@ -80,33 +78,29 @@ export default function CompareSlider({
     };
   }, [dragging, edgeBufferPct]);
 
-  // Auto-hide labels when divider overlaps them
+  // overlap check to fade labels
   useEffect(() => {
     if (!wrap.current) return;
-
     const update = () => {
       const rect = wrap.current!.getBoundingClientRect();
-      const dividerX = (pct / 100) * rect.width;
-      const margin = 6;
+      const x = (pct / 100) * rect.width;
+      const M = 6;
 
       if (beforeRef.current) {
         const br = beforeRef.current.getBoundingClientRect();
-        const beforeRight = br.right - rect.left;
-        setShowBefore(dividerX > beforeRight + margin);
+        setShowBefore(x > (br.right - rect.left) + M);
       }
       if (afterRef.current) {
         const ar = afterRef.current.getBoundingClientRect();
-        const afterLeft = ar.left - rect.left;
-        setShowAfter(dividerX < afterLeft - margin);
+        setShowAfter(x < (ar.left - rect.left) - M);
       }
     };
-
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // Edge flags for the half-circle handle + arrow visibility
+  // edge flags for “half circle” look
   const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
   const min = buffer;
   const max = 100 - buffer;
@@ -116,7 +110,7 @@ export default function CompareSlider({
   return (
     <figure
       className={[
-        // Mobile: inset the slider so it doesn't touch the phone edges
+        // Nomad-like: centered and inset on phones so it never hits the bezel
         'mx-auto w-[92vw] sm:w-full max-w-2xl',
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
@@ -128,76 +122,60 @@ export default function CompareSlider({
                    [touch-action:pan-y] [overscroll-behavior-x:contain]"
         style={{ aspectRatio: aspect }}
       >
-        {/* BEFORE (base) */}
+        {/* BEFORE */}
         <Image src={before} alt={altBefore} fill className="object-cover" />
 
-        {/* AFTER (revealed) */}
-        <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ clipPath: `inset(0 0 0 ${pct}%)` }}
-        >
+        {/* AFTER */}
+        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 0 0 ${pct}%)` }}>
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* Divider line */}
+        {/* Divider — thicker, solid black like Nomad */}
         <div
-          className="absolute top-0 bottom-0 w-px bg-white/70 mix-blend-difference"
-          style={{ left: `${pct}%` }}
+          className="absolute top-0 bottom-0 w-[3px] bg-black"
+          style={{ left: `${pct}%`, transform: 'translateX(-1.5px)' }}
         />
 
-        {/* Handle: arrows inside; becomes half-circle at edges */}
+        {/* Handle — black w/ white chevrons, becomes half-circle at edges */}
         <div
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2
-                     h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
-                     flex items-center justify-center overflow-hidden [touch-action:none]"
+                     h-10 w-10 sm:h-8 sm:w-8 bg-black text-white
+                     shadow-[0_1px_3px_rgba(0,0,0,0.3)] ring-1 ring-black/60
+                     flex items-center justify-center overflow-hidden
+                     [touch-action:none]"
           style={{
             left: `${pct}%`,
             borderRadius: 9999,
             clipPath: atLeft
-              ? 'inset(0 50% 0 0 round 9999px)'   // show right half only
+              ? 'inset(0 50% 0 0 round 9999px)'   // right half shown
               : atRight
-              ? 'inset(0 0 0 50% round 9999px)'   // show left half only
+              ? 'inset(0 0 0 50% round 9999px)'   // left half shown
               : undefined,
           }}
           onPointerDown={startDrag}
           aria-label="Comparison slider handle"
         >
-          {/* Left chevron (hidden when snug to left edge) */}
+          {/* Left chevron (hide when snug left) */}
           {!atLeft && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-700">
-              <path
-                d="M15.5 19 8.5 12l7-7"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+            <svg width="16" height="16" viewBox="0 0 24 24" className="shrink-0">
+              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           )}
-          {/* spacer so arrows don't overlap */}
           {!atLeft && !atRight && <span className="w-1" />}
-          {/* Right chevron (hidden when snug to right edge) */}
+          {/* Right chevron (hide when snug right) */}
           {!atRight && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-700">
-              <path
-                d="m8.5 19 7-7-7-7"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+            <svg width="16" height="16" viewBox="0 0 24 24" className="shrink-0">
+              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           )}
         </div>
 
-        {/* Fading labels */}
+        {/* Corner labels (e.g., Day 1 / Day 100) */}
         {labelBefore && (
           <span
             ref={beforeRef}
             className={[
-              'absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow',
+              'absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow',
               'transition-opacity duration-150',
               showBefore ? 'opacity-100' : 'opacity-0 pointer-events-none',
             ].join(' ')}
@@ -210,7 +188,7 @@ export default function CompareSlider({
           <span
             ref={afterRef}
             className={[
-              'absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow',
+              'absolute right-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow',
               'transition-opacity duration-150',
               showAfter ? 'opacity-100' : 'opacity-0 pointer-events-none',
             ].join(' ')}
@@ -229,7 +207,7 @@ export default function CompareSlider({
             max={100}
             value={pct}
             onChange={(e) => setPct(parseInt(e.target.value, 10))}
-            className="w-full accent-[#007AFF]"
+            className="w-full accent-black"
             aria-label="Reveal amount"
           />
         </figcaption>
