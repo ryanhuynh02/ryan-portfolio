@@ -9,13 +9,13 @@ type Props = {
   after: string;
   altBefore?: string;
   altAfter?: string;
-  aspect?: string;        // e.g., "4 / 3"
+  aspect?: string;        // e.g. "4 / 3"
   initial?: number;       // 0..100
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  showControls?: boolean;
-  edgeBufferPct?: number; // keeps handle away from edge
+  showControls?: boolean; // default false
+  edgeBufferPct?: number; // keep handle away from phone edges, default 5
 };
 
 export default function CompareSlider({
@@ -35,20 +35,19 @@ export default function CompareSlider({
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
-  // Label fading refs
+  // label fading
   const beforeRef = useRef<HTMLSpanElement | null>(null);
-  const afterRef = useRef<HTMLSpanElement | null>(null);
+  const afterRef  = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
-  const [showAfter, setShowAfter] = useState(true);
+  const [showAfter,  setShowAfter]  = useState(true);
 
-  // Start drag (only from handle)
   const startDrag: PointerEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     e.currentTarget.setPointerCapture?.(e.pointerId);
     setDragging(true);
   };
 
-  // Move/Up logic — keeps handle away from screen edges
+  // move/up with edge clamp
   useEffect(() => {
     function move(e: PointerEvent) {
       if (!dragging || !wrap.current) return;
@@ -63,10 +62,7 @@ export default function CompareSlider({
 
       setPct(next);
     }
-
-    function up() {
-      setDragging(false);
-    }
+    function up() { setDragging(false); }
 
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
@@ -76,43 +72,39 @@ export default function CompareSlider({
     };
   }, [dragging, edgeBufferPct]);
 
-  // Auto-hide labels when divider overlaps them
+  // fade labels when divider overlaps
   useEffect(() => {
     if (!wrap.current) return;
     const update = () => {
       const rect = wrap.current!.getBoundingClientRect();
       const dividerX = (pct / 100) * rect.width;
-      const margin = 6;
+      const M = 6;
 
       if (beforeRef.current) {
         const br = beforeRef.current.getBoundingClientRect();
-        const beforeRight = br.right - rect.left;
-        setShowBefore(dividerX > beforeRight + margin);
+        setShowBefore(dividerX > (br.right - rect.left) + M);
       }
-
       if (afterRef.current) {
         const ar = afterRef.current.getBoundingClientRect();
-        const afterLeft = ar.left - rect.left;
-        setShowAfter(dividerX < afterLeft - margin);
+        setShowAfter(dividerX < (ar.left - rect.left) - M);
       }
     };
-
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // Determine if slider is at left or right edge (for half-circle)
+  // edge flags for half-circle + arrow visibility
   const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
   const min = buffer;
   const max = 100 - buffer;
-  const atLeft = pct <= min + 0.1;
+  const atLeft  = pct <= min + 0.1;
   const atRight = pct >= max - 0.1;
 
   return (
     <figure
       className={[
-        // Adds spacing on mobile so it doesn’t touch screen edges
+        // inset on phones so it never touches bezel
         'mx-auto w-[92vw] sm:w-full max-w-2xl',
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
@@ -120,50 +112,66 @@ export default function CompareSlider({
     >
       <div
         ref={wrap}
-        className="relative w-full select-none cursor-col-resize [touch-action:pan-y] [overscroll-behavior-x:contain]"
+        className="relative w-full select-none cursor-col-resize
+                   [touch-action:pan-y] [overscroll-behavior-x:contain]"
         style={{ aspectRatio: aspect }}
       >
-        {/* Before image */}
-        <Image src={before} alt={altBefore} fill className="object-cover" />
+        {/* base image */}
+        <Image src={before} alt={altBefore} fill className="object-cover z-0" />
 
-        {/* After image */}
-        <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ clipPath: `inset(0 0 0 ${pct}%)` }}
-        >
+        {/* revealed image */}
+        <div className="absolute inset-0 overflow-hidden z-0" style={{ clipPath: `inset(0 0 0 ${pct}%)` }}>
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* Divider line */}
+        {/* divider line (under the handle) */}
         <div
-          className="absolute top-0 bottom-0 w-px bg-white/70 mix-blend-difference"
+          className="absolute top-0 bottom-0 w-px bg-white/70 mix-blend-difference z-10"
           style={{ left: `${pct}%` }}
         />
 
-        {/* Handle — circular, becomes half when at edge */}
+        {/* HANDLE — white circle with arrows; half-circle at edges; always on top */}
         <div
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2
-                     h-8 w-8 sm:h-6 sm:w-6 rounded-full bg-white shadow ring-1 ring-slate-300
-                     [touch-action:none]"
+                     h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
+                     flex items-center justify-center overflow-hidden
+                     z-20 [touch-action:none]"
           style={{
             left: `${pct}%`,
             borderRadius: 9999,
+            // clip to half when snug to an edge so it never looks behind the divider
             clipPath: atLeft
-              ? 'inset(0 50% 0 0 round 9999px)' // show right half only
+              ? 'inset(0 50% 0 0 round 9999px)'   // show right half only
               : atRight
-              ? 'inset(0 0 0 50% round 9999px)' // show left half only
+              ? 'inset(0 0 0 50% round 9999px)'   // show left half only
               : undefined,
             transition: 'clip-path 150ms ease',
           }}
           onPointerDown={startDrag}
-        />
+          aria-label="Comparison slider handle"
+        >
+          {/* left arrow (hidden when at left edge) */}
+          {!atLeft && (
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800">
+              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+          {/* spacer when both arrows visible */}
+          {!atLeft && !atRight && <span className="w-1" />}
+          {/* right arrow (hidden when at right edge) */}
+          {!atRight && (
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800">
+              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+        </div>
 
-        {/* Labels */}
+        {/* labels */}
         {labelBefore && (
           <span
             ref={beforeRef}
             className={[
-              'absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow',
+              'absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium text-slate-700 shadow',
               'transition-opacity duration-150',
               showBefore ? 'opacity-100' : 'opacity-0 pointer-events-none',
             ].join(' ')}
@@ -176,7 +184,7 @@ export default function CompareSlider({
           <span
             ref={afterRef}
             className={[
-              'absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow',
+              'absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium text-slate-700 shadow',
               'transition-opacity duration-150',
               showAfter ? 'opacity-100' : 'opacity-0 pointer-events-none',
             ].join(' ')}
