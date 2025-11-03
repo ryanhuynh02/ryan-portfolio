@@ -33,7 +33,6 @@ export default function CompareSlider({
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
-  // label fading
   const beforeRef = useRef<HTMLSpanElement | null>(null);
   const afterRef  = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
@@ -45,13 +44,13 @@ export default function CompareSlider({
     setDragging(true);
   };
 
-  // Move/up — allow full range 0..100
+  // Full travel 0..100
   useEffect(() => {
     function move(e: PointerEvent) {
       if (!dragging || !wrap.current) return;
       const rect = wrap.current.getBoundingClientRect();
       const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
-      const next = Math.round((x / rect.width) * 100); // 0..100 full range
+      const next = Math.round((x / rect.width) * 100); // 0..100
       setPct(next);
     }
     function up() { setDragging(false); }
@@ -85,14 +84,17 @@ export default function CompareSlider({
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // edge flags for half-circle + arrow visibility (true at real edges)
+  // Edge flags for half-circle + arrow visibility
   const atLeft  = pct <= 0.5;   // ~0%
   const atRight = pct >= 99.5;  // ~100%
+
+  // Compute the correct X-translate so the handle never goes off-screen
+  const translateX = atLeft ? '0' : atRight ? '-100%' : '-50%';
 
   return (
     <figure
       className={[
-        // smaller on mobile: 86vw. Desktop stays full width.
+        // smaller on mobile; desktop is full width
         'mx-auto w-[86vw] sm:w-full max-w-2xl',
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
@@ -118,19 +120,18 @@ export default function CompareSlider({
           style={{ left: `${pct}%` }}
         />
 
-        {/* HANDLE — white circle, arrows inside, becomes half at true edges */}
+        {/* HANDLE — white circle, arrows, half-circle at true edges; always visible */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2
-                     h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
-                     flex items-center justify-center overflow-hidden
-                     z-30 [touch-action:none]"
+          className="absolute top-1/2 h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
+                     flex items-center justify-center overflow-hidden z-30 [touch-action:none]"
           style={{
             left: `${pct}%`,
+            transform: `translate(${translateX}, -50%)`, // <-- key fix
             borderRadius: 9999,
             clipPath: atLeft
-              ? 'inset(0 50% 0 0 round 9999px)'   // right half only at 0%
+              ? 'inset(0 50% 0 0 round 9999px)'   // right half only
               : atRight
-              ? 'inset(0 0 0 50% round 9999px)'   // left half only at 100%
+              ? 'inset(0 0 0 50% round 9999px)'   // left half only
               : undefined,
             transition: 'clip-path 150ms ease',
           }}
