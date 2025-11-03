@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { PointerEventHandler } from 'react';
 
 type Props = {
@@ -9,13 +9,13 @@ type Props = {
   after: string;
   altBefore?: string;
   altAfter?: string;
-  aspect?: string;        // e.g. "4 / 3"
+  aspect?: string;        // e.g., "4 / 3"
   initial?: number;       // 0..100
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  showControls?: boolean; // default false
-  edgeBufferPct?: number; // default 5
+  showControls?: boolean;
+  edgeBufferPct?: number; // keep handle away from bezel (default 5)
 };
 
 export default function CompareSlider({
@@ -32,20 +32,43 @@ export default function CompareSlider({
   edgeBufferPct = 5,
 }: Props) {
   const wrap = useRef<HTMLDivElement | null>(null);
+  const handleRef = useRef<HTMLDivElement | null>(null);
+
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
-  // labels fade when overlapped
+  // dynamic gap = half of actual handle height (so divider gap always matches)
+  const [gapPx, setGapPx] = useState(8); // default; updated on mount/resize
+
+  // label fade
   const beforeRef = useRef<HTMLSpanElement | null>(null);
-  const afterRef  = useRef<HTMLSpanElement | null>(null);
+  const afterRef = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
-  const [showAfter,  setShowAfter]  = useState(true);
+  const [showAfter, setShowAfter] = useState(true);
 
   const startDrag: PointerEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     e.currentTarget.setPointerCapture?.(e.pointerId);
     setDragging(true);
   };
+
+  // measure handle to compute exact divider gap
+  useLayoutEffect(() => {
+    function measure() {
+      if (!handleRef.current) return;
+      const rect = handleRef.current.getBoundingClientRect();
+      setGapPx(rect.height / 2);
+    }
+    measure();
+    // re-measure on resize and on font-size / DPR changes
+    const ro = new ResizeObserver(measure);
+    if (handleRef.current) ro.observe(handleRef.current);
+    window.addEventListener('resize', measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, []);
 
   // move/up with edge clamp
   useEffect(() => {
@@ -62,8 +85,9 @@ export default function CompareSlider({
 
       setPct(next);
     }
-    function up() { setDragging(false); }
-
+    function up() {
+      setDragging(false);
+    }
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
     return () => {
@@ -72,7 +96,7 @@ export default function CompareSlider({
     };
   }, [dragging, edgeBufferPct]);
 
-  // fade labels when divider overlaps
+  // fade labels when the divider touches them
   useEffect(() => {
     if (!wrap.current) return;
     const update = () => {
@@ -93,15 +117,13 @@ export default function CompareSlider({
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // edge flags for half-circle look
+  // edge flags for half-circle and arrows
   const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
   const min = buffer;
   const max = 100 - buffer;
-  const atLeft  = pct <= min + 0.1;
+  const atLeft = pct <= min + 0.1;
   const atRight = pct >= max - 0.1;
 
-  // CSS var for gap = half of handle diameter (mobile/desktop sizes)
-  // Tailwind arbitrary properties let us set [--gap:16px] and sm:[--gap:12px]
   return (
     <figure
       className={[
@@ -113,72 +135,75 @@ export default function CompareSlider({
       <div
         ref={wrap}
         className="relative w-full select-none cursor-col-resize
-                   [touch-action:pan-y] [overscroll-behavior-x:contain]
-                   [--gap:16px] sm:[--gap:12px]"
+                   [touch-action:pan-y] [overscroll-behavior-x:contain]"
         style={{ aspectRatio: aspect }}
       >
-        {/* Base image */}
+        {/* BEFORE */}
         <Image src={before} alt={altBefore} fill className="object-cover z-0" />
 
-        {/* Revealed image */}
+        {/* AFTER */}
         <div className="absolute inset-0 overflow-hidden z-0" style={{ clipPath: `inset(0 0 0 ${pct}%)` }}>
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* Divider split into two segments to leave a clean gap for the handle */}
+        {/* DIVIDER: split into top/bottom with a gap that exactly equals handle radius */}
         <div
-          className="absolute left-0 top-0 w-px bg-white/80 z-20"
+          className="absolute left-0 top-0 w-[2px] bg-white/80 z-20"
           style={{
             left: `${pct}%`,
-            height: 'calc(50% - var(--gap))',
-            transform: 'translateX(-0.5px)',
+            height: `calc(50% - ${gapPx}px)`,
+            transform: 'translateX(-1px)',
           }}
         />
         <div
-          className="absolute left-0 bottom-0 w-px bg-white/80 z-20"
+          className="absolute left-0 bottom-0 w-[2px] bg-white/80 z-20"
           style={{
             left: `${pct}%`,
-            height: 'calc(50% - var(--gap))',
-            transform: 'translateX(-0.5px)',
+            height: `calc(50% - ${gapPx}px)`,
+            transform: 'translateX(-1px)',
           }}
         />
 
-        {/* Handle (white circle, half-circle at edges, with arrows) */}
+        {/* HANDLE */}
         <div
+          ref={handleRef}
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2
                      h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
-                     flex items-center justify-center overflow-hidden z-30
-                     [touch-action:none]"
+                     flex items-center justify-center overflow-hidden
+                     z-50 [touch-action:none]"
           style={{
             left: `${pct}%`,
             borderRadius: 9999,
             clipPath: atLeft
-              ? 'inset(0 50% 0 0 round 9999px)'   // show right half only
+              ? 'inset(0 50% 0 0 round 9999px)'  // show right half only
               : atRight
-              ? 'inset(0 0 0 50% round 9999px)'   // show left half only
+              ? 'inset(0 0 0 50% round 9999px)'  // show left half only
               : undefined,
             transition: 'clip-path 150ms ease',
           }}
           onPointerDown={startDrag}
           aria-label="Comparison slider handle"
         >
-          {/* Left arrow (hidden when tight to left) */}
+          {/* Center mask (ensures no divider peeks through even if blend/antialiasing) */}
+          <span className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3px] bg-white z-50" />
+
+          {/* Left arrow (hide when at extreme left) */}
           {!atLeft && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800">
-              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-50">
+              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
-          {/* spacer when both arrows visible */}
+          {/* Spacer when both arrows visible */}
           {!atLeft && !atRight && <span className="w-1" />}
-          {/* Right arrow (hidden when tight to right) */}
+          {/* Right arrow (hide when at extreme right) */}
           {!atRight && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800">
-              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-50">
+              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
         </div>
 
-        {/* Labels */}
+        {/* LABELS */}
         {labelBefore && (
           <span
             ref={beforeRef}
