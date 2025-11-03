@@ -9,13 +9,13 @@ type Props = {
   after: string;
   altBefore?: string;
   altAfter?: string;
-  aspect?: string;        // e.g., "4 / 3"
+  aspect?: string;        // e.g. "4 / 3"
   initial?: number;       // 0..100
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  showControls?: boolean;
-  edgeBufferPct?: number; // keeps handle away from edge, default 5
+  showControls?: boolean; // default false
+  edgeBufferPct?: number; // default 5
 };
 
 export default function CompareSlider({
@@ -35,6 +35,7 @@ export default function CompareSlider({
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
+  // labels fade when overlapped
   const beforeRef = useRef<HTMLSpanElement | null>(null);
   const afterRef  = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
@@ -46,7 +47,7 @@ export default function CompareSlider({
     setDragging(true);
   };
 
-  // Move/up with edge clamp (keeps handle away from bezel)
+  // move/up with edge clamp
   useEffect(() => {
     function move(e: PointerEvent) {
       if (!dragging || !wrap.current) return;
@@ -54,7 +55,7 @@ export default function CompareSlider({
       const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
       let next = Math.round((x / rect.width) * 100);
 
-      const buffer = Math.max(2, Math.min(edgeBufferPct, 10)); // 2–10%
+      const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
       const min = buffer;
       const max = 100 - buffer;
       next = Math.min(max, Math.max(min, next));
@@ -71,14 +72,13 @@ export default function CompareSlider({
     };
   }, [dragging, edgeBufferPct]);
 
-  // Fade labels when divider overlaps them
+  // fade labels when divider overlaps
   useEffect(() => {
     if (!wrap.current) return;
     const update = () => {
       const rect = wrap.current!.getBoundingClientRect();
       const x = (pct / 100) * rect.width;
       const M = 6;
-
       if (beforeRef.current) {
         const br = beforeRef.current.getBoundingClientRect();
         setShowBefore(x > (br.right - rect.left) + M);
@@ -93,17 +93,18 @@ export default function CompareSlider({
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // Edge flags for the half-circle handle + arrow visibility
+  // edge flags for half-circle look
   const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
   const min = buffer;
   const max = 100 - buffer;
   const atLeft  = pct <= min + 0.1;
   const atRight = pct >= max - 0.1;
 
+  // CSS var for gap = half of handle diameter (mobile/desktop sizes)
+  // Tailwind arbitrary properties let us set [--gap:16px] and sm:[--gap:12px]
   return (
     <figure
       className={[
-        // inset on phones so the handle isn't flush to bezel
         'mx-auto w-[92vw] sm:w-full max-w-2xl',
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
@@ -112,7 +113,8 @@ export default function CompareSlider({
       <div
         ref={wrap}
         className="relative w-full select-none cursor-col-resize
-                   [touch-action:pan-y] [overscroll-behavior-x:contain]"
+                   [touch-action:pan-y] [overscroll-behavior-x:contain]
+                   [--gap:16px] sm:[--gap:12px]"
         style={{ aspectRatio: aspect }}
       >
         {/* Base image */}
@@ -123,22 +125,33 @@ export default function CompareSlider({
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* Divider line (keep it BELOW the handle) */}
+        {/* Divider split into two segments to leave a clean gap for the handle */}
         <div
-          className="absolute top-0 bottom-0 w-px bg-white/80 z-10"  // no mix-blend; z-10
-          style={{ left: `${pct}%` }}
+          className="absolute left-0 top-0 w-px bg-white/80 z-20"
+          style={{
+            left: `${pct}%`,
+            height: 'calc(50% - var(--gap))',
+            transform: 'translateX(-0.5px)',
+          }}
+        />
+        <div
+          className="absolute left-0 bottom-0 w-px bg-white/80 z-20"
+          style={{
+            left: `${pct}%`,
+            height: 'calc(50% - var(--gap))',
+            transform: 'translateX(-0.5px)',
+          }}
         />
 
-        {/* HANDLE — white circle with arrows; half-circle at edges; ALWAYS on top */}
+        {/* Handle (white circle, half-circle at edges, with arrows) */}
         <div
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2
                      h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
-                     flex items-center justify-center overflow-hidden
-                     z-30 [touch-action:none]"
+                     flex items-center justify-center overflow-hidden z-30
+                     [touch-action:none]"
           style={{
             left: `${pct}%`,
             borderRadius: 9999,
-            // clip to half when snug to an edge
             clipPath: atLeft
               ? 'inset(0 50% 0 0 round 9999px)'   // show right half only
               : atRight
@@ -149,21 +162,17 @@ export default function CompareSlider({
           onPointerDown={startDrag}
           aria-label="Comparison slider handle"
         >
-          {/* --- IMPORTANT: tiny mask strip to cover divider under the handle --- */}
-          <span className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-white z-40" />
-          {/* ------------------------------------------------------------------- */}
-
-          {/* Left arrow (hidden when at left edge) */}
+          {/* Left arrow (hidden when tight to left) */}
           {!atLeft && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800">
               <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           )}
-          {/* Spacer when both arrows visible */}
+          {/* spacer when both arrows visible */}
           {!atLeft && !atRight && <span className="w-1" />}
-          {/* Right arrow (hidden when at right edge) */}
+          {/* Right arrow (hidden when tight to right) */}
           {!atRight && (
-            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800">
               <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           )}
