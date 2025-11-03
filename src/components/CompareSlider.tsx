@@ -9,18 +9,13 @@ type Props = {
   after: string;
   altBefore?: string;
   altAfter?: string;
-  /** CSS aspect ratio, e.g. "4 / 3" or "16 / 9". */
-  aspect?: string;
-  /** Initial divider position (0–100). */
-  initial?: number;
-  /** Optional corner labels, e.g. "Day 1" / "Day 100" */
+  aspect?: string;        // e.g., "4 / 3"
+  initial?: number;       // 0..100
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  /** Show the range input under the slider. */
   showControls?: boolean;
-  /** Keep the handle away from screen edges (%) to avoid OS gestures. */
-  edgeBufferPct?: number;
+  edgeBufferPct?: number; // keeps handle away from edge
 };
 
 export default function CompareSlider({
@@ -40,20 +35,20 @@ export default function CompareSlider({
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
-  // labels that fade when the divider overlaps them
+  // Label fading refs
   const beforeRef = useRef<HTMLSpanElement | null>(null);
   const afterRef = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
   const [showAfter, setShowAfter] = useState(true);
 
-  // start drag only from the handle (thumb-friendly, preserves vertical scroll)
+  // Start drag (only from handle)
   const startDrag: PointerEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     e.currentTarget.setPointerCapture?.(e.pointerId);
     setDragging(true);
   };
 
-  // move/up with edge clamp (keeps handle away from bezel)
+  // Move/Up logic — keeps handle away from screen edges
   useEffect(() => {
     function move(e: PointerEvent) {
       if (!dragging || !wrap.current) return;
@@ -68,7 +63,10 @@ export default function CompareSlider({
 
       setPct(next);
     }
-    function up() { setDragging(false); }
+
+    function up() {
+      setDragging(false);
+    }
 
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
@@ -78,29 +76,33 @@ export default function CompareSlider({
     };
   }, [dragging, edgeBufferPct]);
 
-  // overlap check to fade labels
+  // Auto-hide labels when divider overlaps them
   useEffect(() => {
     if (!wrap.current) return;
     const update = () => {
       const rect = wrap.current!.getBoundingClientRect();
-      const x = (pct / 100) * rect.width;
-      const M = 6;
+      const dividerX = (pct / 100) * rect.width;
+      const margin = 6;
 
       if (beforeRef.current) {
         const br = beforeRef.current.getBoundingClientRect();
-        setShowBefore(x > (br.right - rect.left) + M);
+        const beforeRight = br.right - rect.left;
+        setShowBefore(dividerX > beforeRight + margin);
       }
+
       if (afterRef.current) {
         const ar = afterRef.current.getBoundingClientRect();
-        setShowAfter(x < (ar.left - rect.left) - M);
+        const afterLeft = ar.left - rect.left;
+        setShowAfter(dividerX < afterLeft - margin);
       }
     };
+
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // edge flags for “half circle” look
+  // Determine if slider is at left or right edge (for half-circle)
   const buffer = Math.max(2, Math.min(edgeBufferPct, 10));
   const min = buffer;
   const max = 100 - buffer;
@@ -110,7 +112,7 @@ export default function CompareSlider({
   return (
     <figure
       className={[
-        // Nomad-like: centered and inset on phones so it never hits the bezel
+        // Adds spacing on mobile so it doesn’t touch screen edges
         'mx-auto w-[92vw] sm:w-full max-w-2xl',
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
@@ -118,64 +120,50 @@ export default function CompareSlider({
     >
       <div
         ref={wrap}
-        className="relative w-full select-none cursor-col-resize
-                   [touch-action:pan-y] [overscroll-behavior-x:contain]"
+        className="relative w-full select-none cursor-col-resize [touch-action:pan-y] [overscroll-behavior-x:contain]"
         style={{ aspectRatio: aspect }}
       >
-        {/* BEFORE */}
+        {/* Before image */}
         <Image src={before} alt={altBefore} fill className="object-cover" />
 
-        {/* AFTER */}
-        <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 0 0 ${pct}%)` }}>
+        {/* After image */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: `inset(0 0 0 ${pct}%)` }}
+        >
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* Divider — thicker, solid black like Nomad */}
+        {/* Divider line */}
         <div
-          className="absolute top-0 bottom-0 w-[3px] bg-black"
-          style={{ left: `${pct}%`, transform: 'translateX(-1.5px)' }}
+          className="absolute top-0 bottom-0 w-px bg-white/70 mix-blend-difference"
+          style={{ left: `${pct}%` }}
         />
 
-        {/* Handle — black w/ white chevrons, becomes half-circle at edges */}
+        {/* Handle — circular, becomes half when at edge */}
         <div
           className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2
-                     h-10 w-10 sm:h-8 sm:w-8 bg-black text-white
-                     shadow-[0_1px_3px_rgba(0,0,0,0.3)] ring-1 ring-black/60
-                     flex items-center justify-center overflow-hidden
+                     h-8 w-8 sm:h-6 sm:w-6 rounded-full bg-white shadow ring-1 ring-slate-300
                      [touch-action:none]"
           style={{
             left: `${pct}%`,
             borderRadius: 9999,
             clipPath: atLeft
-              ? 'inset(0 50% 0 0 round 9999px)'   // right half shown
+              ? 'inset(0 50% 0 0 round 9999px)' // show right half only
               : atRight
-              ? 'inset(0 0 0 50% round 9999px)'   // left half shown
+              ? 'inset(0 0 0 50% round 9999px)' // show left half only
               : undefined,
+            transition: 'clip-path 150ms ease',
           }}
           onPointerDown={startDrag}
-          aria-label="Comparison slider handle"
-        >
-          {/* Left chevron (hide when snug left) */}
-          {!atLeft && (
-            <svg width="16" height="16" viewBox="0 0 24 24" className="shrink-0">
-              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
-          {!atLeft && !atRight && <span className="w-1" />}
-          {/* Right chevron (hide when snug right) */}
-          {!atRight && (
-            <svg width="16" height="16" viewBox="0 0 24 24" className="shrink-0">
-              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
-        </div>
+        />
 
-        {/* Corner labels (e.g., Day 1 / Day 100) */}
+        {/* Labels */}
         {labelBefore && (
           <span
             ref={beforeRef}
             className={[
-              'absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow',
+              'absolute left-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow',
               'transition-opacity duration-150',
               showBefore ? 'opacity-100' : 'opacity-0 pointer-events-none',
             ].join(' ')}
@@ -188,7 +176,7 @@ export default function CompareSlider({
           <span
             ref={afterRef}
             className={[
-              'absolute right-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow',
+              'absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-medium shadow',
               'transition-opacity duration-150',
               showAfter ? 'opacity-100' : 'opacity-0 pointer-events-none',
             ].join(' ')}
@@ -207,7 +195,7 @@ export default function CompareSlider({
             max={100}
             value={pct}
             onChange={(e) => setPct(parseInt(e.target.value, 10))}
-            className="w-full accent-black"
+            className="w-full accent-[#007AFF]"
             aria-label="Reveal amount"
           />
         </figcaption>
