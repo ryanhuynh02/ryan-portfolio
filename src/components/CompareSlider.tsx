@@ -9,12 +9,12 @@ type Props = {
   after: string;
   altBefore?: string;
   altAfter?: string;
-  aspect?: string;        // e.g. "4 / 3"
+  aspect?: string;        // e.g., "4 / 3"
   initial?: number;       // 0..100
   labelBefore?: string;
   labelAfter?: string;
   className?: string;
-  showControls?: boolean; // optional range input below
+  showControls?: boolean; // optional range input
 };
 
 export default function CompareSlider({
@@ -35,21 +35,20 @@ export default function CompareSlider({
   const [pct, setPct] = useState(initial);
   const [dragging, setDragging] = useState(false);
 
-  // gapPx = half of the knob height → divider leaves a gap exactly under the knob
-  const [gapPx, setGapPx] = useState(16); // fallback; measured on mount/resize
+  // divider gap (half of knob height) so no line runs under the knob
+  const [gapPx, setGapPx] = useState(16);
 
-  // optional label fade when overlapped by divider
+  // optional label fade
   const beforeRef = useRef<HTMLSpanElement | null>(null);
   const afterRef  = useRef<HTMLSpanElement | null>(null);
   const [showBefore, setShowBefore] = useState(true);
-  const [showAfter,  setShowAfter]  = useState(true);
+  const [showAfter, setShowAfter] = useState(true);
 
-  // measure knob to keep the divider gap perfect on any screen
+  // measure knob to keep divider gap perfect
   useLayoutEffect(() => {
     const measure = () => {
       if (!knob.current) return;
-      const h = knob.current.getBoundingClientRect().height;
-      setGapPx(h / 2);
+      setGapPx(knob.current.getBoundingClientRect().height / 2);
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -67,7 +66,7 @@ export default function CompareSlider({
     setDragging(true);
   };
 
-  // full travel 0..100
+  // Full travel 0..100
   useEffect(() => {
     function move(e: PointerEvent) {
       if (!dragging || !wrap.current) return;
@@ -84,7 +83,7 @@ export default function CompareSlider({
     };
   }, [dragging]);
 
-  // label fade logic
+  // label fade when divider overlaps
   useEffect(() => {
     if (!wrap.current) return;
     const update = () => {
@@ -105,16 +104,17 @@ export default function CompareSlider({
     return () => window.removeEventListener('resize', update);
   }, [pct]);
 
-  // keep knob fully visible at the extremes
-  const atLeft  = pct <= 0.5;
-  const atRight = pct >= 99.5;
+  // Edge detection (true edges)
+  const atLeft  = pct <= 0.5;    // ~0%
+  const atRight = pct >= 99.5;   // ~100%
+
+  // Keep knob fully on-screen at edges
   const translateX = atLeft ? '0' : atRight ? '-100%' : '-50%';
 
   return (
     <figure
       className={[
-        // smaller on mobile so it’s not flush to the bezel
-        'mx-auto w-[86vw] sm:w-full max-w-2xl',
+        'mx-auto w-[86vw] sm:w-full max-w-2xl', // smaller on mobile
         'rounded-2xl overflow-hidden ring-1 ring-slate-200 bg-white shadow-sm',
         className,
       ].join(' ')}
@@ -125,10 +125,10 @@ export default function CompareSlider({
                    [touch-action:pan-y] [overscroll-behavior-x:contain]"
         style={{ aspectRatio: aspect }}
       >
-        {/* BEFORE image */}
+        {/* BEFORE */}
         <Image src={before} alt={altBefore} fill className="object-cover z-0" />
 
-        {/* AFTER image */}
+        {/* AFTER */}
         <div
           className="absolute inset-0 overflow-hidden z-0"
           style={{ clipPath: `inset(0 0 0 ${pct}%)` }}
@@ -136,7 +136,7 @@ export default function CompareSlider({
           <Image src={after} alt={altAfter} fill className="object-cover" />
         </div>
 
-        {/* Divider split into two segments with a gap under the knob */}
+        {/* Divider split (top/bottom) — leaves a gap under the knob */}
         <div
           className="absolute left-0 top-0 w-px bg-white/85 z-10"
           style={{
@@ -154,28 +154,40 @@ export default function CompareSlider({
           }}
         />
 
-        {/* Knob — always a full circle; arrows inside; never clipped */}
+        {/* KNOB — full circle in middle; half-circle at true edges */}
         <div
           ref={knob}
           className="absolute top-1/2 h-8 w-8 sm:h-6 sm:w-6 bg-white shadow ring-1 ring-slate-300
-                     flex items-center justify-center rounded-full overflow-hidden
-                     z-30 [touch-action:none]"
+                     flex items-center justify-center overflow-hidden z-30 [touch-action:none]"
           style={{
             left: `${pct}%`,
             transform: `translate(${translateX}, -50%)`,
+            borderRadius: 9999,
+            // half-circle at edges (right half when left edge; left half when right edge)
+            clipPath: atLeft
+              ? 'inset(0 50% 0 0 round 9999px)'
+              : atRight
+              ? 'inset(0 0 0 50% round 9999px)'
+              : 'inset(0 0 0 0 round 9999px)', // full circle otherwise
+            transition: 'clip-path 120ms ease',
           }}
           onPointerDown={startDrag}
           aria-label="Comparison slider handle"
         >
           {/* tiny mask to ensure no line peeks through */}
           <span className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-white z-40" />
-          <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
-            <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span className="w-1" />
-          <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
-            <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          {/* arrows inside */}
+          {!atLeft && (
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+              <path d="M15.5 19 8.5 12l7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+          {!atLeft && !atRight && <span className="w-1" />}
+          {!atRight && (
+            <svg width="14" height="14" viewBox="0 0 24 24" className="text-slate-800 z-40">
+              <path d="m8.5 19 7-7-7-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
         </div>
 
         {/* Optional labels */}
