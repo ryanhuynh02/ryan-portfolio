@@ -550,11 +550,12 @@ export default function Portfolio() {
           <div className="relative">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden shrink-0">
+            <div className="w-28 h-28 sm:w-24 sm:h-24 rounded-full overflow-hidden shrink-0">
               <Image
                 src="/profile-picture.jpeg"
                 alt="Ryan Huynh"
-                fill
+                width={112}
+                height={112}
                 className="object-cover w-full h-full"
                 priority
               />
