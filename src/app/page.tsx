@@ -554,8 +554,8 @@ export default function Portfolio() {
               <Image
                 src="/profile-picture.jpeg"
                 alt="Ryan Huynh"
-                width={160}
-                height={160}
+                width={180}
+                height={180}
                 className="object-cover w-full h-full"
                 priority
               />
