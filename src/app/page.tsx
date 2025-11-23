@@ -105,42 +105,36 @@ const CONFIG = {
   ],
 };
 function AboutCollapse() {
-  const [open, setOpen] = useState(false);
   return (
     <div className="mt-4">
-      <button
-        type="button"
-        onClick={() => setOpen(v => !v)}
-        className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
-        aria-expanded={open}
-      >
-        <span className="font-medium text-slate-700">More about me</span>
-        <ChevronDown className={`h-4 w-4 text-slate-600 transition-transform ${open ? "rotate-180" : ""}`} />
-      </button>
-
-      {open && (
-        <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
-          <p>
-            I’m a passionate Computer Engineering student with practical experience in both hardware and software development.
-            Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue expanding my knoweledge
-            in cutting-edge technologies.
-          </p>
-          <p>
-            During my internship at San Francisco State University from June to August 2025, I gained hands-on experience
-            in real-world engineering projects, collaborating with teams and applying theoretical knowledge to practical solutions.
-          </p>
-          <p>
-            I’m excited about the intersection of hardware and software, with particular interests in embedded systems,
-            machine learning, and innovative computing solutions that can make a positive impact on society.
-          </p>
-          <p>
-            In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While soccer was once my primary focus, I recently learned the others when I hang out with my friends. They are really nice and show me step by step on how to play these sports; I am grateful for their support and the memories we’ve made.
-          </p>
-          <p>
-            I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new flavors and expand my culinary skills.
-          </p>
-        </div>
-      )}
+      {/* expanded text (always shown) */}
+      <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
+        <p>
+          I’m a passionate Computer Engineering student with practical experience in both hardware and software
+          development. Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue expanding
+          my knowledge in cutting-edge technologies.
+        </p>
+        <p>
+          During my internship at San Francisco State University from June to August 2025, I gained hands-on experience
+          in real-world engineering projects, collaborating with teams and applying theoretical knowledge to practical
+          solutions.
+        </p>
+        <p>
+          I’m excited about the intersection of hardware and software, with particular interests in embedded systems,
+          machine learning, and innovative computing solutions that can make a positive impact on society.
+        </p>
+        <p>
+          In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery. While
+          soccer was once my primary focus, I recently learned the others when I hang out with my friends. They are
+          really nice and show me step by step on how to play these sports; I am grateful for their support and the
+          memories we’ve made.
+        </p>
+        <p>
+          I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and
+          learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new flavors and
+          expand my culinary skills.
+        </p>
+      </div>
     </div>
   );
 }
