@@ -627,11 +627,13 @@ export default function Portfolio() {
                 </h3>
                 <Link
                   href={p.href}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg
                             bg-[#007AFF] text-white text-sm
-                            shadow-sm hover:shadow-md
-                            transition-transform duration-150
-                            hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm
+                            shadow-sm transition
+                            transform-gpu will-change-transform
+                            motion-safe:hover:scale-[1.06] motion-safe:hover:-translate-y-0.5
+                            hover:shadow-[0_8px_18px_rgba(0,122,255,0.35)]
+                            active:scale-100 active:translate-y-0 active:shadow-sm
                             focus:outline-none focus:ring-2 focus:ring-[#007AFF]/30"
                 >
                   View
