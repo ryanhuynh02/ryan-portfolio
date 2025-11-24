@@ -165,7 +165,7 @@ function ExperienceMoreSFSU() {
         <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
           <p>
             I’ve been selected as a Summer Training Academy for Research Scholars (STARS) Program. 
-            During my research, I collaborated with Professor Alyssa Kubota at the Personalized Health
+            During my research, I collaborated with Dr Alyssa Kubota at the Personalized Health
             and Assistive Technologies Laboratory (PHAST Lab) at San Francisco State University. 
             My role in the lab involved constructing the Carmen robot hardware and translating the iOS app game into a web version 
             that aids children with complex communication needs in expressing their internal states and individuals with cognitive impairments.
