@@ -5,7 +5,7 @@ import remarkGfm from "remark-gfm";
 import type { ComponentType } from "react";
 
 import { MDXComponents } from "@/components/MDXComponents";
-import { listPosts, getPostSource } from "@/lib/blog";
+import { listPosts, getPost } from "@/lib/blog";
 
 // Pre-generate one page per post
 export async function generateStaticParams() {
@@ -26,6 +26,15 @@ export async function generateMetadata({
   };
 }
 
+function formatLocalDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
 // In Next 15, params is also a Promise for the page
 export default async function BlogPostPage({
   params,
@@ -34,8 +43,8 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
 
-  const source = getPostSource(slug);
-  if (!source) return notFound();
+  const post = getPost(slug);
+  if (!post) return notFound();
 
   const components = MDXComponents as unknown as Record<string, ComponentType>;
 
@@ -44,9 +53,28 @@ export default async function BlogPostPage({
       <Link href="/blog" className="text-sm underline text-slate-600 hover:text-slate-900">
         ← Back to Blog
       </Link>
-      <article className="mt-6 prose prose-slate">
+
+      {/* Title + date on top */}
+      <header className="mt-6">
+        <h1 className="text-3xl font-extrabold tracking-tight">{post.title}</h1>
+        <time className="mt-1 block text-sm text-slate-500">
+          {formatLocalDate(post.date)}
+        </time>
+
+        {/* Optional cover image */}
+        {post.cover ? (
+          <img
+            src={post.cover}
+            alt=""
+            className="mt-6 w-full rounded-xl border border-slate-200"
+          />
+        ) : null}
+      </header>
+
+      {/* MDX body (front-matter removed) */}
+      <article className="prose prose-slate max-w-none mt-8">
         <MDXRemote
-          source={source}
+          source={post.content}
           options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           components={components}
         />
