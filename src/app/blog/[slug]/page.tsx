@@ -1,5 +1,7 @@
+// src/app/blog/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import type { ComponentType } from "react";
@@ -7,12 +9,12 @@ import type { ComponentType } from "react";
 import { MDXComponents } from "@/components/MDXComponents";
 import { listPosts, getPost } from "@/lib/blog";
 
-// Pre-generate one page per post
+// Pre-generate pages for all posts
 export async function generateStaticParams() {
   return listPosts().map((p) => ({ slug: p.slug }));
 }
 
-// In Next 15, params is a Promise in generateMetadata
+// Metadata (Next 15: params is a Promise)
 export async function generateMetadata({
   params,
 }: {
@@ -35,7 +37,7 @@ function formatLocalDate(iso: string) {
   });
 }
 
-// In Next 15, params is also a Promise for the page
+// Page (Next 15: params is a Promise)
 export default async function BlogPostPage({
   params,
 }: {
@@ -54,24 +56,28 @@ export default async function BlogPostPage({
         ← Back to Blog
       </Link>
 
-      {/* Title + date on top */}
+      {/* Title + date */}
       <header className="mt-6">
         <h1 className="text-3xl font-extrabold tracking-tight">{post.title}</h1>
         <time className="mt-1 block text-sm text-slate-500">
           {formatLocalDate(post.date)}
         </time>
 
-        {/* Optional cover image */}
+        {/* Optional cover image (optimized) */}
         {post.cover ? (
-          <img
-            src={post.cover}
-            alt=""
-            className="mt-6 w-full rounded-xl border border-slate-200"
+          <Image
+            src={post.cover}                 // e.g. "/blog/east-coast/cover.jpg" in /public
+            alt=""                           // add a description if you want it announced
+            width={1200}
+            height={630}
+            className="mt-6 w-full rounded-xl border border-slate-200 h-auto"
+            sizes="(min-width: 768px) 768px, 100vw"
+            priority
           />
         ) : null}
       </header>
 
-      {/* MDX body (front-matter removed) */}
+      {/* MDX body (front-matter already stripped in getPost) */}
       <article className="prose prose-slate max-w-none mt-8">
         <MDXRemote
           source={post.content}
