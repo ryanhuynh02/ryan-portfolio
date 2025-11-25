@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { listPosts } from "@/lib/blog";
+import { Home as HomeIcon } from "lucide-react";
 
 export const metadata = {
   title: "Blog — Ryan Huynh",
@@ -33,10 +34,18 @@ export default function BlogIndexPage() {
       {/* Header only on /blog */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-sm text-slate-600 hover:text-slate-900">
-            ← Home
+          {/* Home link with icon */}
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-900"
+            aria-label="Go to home"
+          >
+            <HomeIcon className="size-4" />
+            <span>Home</span>
           </Link>
+
           <h1 className="text-lg font-semibold tracking-tight">Blog</h1>
+
           {/* spacer to balance layout */}
           <span className="text-sm text-transparent select-none">placeholder</span>
         </div>
