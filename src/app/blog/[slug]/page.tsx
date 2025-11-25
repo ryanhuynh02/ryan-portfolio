@@ -9,12 +9,10 @@ import type { ComponentType } from "react";
 import { MDXComponents } from "@/components/MDXComponents";
 import { listPosts, getPost } from "@/lib/blog";
 
-// Pre-generate pages for all posts
 export async function generateStaticParams() {
   return listPosts().map((p) => ({ slug: p.slug }));
 }
 
-// Metadata (Next 15: params is a Promise)
 export async function generateMetadata({
   params,
 }: {
@@ -30,21 +28,15 @@ export async function generateMetadata({
 
 function formatLocalDate(iso: string) {
   const d = new Date(iso);
-  return d.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
-// Page (Next 15: params is a Promise)
 export default async function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
   const post = getPost(slug);
   if (!post) return notFound();
 
@@ -59,25 +51,30 @@ export default async function BlogPostPage({
       {/* Title + date */}
       <header className="mt-6">
         <h1 className="text-3xl font-extrabold tracking-tight">{post.title}</h1>
-        <time className="mt-1 block text-sm text-slate-500">
-          {formatLocalDate(post.date)}
-        </time>
+        <time className="mt-1 block text-sm text-slate-500">{formatLocalDate(post.date)}</time>
 
-        {/* Optional cover image (optimized) */}
+        {/* Cover with italic caption (summary) */}
         {post.cover ? (
-          <Image
-            src={post.cover}                 // e.g. "/blog/east-coast/cover.jpg" in /public
-            alt=""                           // add a description if you want it announced
-            width={1200}
-            height={630}
-            className="mt-6 w-full rounded-xl border border-slate-200 h-auto"
-            sizes="(min-width: 768px) 768px, 100vw"
-            priority
-          />
+          <figure className="mt-6">
+            <Image
+              src={post.cover}
+              alt=""
+              width={1200}
+              height={630}
+              className="w-full rounded-xl border border-slate-200 h-auto"
+              sizes="(min-width: 768px) 768px, 100vw"
+              priority
+            />
+            {post.summary ? (
+              <figcaption className="mt-2 text-center text-sm italic text-slate-600">
+                {post.summary}
+              </figcaption>
+            ) : null}
+          </figure>
         ) : null}
       </header>
 
-      {/* MDX body (front-matter already stripped in getPost) */}
+      {/* MDX body */}
       <article className="prose prose-slate max-w-none mt-8">
         <MDXRemote
           source={post.content}
