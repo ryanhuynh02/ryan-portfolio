@@ -6,7 +6,7 @@ import { Menu, X, Download } from "lucide-react";
 import { useState } from "react";
 
 // Wider shell than the cards so left feels more-left and right more-right
-const SHELL = "max-w-7xl mx-auto pl-2 pr-6 sm:pl-3 sm:pr-8";
+const SHELL = "max-w-6xl mx-auto pl-2 pr-6 sm:pl-3 sm:pr-8";
 
 export default function SiteHeader({
   resumeUrl = "/Ryan_Huynh_Resume.pdf",
