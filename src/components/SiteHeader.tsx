@@ -31,10 +31,34 @@ export default function SiteHeader({
     setDrawerVisible(true);
     setTimeout(() => setDrawerOpen(true), 0);
   };
-
   const closeDrawer = () => {
     setDrawerOpen(false);
     setTimeout(() => setDrawerVisible(false), 300);
+  };
+
+  // Smooth-scroll + destination pulse
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    // only intercept in-page links like "/#about" or "#about"
+    const match = href.match(/#([\w-]+)/);
+    if (!match) return; // let normal navigation (e.g., /blog) happen
+
+    e.preventDefault();
+    const id = match[1];
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    // close drawer first (if open), then scroll
+    if (drawerVisible) closeDrawer();
+
+    // smooth scroll to the section
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // quick pulse on that section's title (looks for first <h2>)
+    const h2 = el.querySelector("h2");
+    if (h2) {
+      h2.classList.add("animate-[pulse_450ms_ease-out_1]");
+      setTimeout(() => h2.classList.remove("animate-[pulse_450ms_ease-out_1]"), 500);
+    }
   };
 
   const nav = [
@@ -68,21 +92,37 @@ export default function SiteHeader({
             </div>
           </Link>
 
-          {/* Desktop nav */}
+          {/* Desktop nav with motion */}
           <nav className="hidden md:flex items-center gap-6">
-            {nav.map((n) => (
-              <Link
-                key={n.href}
-                href={n.href}
-                className="text-sm text-slate-600 hover:text-slate-900 transition"
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav.map((n) =>
+              n.href.startsWith("/#") ? (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  onClick={(e) => handleNavClick(e, n.href)}
+                  className="text-sm text-slate-600 hover:text-slate-900 transition
+                             relative inline-flex items-center
+                             bg-[linear-gradient(#007AFF,#007AFF)] bg-no-repeat
+                             [background-position:0_100%] [background-size:0%_2px]
+                             hover:[background-size:100%_2px]
+                             active:scale-95"
+                >
+                  {n.label}
+                </a>
+              ) : (
+                <Link
+                  key={n.href}
+                  href={n.href}
+                  className="text-sm text-slate-600 hover:text-slate-900 transition active:scale-95"
+                >
+                  {n.label}
+                </Link>
+              )
+            )}
             <a
               href={resumeUrl}
               download
-              className="inline-flex items-center gap-2 text-sm bg-slate-900 text-white px-4 py-2 rounded-xl shadow-sm hover:shadow transition"
+              className="inline-flex items-center gap-2 text-sm bg-slate-900 text-white px-4 py-2 rounded-xl shadow-sm hover:shadow transition active:scale-95"
               aria-label="Download my resume (PDF)"
             >
               <Download className="size-4" /> Resume
@@ -91,7 +131,7 @@ export default function SiteHeader({
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100"
+            className="md:hidden inline-flex items-center justify-center rounded-lg p-2 hover:bg-slate-100 active:scale-95 transition"
             aria-label="Open menu"
             onClick={openDrawer}
           >
@@ -121,13 +161,13 @@ export default function SiteHeader({
             role="dialog"
             aria-modal="true"
           >
-            {/* Header row inside drawer: Menu + Close aligned */}
+            {/* Drawer header row */}
             <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200">
-              <div className="text-sm font-bold tracking-wide text-slate-800">
+              <div className="text-base font-bold tracking-normal text-slate-800">
                 Menu
               </div>
               <button
-                className="rounded-lg p-2 hover:bg-slate-100"
+                className="rounded-lg p-2 hover:bg-slate-100 active:scale-95 transition"
                 aria-label="Close menu"
                 onClick={closeDrawer}
               >
@@ -135,23 +175,35 @@ export default function SiteHeader({
               </button>
             </div>
 
-            {/* Links */}
+            {/* Drawer links with motion */}
             <nav className="mt-1 p-2 space-y-1">
-              {nav.map((n) => (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  onClick={closeDrawer}
-                  className="block w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100"
-                >
-                  {n.label}
-                </Link>
-              ))}
+              {nav.map((n) =>
+                n.href.startsWith("/#") ? (
+                  <a
+                    key={n.href}
+                    href={n.href}
+                    onClick={(e) => handleNavClick(e, n.href)}
+                    className="block w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100 active:scale-[0.98] transition"
+                  >
+                    {n.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={n.href}
+                    href={n.href}
+                    onClick={closeDrawer}
+                    className="block w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100 active:scale-[0.98] transition"
+                  >
+                    {n.label}
+                  </Link>
+                )
+              )}
+
               <a
                 href={resumeUrl}
                 download
                 onClick={closeDrawer}
-                className="mt-2 w-full inline-flex items-center justify-center gap-2 text-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-sm hover:shadow transition"
+                className="mt-2 w-full inline-flex items-center justify-center gap-2 text-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-sm hover:shadow transition active:scale-95"
                 aria-label="Download my resume (PDF)"
               >
                 <Download className="size-4" /> Download Resume
