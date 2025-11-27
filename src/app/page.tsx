@@ -1,26 +1,43 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { User } from "lucide-react"
-import { Menu, X, Mail, Github, Linkedin, Download, School, Briefcase, Cpu, Rocket, ChevronRight, ChevronDown, BookOpen  } from "lucide-react";
+import { User } from "lucide-react";
+import {
+  Mail,
+  Github,
+  Linkedin,
+  School,
+  Briefcase,
+  Cpu,
+  Rocket,
+  ChevronRight, // now used in the View button
+  ChevronDown,
+  BookOpen,
+} from "lucide-react";
 import Link from "next/link";
-// Tailwind is available by default in this canvas preview environment.
-// This is a single-file React component you can drop into a Vite/Next/CRA app.
-// Customize the data in the CONFIG section below.
-type HomePost = { title: string; date: string; summary?: string; slug: string; tags?: string[]; cover?: string | null; };
+import SiteHeader from "@/components/SiteHeader";
+
+type HomePost = {
+  title: string;
+  date: string;
+  summary?: string;
+  slug: string;
+  tags?: string[];
+  cover?: string | null;
+};
 
 const CONFIG = {
   name: "Ryan Huynh",
   tagline: "Incoming Computer Engineering student @ UC Davis (Fall 2025)",
   summary:
     "Aspiring computer engineer with a strong foundation in C/C++, embedded systems, and web development. Passionate about building reliable, user-centric solutions.",
-  email: "ryhuynh2@gmail.com", // TODO: update
+  email: "ryhuynh2@gmail.com",
   location: "Hayward, CA",
   socials: {
-    github: "https://github.com/ryanhuynh02", // TODO: update
-    linkedin: "https://www.linkedin.com/in/ryan-huynh2", // TODO: update
+    github: "https://github.com/ryanhuynh02",
+    linkedin: "https://www.linkedin.com/in/ryan-huynh2",
   },
-  resumeUrl: "/Ryan_Huynh_Resume.pdf?v=2025-08-19", // TODO: add a real file
+  resumeUrl: "/Ryan_Huynh_Resume.pdf?v=2025-08-19",
   skills: [
     "C/C++",
     "Python",
@@ -63,7 +80,7 @@ const CONFIG = {
         "/projects/color-math/frame.jpg",
         "/projects/color-math/body.jpg",
         "/projects/color-math/sample.jpg",
-      ]
+      ],
     },
     {
       title: "City Flights (C++ Graphs)",
@@ -82,9 +99,8 @@ const CONFIG = {
         "Collaborated with engineering teams on cutting-edge research projects.",
         "Applied theoretical knowledge to real-world engineering challenges.",
         "Constructed the Carmen robot hardware for lab research.",
-        "Translated an iOS app game into a web application to help children with complex communication needs express internal states and support individuals with cognitive impairments."
+        "Translated an iOS app game into a web application to help children with complex communication needs express internal states and support individuals with cognitive impairments.",
       ],
-      
     },
   ],
   education: [
@@ -94,14 +110,12 @@ const CONFIG = {
       location: "Davis, CA",
       period: "Starting Fall 2025",
     },
-
     {
       school: "Chabot College",
       degree: "A.S. in Liberal Arts of Science & Math",
       location: "Hayward, CA",
-      period: "Graduated June 2025"
-    }
-    
+      period: "Graduated June 2025",
+    },
   ],
 };
 
@@ -117,28 +131,34 @@ function AboutCollapse() {
       {/* Expanded content (always shown) */}
       <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
         <p>
-          I’m a passionate Computer Engineering student with practical experience in both hardware and software
-          development. Currently preparing to begin my journey at UC Davis in Fall 2025, where I’ll continue
-          expanding my knowledge in cutting-edge technologies.
+          I’m a passionate Computer Engineering student with practical
+          experience in both hardware and software development. Currently
+          preparing to begin my journey at UC Davis in Fall 2025, where I’ll
+          continue expanding my knowledge in cutting-edge technologies.
         </p>
         <p>
-          During my internship at San Francisco State University from June to August 2025, I gained hands-on
-          experience in real-world engineering projects, collaborating with teams and applying theoretical
-          knowledge to practical solutions.
+          During my internship at San Francisco State University from June to
+          August 2025, I gained hands-on experience in real-world engineering
+          projects, collaborating with teams and applying theoretical knowledge
+          to practical solutions.
         </p>
         <p>
-          I’m excited about the intersection of hardware and software, with particular interests in embedded
-          systems, machine learning, and innovative computing solutions that can make a positive impact on society.
+          I’m excited about the intersection of hardware and software, with
+          particular interests in embedded systems, machine learning, and
+          innovative computing solutions that can make a positive impact on
+          society.
         </p>
         <p>
-          In addition to my academic interests, I enjoy sports such as soccer, badminton, billiards, and archery.
-          While soccer was once my primary focus, I recently learned the others when I hang out with my friends.
-          They are really nice and show me step by step on how to play these sports; I am grateful for their
-          support and the memories we’ve made.
+          In addition to my academic interests, I enjoy sports such as soccer,
+          badminton, billiards, and archery. While soccer was once my primary
+          focus, I recently learned the others when I hang out with my friends.
+          They are really nice and show me step by step on how to play these
+          sports; I am grateful for their support and the memories we’ve made.
         </p>
         <p>
-          I also have a passion for cooking. Whenever I have free time, I enjoy helping my mom prepare dinner and
-          learning her cooking techniques. I find joy in trying new recipes, as it allows me to discover new
+          I also have a passion for cooking. Whenever I have free time, I enjoy
+          helping my mom prepare dinner and learning her cooking techniques. I
+          find joy in trying new recipes, as it allows me to discover new
           flavors and expand my culinary skills.
         </p>
       </div>
@@ -146,43 +166,70 @@ function AboutCollapse() {
   );
 }
 
-
 function ExperienceMoreSFSU() {
   const [open, setOpen] = useState(false);
   return (
     <div className="mt-4">
       <button
         type="button"
-        onClick={() => setOpen(v => !v)}
+        onClick={() => setOpen((v) => !v)}
         className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
         aria-expanded={open}
       >
         <span className="font-medium text-slate-700">More details</span>
-        <ChevronDown className={`h-4 w-4 text-slate-600 transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown
+          className={`h-4 w-4 text-slate-600 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       {open && (
         <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
           <p>
-            I’ve been selected as a Summer Training Academy for Research Scholars (STARS) Program. 
-            During my research, I collaborated with Dr Alyssa Kubota at the Personalized Health
-            and Assistive Technologies Laboratory (PHAST Lab) at San Francisco State University. 
-            My role in the lab involved constructing the Carmen robot hardware and translating the iOS app game into a web version 
-            that aids children with complex communication needs in expressing their internal states and individuals with cognitive impairments.
+            I’ve been selected as a Summer Training Academy for Research
+            Scholars (STARS) Program. During my research, I collaborated with Dr
+            Alyssa Kubota at the Personalized Health and Assistive Technologies
+            Laboratory (PHAST Lab) at San Francisco State University. My role in
+            the lab involved constructing the Carmen robot hardware and
+            translating the iOS app game into a web version that aids children
+            with complex communication needs in expressing their internal states
+            and individuals with cognitive impairments.
           </p>
           <p>
-            There were lots of documents I needed to read on how robots will impact not only physically but also emotionally to human life. 
-            Our labs also work with clinicians to better understand how to engage patients with our Carmen robots. We also have to implement the study of 
-            AAC (Augmented and Alternative Communication) and VSD (Visual Scene Display) into our Carmen to make it behave more like a humanoid and assist people with cognitive disabilities
+            There were lots of documents I needed to read on how robots will
+            impact not only physically but also emotionally to human life. Our
+            labs also work with clinicians to better understand how to engage
+            patients with our Carmen robots. We also have to implement the study
+            of AAC (Augmented and Alternative Communication) and VSD (Visual
+            Scene Display) into our Carmen to make it behave more like a
+            humanoid and assist people with cognitive disabilities
           </p>
           <p>
-            When I first started my internship in the lab, I felt overwhelmed and a little bit of nervous because this was my first internship. Additionally, there were many tasks to complete, and I also wasn’t sure which ones to prioritize. I also wondered whether we could finish everything within two months.
+            When I first started my internship in the lab, I felt overwhelmed
+            and a little bit of nervous because this was my first internship.
+            Additionally, there were many tasks to complete, and I also wasn’t
+            sure which ones to prioritize. I also wondered whether we could
+            finish everything within two months.
           </p>
           <p>
-            As time went on, I had to adapt quickly to the workflow and build connections with my teammates by learning from them and through self-teaching. Fortunately, my mentor, Mathew, was very friendly, helpful, and supportive. He regularly checked on our progress, ensured we didn’t get stuck, and guided us in solving problems. I am especially thankful to him for his hard work and valuable advice, and I have learned many meaningful things from him.
+            As time went on, I had to adapt quickly to the workflow and build
+            connections with my teammates by learning from them and through
+            self-teaching. Fortunately, my mentor, Mathew, was very friendly,
+            helpful, and supportive. He regularly checked on our progress,
+            ensured we didn’t get stuck, and guided us in solving problems. I am
+            especially thankful to him for his hard work and valuable advice,
+            and I have learned many meaningful things from him.
           </p>
           <p>
-            The most challenging part we faced was setting up the Raspberry Pi, which took nearly three weeks. We had to figure out and test the default position while installing the Dynamixel packages, and we had to flash our drive multiple times while trying to install ROS on the Pi. During the internship, each lab had to give two presentations. I wasn’t very confident speaking in front of a large audience, but it turned out to be a valuable practice environment that helped me improve my communication skills.
+            The most challenging part we faced was setting up the Raspberry Pi,
+            which took nearly three weeks. We had to figure out and test the
+            default position while installing the Dynamixel packages, and we had
+            to flash our drive multiple times while trying to install ROS on the
+            Pi. During the internship, each lab had to give two presentations. I
+            wasn’t very confident speaking in front of a large audience, but it
+            turned out to be a valuable practice environment that helped me
+            improve my communication skills.
           </p>
         </div>
       )}
@@ -193,9 +240,8 @@ function ExperienceMoreSFSU() {
 function ProjectCarousel({ images, title }: { images: string[]; title: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [idx, setIdx] = useState(0);
-  const [step, setStep] = useState(0); // slide width + gap in px
+  const [step, setStep] = useState(0);
 
-  // measure slide width + gap so scrolling snaps correctly across breakpoints
   const measure = () => {
     const el = ref.current;
     if (!el) return;
@@ -212,7 +258,6 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // keep index in sync when the user swipes/scrolls
   useEffect(() => {
     const el = ref.current;
     if (!el || !step) return;
@@ -242,28 +287,22 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
   const atStart = idx <= 0;
   const atEnd = idx >= images.length - 1;
 
-  // Smart wheel handler: let vertical scroll pass to the page,
-// keep horizontal scrolling for the carousel, and guard browser back/forward at edges.
-const onWheelSmart: React.WheelEventHandler<HTMLDivElement> = (e) => {
-  const verticalIntent = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+  const onWheelSmart: React.WheelEventHandler<HTMLDivElement> = (e) => {
+    const verticalIntent = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+    if (verticalIntent) {
+      e.preventDefault();
+      window.scrollBy({ top: e.deltaY, behavior: "auto" });
+      return;
+    }
+    const strongHorizontal =
+      Math.abs(e.deltaX) > 2 && Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.25;
 
-  // If the user is scrolling mostly vertical, forward it to the page.
-  if (verticalIntent) {
-    e.preventDefault();
-    window.scrollBy({ top: e.deltaY, behavior: "auto" });
-    return;
-  }
+    if (strongHorizontal && ((atStart && e.deltaX < 0) || (atEnd && e.deltaX > 0))) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
 
-  // Horizontal edge-guard (prevents browser back/forward at the ends)
-  const strongHorizontal =
-    Math.abs(e.deltaX) > 2 && Math.abs(e.deltaX) > Math.abs(e.deltaY) * 1.25;
-
-  if (strongHorizontal && ((atStart && e.deltaX < 0) || (atEnd && e.deltaX > 0))) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-};
-  
   if (!images?.length) return null;
 
   return (
@@ -278,10 +317,7 @@ const onWheelSmart: React.WheelEventHandler<HTMLDivElement> = (e) => {
         aria-label={`${title} images`}
         role="group"
       >
-
-        {/* head spacer: creates 'rubber band' space on the left */}
         <div aria-hidden className="shrink-0 w-6 md:w-12 [scroll-snap-align:none]" />
-
         {images.map((src, i) => (
           <div
             key={src}
@@ -302,13 +338,10 @@ const onWheelSmart: React.WheelEventHandler<HTMLDivElement> = (e) => {
             />
           </div>
         ))}
-
-        {/* tail spacer: creates 'rubber band' space on the right */}
         <div aria-hidden className="shrink-0 w-6 md:w-12 [scroll-snap-align:none]" />
       </div>
 
-
-      {/* Left arrow: hidden on first image */}
+      {/* arrows (desktop) */}
       <button
         type="button"
         onClick={() => scrollToIndex(idx - 1)}
@@ -320,8 +353,6 @@ const onWheelSmart: React.WheelEventHandler<HTMLDivElement> = (e) => {
       >
         ‹
       </button>
-
-      {/* Right arrow: hidden on last image */}
       <button
         type="button"
         onClick={() => scrollToIndex(idx + 1)}
@@ -336,8 +367,8 @@ const onWheelSmart: React.WheelEventHandler<HTMLDivElement> = (e) => {
     </div>
   );
 }
+
 function formatLocalDate(iso: string) {
-  // If it's just YYYY-MM-DD, parse as local so timezones don't shift the day
   if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) {
     const [y, m, d] = iso.split("-").map(Number);
     return new Date(y, m - 1, d).toLocaleDateString(undefined, {
@@ -346,7 +377,6 @@ function formatLocalDate(iso: string) {
       year: "numeric",
     });
   }
-  // Fallback for full ISO strings with time/offset
   return new Date(iso).toLocaleDateString(undefined, {
     month: "short",
     day: "numeric",
@@ -355,159 +385,31 @@ function formatLocalDate(iso: string) {
 }
 
 export default function Portfolio() {
-  const [open, setOpen] = useState(false);
+  const topRef = useRef<HTMLDivElement | null>(null);
 
-    // Blog preview state
-    const [latestPosts, setLatestPosts] = useState<HomePost[]>([]);
-
-    useEffect(() => {
-      let mounted = true;
-      fetch("/api/blog")
-        .then(r => r.json())
-        .then((data: HomePost[]) => { if (mounted) setLatestPosts(data); })
-        .catch(() => {});
-      return () => { mounted = false; };
-    }, []);
-  
-  const navItems = [
-    { id: "about", label: "About" },
-    { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "skills", label: "Skills" },
-    { id: "education", label: "Education" },
-    { id: "contact", label: "Contact" },
-  ];
-
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      setOpen(false);
-    }
-  };
-
+  // Blog preview state
+  const [latestPosts, setLatestPosts] = useState<HomePost[]>([]);
   useEffect(() => {
-    // prevent the page behind the drawer from scrolling
-    document.body.classList.toggle("overflow-hidden", open);
-    return () => document.body.classList.remove("overflow-hidden");
-  }, [open]);
+    let mounted = true;
+    fetch("/api/blog")
+      .then((r) => r.json())
+      .then((data: HomePost[]) => {
+        if (mounted) setLatestPosts(data);
+      })
+      .catch(() => {});
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 to-white text-slate-900 pt-16">
-      {/* Header */}
-      <header
-        className="fixed inset-x-0 top-0 z-50 border-b border-slate-200
-                  bg-white supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:backdrop-blur-md"
-      >
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-          <div className="flex items-center gap-3">
-          <div className="size-16 rounded-2xl overflow-hidden">
-            <Image
-              src="/profile-logo.svg"
-              alt="Ryan Huynh"
-              width={100}
-              height={100}
-              className="object-cover w-full h-full"
-            />
-          </div>
-          <div className="leading-tight">
-            <div className="font-semibold">{CONFIG.name}</div>
-            <div className="text-xs text-slate-500">{CONFIG.location}</div>
-          </div>
-        </div>
-       </div>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((n) => (
-              <button
-                key={n.id}
-                onClick={() => scrollTo(n.id)}
-                className="text-sm text-slate-600 hover:text-slate-900 transition"
-              >
-                {n.label}
-              </button>
-            ))}
-
-            <Link href="/blog" className="text-sm text-slate-600 hover:text-slate-900 transition">
-              Blog
-            </Link>
-
-            <a
-              href={CONFIG.resumeUrl}
-              download                // ⬅️ add this
-              className="inline-flex items-center gap-2 text-sm bg-slate-900 text-white px-4 py-2 rounded-xl shadow-sm hover:shadow transition"
-              aria-label="Download my resume (PDF)"
-            >
-              <Download className="size-4" /> Resume
-            </a>
-          </nav>
-
-          {/* Hamburger */}
-          <button
-            className="md:hidden p-2 rounded-xl border border-slate-200 hover:bg-slate-100"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu className="size-5" />
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Drawer (moved outside the header) */}
-<div className={`fixed inset-0 z-[9999] ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
-  {/* Opaque overlay: blocks underlying content and closes on tap */}
-  <button
-    type="button"
-    aria-label="Close menu overlay"
-    onClick={() => setOpen(false)}
-    className={`absolute inset-0 transition-opacity ${open ? "opacity-100" : "opacity-0"} bg-black/60 backdrop-blur-sm`}
-  />
-  {/* Slide-in panel */}
-  <aside
-    className={`absolute left-0 top-0 h-full w-80 max-w-[85%] bg-white shadow-xl border-r border-slate-200 transform transition-transform duration-300 ${
-      open ? "translate-x-0" : "-translate-x-full"
-    }`}
-  >
-    <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200">
-      <div className="font-semibold">Menu</div>
-      <button className="p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(false)} aria-label="Close menu">
-        <X className="size-5" />
-      </button>
-    </div>
-    <nav className="p-2">
-      {navItems.map((n) => (
-        <button
-          key={n.id}
-          onClick={() => scrollTo(n.id)}
-          className="w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100 flex items-center justify-between"
-        >
-          <span>{n.label}</span>
-          <ChevronRight className="size-4" />
-        </button>
-      ))}
-      
-      <Link
-      href="/blog"
-      onClick={() => setOpen(false)}
-      className="mt-2 block w-full text-left px-3 py-3 rounded-xl text-slate-700 hover:bg-slate-100"
+    <div
+      ref={topRef}
+      className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 to-white text-slate-900"
     >
-      Blog
-    </Link>
-      
-      <a
-        href={CONFIG.resumeUrl}
-        download                // ⬅️ add this
-        className="mt-2 w-full inline-flex items-center justify-center gap-2 text-sm bg-slate-900 text-white px-4 py-3 rounded-xl shadow-sm hover:shadow transition"
-        aria-label="Download my resume (PDF)"
-      >
-        <Download className="size-4" /> Download Resume
-      </a>
-    </nav>
-  </aside>
-</div>
-
+      {/* Global header comes from src/app/layout.tsx if you moved it there.
+          If not, you can render <SiteHeader /> here: */}
+      <SiteHeader />
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 pt-14 pb-10">
@@ -542,63 +444,62 @@ export default function Portfolio() {
                 <Linkedin className="size-4" /> LinkedIn
               </a>
             </div>
-            <div id = "about" className="flex items-center gap-2 mt-12 scroll-mt-24">
+            <div id="about" className="flex items-center gap-2 mt-12 scroll-mt-24">
               <User className="size-5" />
               <h2 className="text-2xl font-bold">About</h2>
-            </div> 
+            </div>
           </div>
+
           <div className="relative">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <div className="w-28 h-28 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden shrink-0">
-              <Image
-                src="/profile-picture.jpeg"
-                alt="Ryan Huynh"
-                width={180}
-                height={180}
-                className="object-cover w-full h-full"
-                priority
-              />
-            </div>
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                <div className="w-28 h-28 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden shrink-0">
+                  <Image
+                    src="/profile-picture.jpeg"
+                    alt="Ryan Huynh"
+                    width={180}
+                    height={180}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                </div>
 
-            {/* min-w-0 lets long text wrap inside flex rows; use smaller line-heights to avoid crowding */}
-            <div className="min-w-0 flex-1 text-center sm:text-left">
-              {/* Name */}
-              <div className="text-xl sm:text-2xl font-semibold leading-tight break-words">
-                {CONFIG.name}
+                <div className="min-w-0 flex-1 text-center sm:text-left">
+                  <div className="text-xl sm:text-2xl font-semibold leading-tight break-words">
+                    {CONFIG.name}
+                  </div>
+                  <div className="mt-1 text-slate-600 text-xs leading-snug">
+                    {CONFIG.location}
+                  </div>
+                  <div className="mt-1 text-slate-800 font-semibold leading-snug">
+                    Computer Engineering
+                  </div>
+                  <div className="mt-1 text-xs text-slate-500">
+                    UC Davis · Fall 2025
+                  </div>
+                </div>
               </div>
-
-              {/* Location BELOW name */}
-              <div className="mt-1 text-slate-600 text-xs leading-snug">
-                {CONFIG.location}
-              </div>
-
-              {/* Computer Engineering BELOW location */}
-              <div className="mt-1 text-slate-800 font-semibold leading-snug">
-                Computer Engineering
-              </div>
-
-              {/* UC Davis BELOW computer engineering */}
-              <div className="mt-1 text-xs text-slate-500">
-                UC Davis · Fall 2025
-              </div>
-            </div>
-          </div>
 
               <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                <li className="flex items-center gap-2"><Cpu className="size-4"/> Digital logic, microcontrollers, and systems</li>
-                <li className="flex items-center gap-2"><Rocket className="size-4"/> Curious, fast-learner, team collaborator</li>
+                <li className="flex items-center gap-2">
+                  <Cpu className="size-4" /> Digital logic, microcontrollers,
+                  and systems
+                </li>
+                <li className="flex items-center gap-2">
+                  <Rocket className="size-4" /> Curious, fast-learner, team
+                  collaborator
+                </li>
               </ul>
-{/* Collapsible “About me” text */}
-<AboutCollapse />
 
+              {/* Expanded “About me” */}
+              <AboutCollapse />
             </div>
           </div>
         </div>
       </section>
 
       {/* Experience */}
-      <Section id="experience" title="Experience" icon={<Briefcase className="size-5" />}>        
+      <Section id="experience" title="Experience" icon={<Briefcase className="size-5" />}>
         {CONFIG.experience.map((e) => (
           <Card key={e.org}>
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
@@ -613,13 +514,15 @@ export default function Portfolio() {
               </div>
               <div className="text-sm text-slate-500 whitespace-nowrap">{e.period}</div>
             </div>
-            {e.org.includes("San Francisco State University") && <ExperienceMoreSFSU />}
+            {e.org.includes("San Francisco State University") && (
+              <ExperienceMoreSFSU />
+            )}
           </Card>
         ))}
       </Section>
 
       {/* Projects */}
-      <Section id="projects" title="Projects" icon={<Github className="size-5" />}>        
+      <Section id="projects" title="Projects" icon={<Github className="size-5" />}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {CONFIG.projects.map((p) => (
             <Card key={p.title}>
@@ -630,8 +533,7 @@ export default function Portfolio() {
                 <Link
                   href={p.href}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg
-                            bg-[#007AFF] text-white text-sm
-                            shadow-sm transition
+                            bg-[#007AFF] text-white text-sm shadow-sm transition
                             transform-gpu will-change-transform
                             motion-safe:hover:scale-[1.06] motion-safe:hover:-translate-y-0.5
                             hover:shadow-[0_8px_18px_rgba(0,122,255,0.35)]
@@ -639,11 +541,10 @@ export default function Portfolio() {
                             focus:outline-none focus:ring-2 focus:ring-[#007AFF]/30"
                 >
                   View
-                  <span aria-hidden>›</span>
+                  <ChevronRight className="size-4" aria-hidden="true" />
                 </Link>
-
               </div>
-              {/* ⬇️ add this line */}
+
               {p.images?.length ? (
                 <div className="mt-2">
                   <ProjectCarousel images={p.images} title={p.title} />
@@ -654,7 +555,12 @@ export default function Portfolio() {
 
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
-                  <span key={t} className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1">{t}</span>
+                  <span
+                    key={t}
+                    className="text-xs bg-slate-100 border border-slate-200 rounded-full px-2 py-1"
+                  >
+                    {t}
+                  </span>
                 ))}
               </div>
             </Card>
@@ -662,96 +568,110 @@ export default function Portfolio() {
         </div>
       </Section>
 
-{/* Blog */}
-<Section id="blog" title="Blog" icon={<BookOpen className="size-5" />}>
-  {latestPosts.length === 0 ? (
-    <Card>
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="font-medium">No posts yet</div>
-          <p className="text-slate-600">I’ll start posting soon. Check the full blog page for updates.</p>
-        </div>
-        <Link href="/blog" className="text-sm font-medium text-slate-600 hover:text-slate-900">
-          View all →
-        </Link>
-      </div>
-    </Card>
-  ) : (
-    <div className="space-y-4">
-      {latestPosts.map((p) => (
-        <Link
-          key={p.slug}
-          href={`/blog/${p.slug}`}
-          className="group block rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-sm transition"
-        >
-          <div className="flex items-center gap-4">
-            {/* text (left) */}
-            <div className="min-w-0 flex-1">
-              <h3 className="text-lg font-semibold leading-snug">
-                {/* thin underline that grows from 0% to 100% at the BOTTOM on hover */}
-                <span
-                  className="
-                    group-hover:text-[#007AFF]
-                        bg-[linear-gradient(#007AFF,#007AFF)]
-                        bg-no-repeat
-                        [background-position:0_100%]            /* bottom */
-                        [background-size:0%_2px]                /* thin line */
-                        group-hover:[background-size:100%_2px]  /* animate on hover */
-                        transition-[background-size] duration-300
-                  "
-                >
-                  {p.title}
-                </span>
-              </h3>
-
-              <time className="block text-xs text-slate-500 mt-1">
-                {formatLocalDate(p.date)}
-              </time>
-
-              {p.summary && <p className="text-slate-700 mt-2 line-clamp-2">{p.summary}</p>}
-
-              {p.tags?.length ? (
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200"
-                    >
-                      #{t}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
+      {/* Blog */}
+      <Section id="blog" title="Blog" icon={<BookOpen className="size-5" />}>
+        {latestPosts.length === 0 ? (
+          <Card>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">No posts yet</div>
+                <p className="text-slate-600">
+                  I’ll start posting soon. Check the full blog page for updates.
+                </p>
+              </div>
+              <Link
+                href="/blog"
+                className="text-sm font-medium text-slate-600 hover:text-slate-900"
+              >
+                View all →
+              </Link>
             </div>
+          </Card>
+        ) : (
+          <div className="space-y-4">
+            {latestPosts.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/blog/${p.slug}`}
+                className="group block rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-sm transition"
+              >
+                <div className="flex items-center gap-4">
+                  {/* text (left) */}
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-lg font-semibold leading-snug">
+                      <span
+                        className="
+                          group-hover:text-[#007AFF]
+                          bg-[linear-gradient(#007AFF,#007AFF)]
+                          bg-no-repeat
+                          [background-position:0_100%]
+                          [background-size:0%_2px]
+                          group-hover:[background-size:100%_2px]
+                          transition-[background-size] duration-300
+                        "
+                      >
+                        {p.title}
+                      </span>
+                    </h3>
 
-            {/* thumbnail (right) */}
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200 ml-2">
-              <Image
-                src={p.cover ?? "/file.svg"}  // fallback in /public
-                alt=""
-                fill
-                className="object-cover"
-                sizes="112px"
-              />
+                    <time className="block text-xs text-slate-500 mt-1">
+                      {formatLocalDate(p.date)}
+                    </time>
+
+                    {p.summary && (
+                      <p className="text-slate-700 mt-2 line-clamp-2">
+                        {p.summary}
+                      </p>
+                    )}
+
+                    {p.tags?.length ? (
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {p.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200"
+                          >
+                            #{t}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  {/* thumbnail (right) */}
+                  <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 border border-slate-200 ml-2">
+                    <Image
+                      src={p.cover ?? "/file.svg"}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="112px"
+                    />
+                  </div>
+                </div>
+              </Link>
+            ))}
+
+            <div className="text-right">
+              <Link
+                href="/blog"
+                className="text-sm underline text-slate-600 hover:text-slate-900"
+              >
+                View all →
+              </Link>
             </div>
           </div>
-        </Link>
-      ))}
-
-      <div className="text-right">
-        <Link href="/blog" className="text-sm underline text-slate-600 hover:text-slate-900">
-          View all →
-        </Link>
-      </div>
-    </div>
-  )}
-</Section>
+        )}
+      </Section>
 
       {/* Skills */}
-      <Section id="skills" title="Skills" icon={<Cpu className="size-5" />}>        
+      <Section id="skills" title="Skills" icon={<Cpu className="size-5" />}>
         <div className="flex flex-wrap gap-2">
           {CONFIG.skills.map((s) => (
-            <span key={s} className="px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-sm">
+            <span
+              key={s}
+              className="px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-sm"
+            >
               {s}
             </span>
           ))}
@@ -760,51 +680,56 @@ export default function Portfolio() {
 
       {/* Education */}
       <Section id="education" title="Education" icon={<School className="size-5" />}>
-        <div className="space-y-4">  {/* adds gap between items */}
-        {CONFIG.education.map((ed) => (
-          <Card key={ed.school}>
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <div className="font-semibold">{ed.school}</div>
-                <div className="text-slate-600">{ed.degree}</div>
-                {ed.location && (
-                  <div className="mt-1 text-sm text-slate-500">{ed.location}</div>
-                )}
+        <div className="space-y-4">
+          {CONFIG.education.map((ed) => (
+            <Card key={ed.school}>
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <div className="font-semibold">{ed.school}</div>
+                  <div className="text-slate-600">{ed.degree}</div>
+                  {ed.location && (
+                    <div className="mt-1 text-sm text-slate-500">{ed.location}</div>
+                  )}
+                </div>
+                <div className="text-sm text-slate-500 whitespace-nowrap">
+                  {ed.period}
+                </div>
               </div>
-              <div className="text-sm text-slate-500 whitespace-nowrap">{ed.period}</div>
-            </div>
-          </Card>
-        ))}
+            </Card>
+          ))}
         </div>
       </Section>
 
       {/* Contact */}
-      <Section id="contact" title="Contact" icon={<Mail className="size-5" />}>        
+      <Section id="contact" title="Contact" icon={<Mail className="size-5" />}>
         <Card>
-          <p className="text-slate-700">Want to collaborate or chat? Reach out and I’ll get back quickly.</p>
+          <p className="text-slate-700">
+            Want to collaborate or chat? Reach out and I’ll get back quickly.
+          </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <a 
-            href={`mailto:${CONFIG.email}`}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100">
-            <Mail className="size-4"/> Email
+            <a
+              href={`mailto:${CONFIG.email}`}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
+            >
+              <Mail className="size-4" /> Email
             </a>
-          <a
-            href={CONFIG.socials.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
-          >
-            <Github className="size-4" /> GitHub
-          </a>
+            <a
+              href={CONFIG.socials.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
+            >
+              <Github className="size-4" /> GitHub
+            </a>
 
-          <a
-            href={CONFIG.socials.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
-          >
-            <Linkedin className="size-4" /> LinkedIn
-          </a>
+            <a
+              href={CONFIG.socials.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300 hover:bg-slate-100"
+            >
+              <Linkedin className="size-4" /> LinkedIn
+            </a>
           </div>
         </Card>
       </Section>
@@ -845,4 +770,3 @@ function Card({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-
