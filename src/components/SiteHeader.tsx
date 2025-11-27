@@ -33,12 +33,12 @@ export default function SiteHeader({
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Left: logo + name (link to home) */}
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 md:w-12 md:h-12 rounded-xl overflow-hidden shrink-0">
+            <div className="w-14 h-14 md:w-14 md:h-14 rounded-xl overflow-hidden shrink-0">
               <Image
                 src={logoSrc}
                 alt="Site logo"
-                width={96}
-                height={96}
+                width={112}
+                height={112}
                 className="object-contain w-full h-full"
                 priority
               />
@@ -97,8 +97,8 @@ export default function SiteHeader({
                   <Image
                     src={logoSrc}
                     alt="Site logo"
-                    width={96}
-                    height={96}
+                    width={112}
+                    height={112}
                     className="object-contain w-full h-full"
                   />
                 </div>
