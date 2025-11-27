@@ -412,7 +412,7 @@ export default function Portfolio() {
       <SiteHeader />
 
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-4 pt-14 pb-10">
+      <section className="max-w-6xl mx-auto px-4 pt-16 pb-10">
         <div className="grid md:grid-cols-[1.2fr,1fr] gap-8 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
