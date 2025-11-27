@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Menu, X, Download } from "lucide-react";
 import { useEffect, useState } from "react";
 
-// Wider shell than the cards so left feels more-left and right more-right
 const SHELL = "max-w-6xl mx-auto pl-2 pr-6 sm:pl-3 sm:pr-8";
 
 export default function SiteHeader({
@@ -19,11 +18,9 @@ export default function SiteHeader({
   name?: string;
   location?: string;
 }) {
-  // two-phase drawer state for proper slide-in/out animations
-  const [drawerVisible, setDrawerVisible] = useState(false); // mounts/unmounts
-  const [drawerOpen, setDrawerOpen] = useState(false);       // animates translate
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // lock body scroll when drawer is visible
   useEffect(() => {
     if (drawerVisible) document.body.classList.add("overflow-hidden");
     else document.body.classList.remove("overflow-hidden");
@@ -32,13 +29,11 @@ export default function SiteHeader({
 
   const openDrawer = () => {
     setDrawerVisible(true);
-    // next frame → start slide-in
     setTimeout(() => setDrawerOpen(true), 0);
   };
 
   const closeDrawer = () => {
     setDrawerOpen(false);
-    // wait for the slide-out to finish (duration-300)
     setTimeout(() => setDrawerVisible(false), 300);
   };
 
@@ -52,10 +47,10 @@ export default function SiteHeader({
 
   return (
     <>
-      {/* Taller fixed header */}
+      {/* Header */}
       <header className="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
         <div className={`${SHELL} h-20 flex items-center justify-between`}>
-          {/* Left group — logo + name */}
+          {/* Left: logo + name */}
           <Link href="/" className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0">
               <Image
@@ -73,7 +68,7 @@ export default function SiteHeader({
             </div>
           </Link>
 
-          {/* Right group — desktop nav */}
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
             {nav.map((n) => (
               <Link
@@ -105,10 +100,10 @@ export default function SiteHeader({
         </div>
       </header>
 
-      {/* Mobile drawer with slide/fade animation and "Menu" title */}
+      {/* Mobile drawer */}
       {drawerVisible && (
         <div className="fixed inset-0 z-[60]">
-          {/* Backdrop with fade */}
+          {/* Backdrop fade */}
           <div
             className={`absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300 ${
               drawerOpen ? "opacity-100" : "opacity-0"
@@ -126,8 +121,11 @@ export default function SiteHeader({
             role="dialog"
             aria-modal="true"
           >
-            {/* Close button row */}
-            <div className="p-4 flex items-center justify-end">
+            {/* Header row inside drawer: Menu + Close aligned */}
+            <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200">
+              <div className="text-sm font-semibold uppercase tracking-wide text-slate-700">
+                Menu
+              </div>
               <button
                 className="rounded-lg p-2 hover:bg-slate-100"
                 aria-label="Close menu"
@@ -137,16 +135,8 @@ export default function SiteHeader({
               </button>
             </div>
 
-            {/* Menu label + thin underline (no logo) */}
-            <div className="px-4">
-              <div className="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Menu
-              </div>
-              <div className="mt-2 border-b border-slate-200" />
-            </div>
-
             {/* Links */}
-            <nav className="mt-2 p-2 space-y-1">
+            <nav className="mt-1 p-2 space-y-1">
               {nav.map((n) => (
                 <Link
                   key={n.href}
