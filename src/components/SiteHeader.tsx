@@ -123,7 +123,7 @@ export default function SiteHeader({
           >
             {/* Header row inside drawer: Menu + Close aligned */}
             <div className="px-4 py-3 flex items-center justify-between border-b border-slate-200">
-              <div className="text-sm font-semibold uppercase tracking-wide text-slate-700">
+              <div className="text-sm font-bold tracking-wide text-slate-800">
                 Menu
               </div>
               <button
