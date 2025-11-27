@@ -5,11 +5,9 @@ import Link from "next/link";
 import { Menu, X, Download } from "lucide-react";
 import { useState } from "react";
 
-const SHELL = "max-w-5xl mx-auto px-4 sm:px-6"; // ← match this to your cards’ container
-
 export default function SiteHeader({
   resumeUrl = "/Ryan_Huynh_Resume.pdf",
-  logoSrc = "/profile-logo.svg",
+  logoSrc = "/profile-logo.svg", // your SVG in /public
   name = "Ryan Huynh",
   location = "Hayward, CA",
 }: {
@@ -30,28 +28,28 @@ export default function SiteHeader({
 
   return (
     <>
-      {/* Bigger, fixed header that aligns to the same shell as cards */}
+      {/* Original-height fixed header */}
       <header className="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
-        <div className={`${SHELL} h-24 flex items-center justify-between`}>
-          {/* Left: logo + name block — aligned with cards’ left edge */}
-          <Link href="/" className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0">
+        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Left: logo + name */}
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0">
               <Image
                 src={logoSrc}
                 alt="Site logo"
-                width={112}
-                height={112}
+                width={64}
+                height={64}
                 className="object-contain w-full h-full"
                 priority
               />
             </div>
             <div className="leading-tight">
-              <div className="font-semibold text-slate-900">{name}</div>
-              <div className="text-xs text-slate-500">{location}</div>
+              <div className="font-semibold"> {name} </div>
+              <div className="text-xs text-slate-500"> {location} </div>
             </div>
           </Link>
 
-          {/* Desktop nav — aligned with cards’ right edge */}
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
             {nav.map((n) => (
               <Link
@@ -83,7 +81,7 @@ export default function SiteHeader({
         </div>
       </header>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer (original spacing) */}
       {open && (
         <div className="fixed inset-0 z-[60]">
           <div
@@ -93,12 +91,12 @@ export default function SiteHeader({
           <div className="absolute left-0 top-0 h-full w-80 max-w-[85%] bg-white border-r border-slate-200 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-xl overflow-hidden">
+                <div className="w-10 h-10 rounded-xl overflow-hidden">
                   <Image
                     src={logoSrc}
                     alt="Site logo"
-                    width={112}
-                    height={112}
+                    width={64}
+                    height={64}
                     className="object-contain w-full h-full"
                   />
                 </div>
