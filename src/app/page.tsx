@@ -102,6 +102,17 @@ const CONFIG = {
         "Translated an iOS app game into a web application to help children with complex communication needs express internal states and support individuals with cognitive impairments.",
       ],
     },
+
+    {
+      role: "Math Tutor & TA",
+      org: "Chabot College",
+      period: "2023 – 2025",            
+      bullets: [
+        "Tutored algebra, trigonometry, and calculus to college students in 1:1 and small-group sessions.",
+        "Created step-by-step walkthroughs and practice problems to clarify tough concepts.",
+        "Helped students develop problem-solving strategies, study plans, and exam preparation techniques.",
+      ],
+    },
   ],
   education: [
     {
