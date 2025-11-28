@@ -15,6 +15,8 @@ The vertexes in your graphs will simply be numbers in the range 0 to n-1 where n
 Each number will be associated with a city name via your lookup table. 
 Do not create a graph class with nodes and pointers. 
 That's a sure way to get zero credit on this assignment. 
+<br />
+
 The correct approach is to use a lookup table which associates each city with an index in the lookup table. 
 Then you will use the bfs and printpath functions (posted below), suitably modified, to output the shortest paths. 
 To create the lookup table and the adjacency lists for your graph, your program will read in the file connections.txt. 
@@ -22,6 +24,8 @@ As a side note: the From and To content of connections.txt was randomly generate
 Unfortunately, or maybe entertainingly, that means shortest paths found by the program will usually be absurd from the standpoint of world geography. 
 Be careful when creating the lookup table for city names, 
 because some cities with a From: entry do not have any To: entry (you can fly out but not in). 
+<br />
+
 It's also possible that a city appearing under To: has no From: entry (can fly in but not out). 
 To select start and destination cities, the user can type in a string, 
 normally the beginning of a city name, and the program will list matching cities, 
@@ -29,6 +33,8 @@ from which the user can select via a number.
 The program should only accept strings that are of length two or more as input. 
 To find matches it simply looks for the user's string as a substring of city names in the lookup table. 
 Ignore case when looking for substrings. It's easiest to use C++ string objects and the string::find() function. 
+<br />
+
 Upload your source file(s) and a text file with copied output from a sample run of the program with the same searches as in the sample run below. 
 Shortest path results might be a bit different depending on how you set up your lookup table and your adjacency lists. 
 That's OK as long as your program finds a shortest path where there is one. When the user selects a city by number you may use the indexes in your lookup table 
@@ -37,7 +43,7 @@ You're also free to avoid displaying a list of cities when the user string match
 There is also the issue of invalid input e.g. user types a negative number or one that's not on the list. 
 For the purposes of this assignment, you're not required to validate the number but you're allowed to, 
 if you want, e.g. user has the re-enter until they type a number that's on the list
-
+<br />
 
 ---
 
