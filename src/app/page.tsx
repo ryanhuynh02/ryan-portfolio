@@ -287,7 +287,10 @@ function ExperienceMoreTutor() {
             which strengthened my understanding and helped me excel in higher-level math courses.
             As a result, my grades improved noticeably. I also became as a TA for my Math
             professor, which exposed me to his teaching style and grading techniques and directly
-            improved my own tutoring skills. This experience helped me build a closer mentor–mentee
+            improved my own tutoring skills.
+          </p> 
+          <p>
+            This experience helped me build a closer mentor–mentee
             relationship with him; I asked him for advice on how he achieved  his academic success, 
             and he was always willing to share his insights and experiences with me. 
             Tutoring and TA work also connected me with more
