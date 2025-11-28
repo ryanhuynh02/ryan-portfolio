@@ -102,9 +102,9 @@ const CONFIG = {
         "Translated an iOS app game into a web application to help children with complex communication needs express internal states and support individuals with cognitive impairments.",
       ],
     },
-
+  
     {
-      role: "Math Tutor & TA",
+      role: "Math Tutor",
       org: "Chabot College",
       period: "2023 – 2025",            
       bullets: [
@@ -113,7 +113,8 @@ const CONFIG = {
         "Helped students develop problem-solving strategies, study plans, and exam preparation techniques.",
       ],
     },
-  ],
+  ],  
+  
   education: [
     {
       school: "University of California, Davis",
