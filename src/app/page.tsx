@@ -57,7 +57,7 @@ const CONFIG = {
         description:
           "Built a small-scale HVAC prototype with temperature sensing, PID-style control, and fan/heater actuation. Logged data and tuned setpoints for comfort and efficiency.",
         tags: ["Embedded", "Sensors", "Control"],
-        href: "/projects/hvac", // (optional) create this page later
+        href: "/projects/mini-hvac", // (optional) create this page later
         images: [
           "/projects/mini-hvac/hvac1.jpeg",
           "/projects/mini-hvac/hvac2.jpeg",
