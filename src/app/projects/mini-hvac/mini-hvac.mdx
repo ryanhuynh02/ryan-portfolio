@@ -4,7 +4,7 @@ During my **AvenueE** program back on Sep, 2025, my teammates and I were tasked 
 that can assist the drivers when they operation their vehicle.
 Before selecting our project, our team brainstormed several ideas to improve
 vehicle safety and comfort:
-< br />
+<br />
 
 <ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
     <li>Pressure plate to sense users within the vehicle when locked, then set off an alarm outside</li>
@@ -17,23 +17,33 @@ vehicle safety and comfort:
 <br />
 
 ## 2. Weighted Decision Matrix  
+<br />
 
 To choose the final topic, we created a **weighted decision matrix**.  
 Each idea was scored on several criteria, and each criterion had a different weight:
+<br />
 
-- **Time to Implement** (weight 5)  
-- **Team Expertise** (weight 2)  
-- **Impact on Safety** (weight 3)  
-- **Impact on Efficiency** (weight 2)  
-- **Estimated Implementation Cost** (weight 2)  
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>**Time to Implement** (weight 5)</li>
+    <li>**Team Expertise** (weight 2)</li>
+    <li>**Impact on Safety** (weight 3)</li>
+    <li>**Impact on Efficiency** (weight 2)</li>
+    <li>**Estimated Implementation Cost** (weight 2)</li>
+</ul>
+<br />
 
 The scores and totals are shown below.
+<br />
 
-| Project Idea                     | Time to Implement (w: 5) | Team Expertise (w: 2) | Impact on Safety (w: 3) | Impact on Efficiency (w: 2) | Estimated Implementation Cost (w: 2) | Total |
-| -------------------------------- | ------------------------ | --------------------- | ----------------------- | ---------------------------- | ------------------------------------- | ----- |
-| Legal speed limit detection      | 4 × 5 = 20              | 2 × 2 = 4             | 4 × 3 = 12              | 2 × 2 = 4                    | 4 × 2 = 8                             | 48    |
-| Automated HVAC                   | 4 × 5 = 20              | 3 × 2 = 6             | 2 × 3 = 6               | 5 × 2 = 10                   | 5 × 2 = 10                            | 52    |
-| Multi-purpose seat pressure plate| 3 × 5 = 15              | 3 × 2 = 6             | 5 × 3 = 15              | 3 × 2 = 6                    | 3 × 2 = 6                             | 48    |
+<div className="not-prose mt-3 flex justify-center">
+    <Image
+      src="/projects/mini-hvac/Decision Matrix.png"
+      alt="Mini HVAC breadboard wiring with Arduino, sensor, and fan"
+      width={800}
+      height={500}
+      className="rounded-xl border max-w-full md:max-w-2xl"
+    />
+  </div>
 <br />
 
 The **Automated HVAC** idea received the highest total score (52), so we selected it as
@@ -51,7 +61,7 @@ our final project.
 
 The idea is to keep the interior at a safe and comfortable temperature by automatically
 turning on cooling when the cabin gets too hot, instead of making the driver suffer in a “baking”
-car when they return.We built a proof-of-concept prototype using an Arduino and basic electronic components, with the
+car when they return. We built a proof-of-concept prototype using an Arduino and basic electronic components, with the
 long-term goal of integrating a similar system into real vehicles.
 <br />
 
@@ -60,23 +70,30 @@ long-term goal of integrating a similar system into real vehicles.
 ## 4. Team Roles  
 
 Our project was a team effort. Each member contributed in different areas:
-
-- **Ryan Huynh**  
-  - Helped with **setting up and wiring** the circuit on the breadboard  
-  - Helped **design the outer case / enclosure** for the prototype  
-  - Helped **test and choose the thermal thresholds** for when the fan should turn on or off  
 <br />
 
-- **Alfred Tsang**  
-  - Focused on **coding the Arduino** and implementing the control logic  
-  - Worked on **debugging** issues with the code and hardware interaction  
-  - Contributed to the **in-person presentation** and explanation of the system  
+- **Ryan Huynh**
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>**Helped setting up and wiring** the circuit on the breadboard</li>
+    <li>**Design the outer case / enclosure** for the prototype</li>
+    <li>**Test and choose the thermal thresholds** for when the fan should turn on or off</li>
+</ul>    
 <br />
 
-- **Steven Clark**  
-  - Created and organized the **slides** for our presentation  
-  - Helped with **coding** parts of the Arduino program  
-  - Led the **online presentation**, explaining the project to the audience  
+- **Alfred Tsang**
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>Focused on **coding the Arduino** and implementing the control logicd</li>
+    <li>Worked on **debugging** issues with the code and hardware interaction</li>
+    <li>Contributed to the **in-person presentation** and explanation of the system</li>
+</ul>  
+<br />
+
+- **Steven Clark**
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>Created and organized the **slides** for our presentation</li>
+    <li>Helped with **coding** parts of the Arduino program</li>
+    <li>Led the **online presentation**, explaining the project to the audience</li>
+</ul>  
 <br />
 
 ## 5. My Role in the Project  
