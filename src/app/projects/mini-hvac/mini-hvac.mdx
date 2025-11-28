@@ -1,11 +1,52 @@
+## 1. Background
+<br />
+During my **AvenueE** program back on Sep, 2025, my teammates and I were tasked to constructed an automation
+that can assist the drivers when they operation their vehicle.
+Before selecting our project, our team brainstormed several ideas to improve
+vehicle safety and comfort:
+< br />
 
-## 1. Project Overview  
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>Pressure plate to sense users within the vehicle when locked, then set off an alarm outside</li>
+    <li>Assisted parking system</li>
+    <li>Proximity sensor</li>
+    <li>More advanced signal lights</li>
+    <li>Automated HVAC</li>
+    <li>Legal speed limit detection</li>
+</ul>
 <br />
 
-During my **AvenueE** program back on Sep, 2025, my teammates and I designed and built a small-scale heating, 
-ventilation, and air conditioning system to better understand how temperature control and airflow work in cars.
-For this project, our team designed a small **Automatic Cooling System / Mini HVAC** for a parked
-vehicle. 
+## 2. Weighted Decision Matrix  
+
+To choose the final topic, we created a **weighted decision matrix**.  
+Each idea was scored on several criteria, and each criterion had a different weight:
+
+- **Time to Implement** (weight 5)  
+- **Team Expertise** (weight 2)  
+- **Impact on Safety** (weight 3)  
+- **Impact on Efficiency** (weight 2)  
+- **Estimated Implementation Cost** (weight 2)  
+
+The scores and totals are shown below.
+
+| Project Idea                     | Time to Implement (w: 5) | Team Expertise (w: 2) | Impact on Safety (w: 3) | Impact on Efficiency (w: 2) | Estimated Implementation Cost (w: 2) | Total |
+| -------------------------------- | ------------------------ | --------------------- | ----------------------- | ---------------------------- | ------------------------------------- | ----- |
+| Legal speed limit detection      | 4 × 5 = 20              | 2 × 2 = 4             | 4 × 3 = 12              | 2 × 2 = 4                    | 4 × 2 = 8                             | 48    |
+| Automated HVAC                   | 4 × 5 = 20              | 3 × 2 = 6             | 2 × 3 = 6               | 5 × 2 = 10                   | 5 × 2 = 10                            | 52    |
+| Multi-purpose seat pressure plate| 3 × 5 = 15              | 3 × 2 = 6             | 5 × 3 = 15              | 3 × 2 = 6                    | 3 × 2 = 6                             | 48    |
+<br />
+
+The **Automated HVAC** idea received the highest total score (52), so we selected it as
+our final project.
+
+<br />
+
+> **Selected Topic:** Automated HVAC
+<br />
+
+## 3. Project Overview  
+
+
 <br />
 
 The idea is to keep the interior at a safe and comfortable temperature by automatically
@@ -16,7 +57,29 @@ long-term goal of integrating a similar system into real vehicles.
 
 ---
 
-## 2. My Role in the Project  
+## 4. Team Roles  
+
+Our project was a team effort. Each member contributed in different areas:
+
+- **Ryan Huynh**  
+  - Helped with **setting up and wiring** the circuit on the breadboard  
+  - Helped **design the outer case / enclosure** for the prototype  
+  - Helped **test and choose the thermal thresholds** for when the fan should turn on or off  
+<br />
+
+- **Alfred Tsang**  
+  - Focused on **coding the Arduino** and implementing the control logic  
+  - Worked on **debugging** issues with the code and hardware interaction  
+  - Contributed to the **in-person presentation** and explanation of the system  
+<br />
+
+- **Steven Clark**  
+  - Created and organized the **slides** for our presentation  
+  - Helped with **coding** parts of the Arduino program  
+  - Led the **online presentation**, explaining the project to the audience  
+<br />
+
+## 5. My Role in the Project  
 <br />
 
 In this project, I contributed to both the **hardware setup** and the **practical design** of the
@@ -105,7 +168,7 @@ enclosure**, and **calibrated to react reliably** during our demo.
 
 ---
 
-## 3. Problem and Motivation  
+## 6. Problem and Motivation  
 <br />
 
 On hot days, the interior of a parked car can quickly become much hotter than the outside air.
@@ -126,7 +189,7 @@ situations by conditioning the interior **before** the driver enters.
 
 ---
 
-## 4. Proposed Solution  
+## 7. Proposed Solution  
 <br />
 
 Our solution is a **Mini HVAC / Automatic Cooling System** that monitors the vehicle’s interior
@@ -147,7 +210,7 @@ interface with the car’s existing HVAC system.
 
 ---
 
-## 5. Prototype Implementation  
+## 8. Prototype Implementation  
 <br />
 
 We built our prototype using an **Arduino Uno** and an electronics kit.
@@ -181,7 +244,7 @@ the sensor in the actual vehicle interior.
 
 ---
 
-## 6. Control Logic  
+## 9. Control Logic  
 <br />
 
 The system is a simple form of **closed-loop control**. It keeps checking the temperature and
