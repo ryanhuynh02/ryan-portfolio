@@ -53,7 +53,7 @@ const CONFIG = {
   ],
   projects: [
     {
-        title: "A mini HVAC System",
+        title: "A Mini HVAC System",
         description:
           "Built a small-scale HVAC prototype with temperature sensing, PID-style control, and fan/heater actuation. Logged data and tuned setpoints for comfort and efficiency.",
         tags: ["Embedded", "Sensors", "Control"],
