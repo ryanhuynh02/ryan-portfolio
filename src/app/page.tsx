@@ -89,7 +89,7 @@ const CONFIG = {
       tags: ["C++", "Graphs", "Algorithms"],
       href: "/projects/city-flights",
       images : [
-        "/projects/city-flights/flight.jpg",
+        "/projects/city-flights/flight.jpeg",
         "/projects/city-flights/board.jpg",
       ]
     
