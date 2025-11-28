@@ -1,14 +1,16 @@
 
 ## 1. Project Overview  
+<br />
 
 During my **AvenueE** program back on Sep, 2025, my teammates and I designed and built a small-scale heating, 
 ventilation, and air conditioning system to better understand how temperature control and airflow work in cars.
 For this project, our team designed a small **Automatic Cooling System / Mini HVAC** for a parked
-vehicle. The idea is to keep the interior at a safe and comfortable temperature by automatically
-turning on cooling when the cabin gets too hot, instead of making the driver suffer in a “baking”
-car when they return.
+vehicle. 
+<br />
 
-We built a proof-of-concept prototype using an Arduino and basic electronic components, with the
+The idea is to keep the interior at a safe and comfortable temperature by automatically
+turning on cooling when the cabin gets too hot, instead of making the driver suffer in a “baking”
+car when they return.We built a proof-of-concept prototype using an Arduino and basic electronic components, with the
 long-term goal of integrating a similar system into real vehicles.
 <br />
 
@@ -53,9 +55,9 @@ This can lead to:
 <br />
 
 <ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
-    <li>Discomfort when people first get into the vehicle.</li> 
-    <li>Potential **heat-related health issues** in extreme conditions.</li>  
-    <li>A more frustrated and distracted driver.</li> 
+    <li>Discomfort when people first get into the vehicle.</li>
+    <li>Potential **heat-related health issues** in extreme conditions.</li>
+    <li>A more frustrated and distracted driver.</li>
 </ul>
 <br />
 
@@ -67,6 +69,7 @@ situations by conditioning the interior **before** the driver enters.
 ---
 
 ## 4. Proposed Solution  
+<br />
 
 Our solution is a **Mini HVAC / Automatic Cooling System** that monitors the vehicle’s interior
 temperature and compares it to a **desired setpoint**:
@@ -92,17 +95,20 @@ interface with the car’s existing HVAC system.
 We built our prototype using an **Arduino Uno** and an electronics kit.
 
 **Main hardware:**
+<br />
 
 <ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
     <li>Arduino Uno (or compatible board)</li>  
     <li>Temperature sensor</li> 
-    <li>Small DC fan (represents the vehicle’s A/C) </li>  
-    <li>LCD display to show temperature and status </li>  
-    <li>Breadboard, resistors, jumper wires  </li> 
-    <li>Power from a USB cable or battery  </li> 
+    <li>Small DC fan (represents the vehicle’s A/C)</li>  
+    <li>LCD display to show temperature and status</li>  
+    <li>Breadboard, resistors, jumper wires</li> 
+    <li>Power from a USB cable or battery</li> 
 </ul>
+<br />
 
 **How the prototype works:**
+<br />
 
 **1.** The temperature sensor continuously measures the “cabin” temperature.  
 **2.** The Arduino reads this value and compares it to a setpoint.  
