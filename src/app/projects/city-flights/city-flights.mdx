@@ -1,0 +1,39 @@
+# City Flights Route Finder
+
+A C++ program that reads flight connections from a file and finds the **shortest route**
+between two cities using **Breadth-First Search (BFS)**.
+
+<Image
+  src="/projects/city-flights/city-flights-graph.png"
+  alt="City Flights graph visualization"
+  width={900}
+  height={600}
+/>
+
+---
+
+## What the program does
+
+- Reads flight connections from `connections.txt`
+- Builds a graph using **lookup tables** and **adjacency lists**
+- Uses **BFS** to find the shortest path between two cities
+- Prints the route in order, from source to destination
+
+---
+
+## Tech stack
+
+- **Language:** C++
+- **Data structures:** `unordered_map`, vectors, adjacency lists
+- **Algorithm:** Breadth-First Search (BFS)
+
+---
+
+## Sample route output
+
+```text
+Enter departure city: San Francisco
+Enter destination city: New York
+
+Shortest route:
+San Francisco → Denver → Chicago → New York

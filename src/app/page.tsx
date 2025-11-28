@@ -87,7 +87,12 @@ const CONFIG = {
       description:
         "Reads a connections.txt file to construct adjacency lists and computes shortest path via BFS.",
       tags: ["C++", "Graphs", "Algorithms"],
-      href: "#",
+      href: "/projects/city-flights",
+      images : [
+        "/projects/city-flights/flight.jpg",
+        "/projects/city-flights/board.jpg",
+      ]
+    
     },
   ],
   experience: [
@@ -104,7 +109,7 @@ const CONFIG = {
     },
 
     {
-      role: "Math Tutor",
+      role: "Math Tutor & TA",
       org: "Chabot College",
       period: "2023 – 2025",
       bullets: [
