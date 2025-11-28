@@ -1,97 +1,118 @@
-#UPDATING...
-<br />
-
-## 1. Background  
-<br />
-
-During my **AvenueE** program back on Sep, 2025, my teammates and I designed and built a small-scale
-heating, ventilation, and air conditioning system to better understand how
-temperature control and airflow work in cars.  
-<br />
-
-The goal was to create a system that can **monitor temperature**, make
-**automatic decisions**, and control components like a **fan** or **heater**
-based on the readings.
-<br />
+# Mini HVAC / Automatic Cooling System
 
 ## 1. Project Overview  
 
-For this project, our team designed an **Automatic Cooling System / Mini HVAC** for a parked vehicle.  
-The idea is to keep the interior at a safe and comfortable temperature by automatically turning on
-cooling when the cabin gets too hot, instead of making the driver suffer in a “baking” car when they return.   
+During my **AvenueE** program back on Sep, 2025, my teammates and I designed and built a small-scale heating, 
+ventilation, and air conditioning system to better understand how temperature control and airflow work in cars.
+For this project, our team designed a small **Automatic Cooling System / Mini HVAC** for a parked
+vehicle. The idea is to keep the interior at a safe and comfortable temperature by automatically
+turning on cooling when the cabin gets too hot, instead of making the driver suffer in a “baking”
+car when they return.
 
-We focused on a **proof-of-concept prototype** using an Arduino and basic electronic components,
-with the long-term vision of integrating a similar system into real vehicles.
+We built a proof-of-concept prototype using an Arduino and basic electronic components, with the
+long-term goal of integrating a similar system into real vehicles.
 
-<br />
+---
 
-## 2. Problem & Motivation  
+## 2. My Role in the Project  
 
-On hot days, the interior of a parked car can easily become **20°F hotter** than the outside air. :contentReference[oaicite:1]{index=1}  
+In this project, I contributed to both the **hardware setup** and the **practical design** of the
+Mini HVAC system. My main responsibilities were:
+
+- **Setting up and wiring the circuit**  
+  I helped connect the temperature sensor, LCD display, fan, and power lines on the breadboard.  
+  This included tracing the internal bus lines on the breadboard, choosing the correct Arduino pins,
+  and making sure each component received the right voltage and signals without causing shorts.
+
+- **Designing the outer case / enclosure**  
+  I worked on the physical housing that covers and protects the components.  
+  The case makes the prototype look more organized and easier to handle, while still allowing
+  airflow for the fan and clear visibility of the LCD display.
+
+- **Finding a suitable temperature threshold**  
+  I helped test and choose the temperature at which the fan should turn **on** and **off**.  
+  By experimenting with different values, we found a threshold that makes the system respond
+  when the cabin feels noticeably warm, but without turning the fan on and off too frequently.
+
+Overall, my contributions helped ensure the system was **wired correctly**, **protected by a clean
+enclosure**, and **calibrated to react reliably** during our demo.
+
+---
+
+## 3. Problem and Motivation  
+
+On hot days, the interior of a parked car can quickly become much hotter than the outside air.
 This can lead to:
 
 - Discomfort when people first get into the vehicle  
-- Potential **heat injury**, including heat exhaustion or even heat stroke in extreme cases  
-- A less focused, more irritated driver, which can increase the risk of **distracted driving**  
+- Potential **heat-related health issues** in extreme conditions  
+- A more frustrated and distracted driver  
 
-In winter, drivers face the opposite issue: the interior is freezing cold, and they must wait for
-the car to warm up before driving comfortably. A smarter HVAC system can address both extremes
-by conditioning the interior **before** the driver enters. :contentReference[oaicite:2]{index=2}  
+In cold weather, people face the opposite problem: the interior is freezing, and they must wait
+for the cabin to warm up before feeling comfortable. A smarter HVAC system can help in both
+situations by conditioning the interior **before** the driver enters.
 
-<br />
+---
 
-## 3. Proposed Solution  
+## 4. Proposed Solution  
 
-Our solution is an **Automatic HVAC System** that monitors the vehicle’s interior temperature and
-compares it to a **driver-selected setpoint**.  
+Our solution is a **Mini HVAC / Automatic Cooling System** that monitors the vehicle’s interior
+temperature and compares it to a **desired setpoint**:
 
-- The driver chooses a comfortable temperature.  
-- When nobody is operating the vehicle and the cabin temperature drifts more than **10°F away**
-  from that setpoint, the system automatically turns on the climate control.  
-- For hot conditions, the **A/C (cooling)** turns on until the cabin returns to the desired range.  
-- In a full implementation, the same logic could also control a **heater** in cold weather.   
+- The driver chooses a comfortable temperature.
+- If the cabin gets more than a certain amount above that setpoint, the system automatically
+  turns on cooling (the fan).
+- Once the temperature returns to the comfortable range, the fan turns off.
 
-The long-term goal is to **integrate this logic into the car’s HVAC system and engine control**,
-so the vehicle can briefly turn on the A/C when needed and shut off once the temperature is back
-to a safe level.
+In a full vehicle implementation, the same logic could also control a heater in cold weather and
+interface with the car’s existing HVAC system.
 
-<br />
+---
 
-## 4. Prototype Implementation  
+## 5. Prototype Implementation  
 
-For our prototype, we built a small **mini HVAC / automatic cooling system** using an  
-**Arduino Uno kit**. :contentReference[oaicite:4]{index=4}  
+We built our prototype using an **Arduino Uno** and an electronics kit.
 
-**Hardware used:**
+**Main hardware:**
 
-- Arduino Uno (Elegoo UNO R3 compatible board)  
-- Breadboard  
-- Temperature sensor / thermometer  
-- DC fan (represents the vehicle’s A/C)  
-- LCD display for showing temperature and status  
-- USB power from a laptop and/or battery  
+- Arduino Uno (or compatible board)  
+- Temperature sensor  
+- Small DC fan (represents the vehicle’s A/C)  
+- LCD display to show temperature and status  
+- Breadboard, resistors, jumper wires  
+- Power from a USB cable or battery  
 
-**How it works:**
+**How the prototype works:**
 
-1. The **temperature sensor** continuously measures the “cabin” temperature on the breadboard.  
-2. The Arduino compares this reading with a chosen **set temperature**.  
-3. When the measured temperature is **10°F above** the setpoint, the Arduino turns on the **fan**. :contentReference[oaicite:5]{index=5}  
-4. Once the temperature drops back below the threshold, the fan turns off.  
-5. The **LCD display** shows the current temperature and the cooling status (on/off), which makes
-   the behavior easy to demonstrate during presentations.
+1. The temperature sensor continuously measures the “cabin” temperature on the breadboard.  
+2. The Arduino reads this value and compares it to a chosen setpoint.  
+3. When the measured temperature becomes **too high**, the Arduino turns the **fan ON**.  
+4. When the temperature cools down to the target range, the Arduino turns the **fan OFF**.  
+5. The LCD display shows the current temperature and whether the fan is on or off, making the
+   behavior easy to demonstrate.
 
-You can imagine replacing the fan with the car’s A/C compressor and blower, and the breadboard
-sensor with a cabin temperature sensor integrated into the dashboard.
+You can imagine replacing the small fan with a real car blower and A/C compressor, and putting
+the sensor in the actual vehicle interior.
 
-<br />
+---
 
-### Prototype Diagram / Photo  
+## 6. Control Logic  
 
-If you have a project photo, you can reference it like this (update the path):
+The system is a simple form of **closed-loop control**. It keeps checking the temperature and
+reacts when it moves too far away from the comfort range.
 
-```mdx
-<Image
-  src="/images/mini-hvac-breadboard.jpg"
-  alt="Mini HVAC automatic cooling system prototype with Arduino, fan, LCD, and thermometer"
-/>
+A simplified version of the logic looks like this:
 
+```text
+loop:
+  read currentTemperature
+
+  if currentTemperature >= setTemperature + threshold:
+    // Too hot – turn cooling on
+    fan = ON
+
+  else if currentTemperature <= setTemperature:
+    // Back to target or below – turn cooling off
+    fan = OFF
+
+  // repeat forever
