@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { listPosts } from "@/lib/blog";
-import { Home as HomeIcon } from "lucide-react";
 
 export const metadata = {
   title: "Blog — Ryan Huynh",
@@ -30,29 +29,12 @@ export default function BlogIndexPage() {
   const posts = listPosts(); // newest → oldest
 
   return (
-    <div className="min-h-screen">
-      {/* Header only on /blog */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          {/* Home link with icon */}
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-900"
-            aria-label="Go to home"
-          >
-            <HomeIcon className="size-4" />
-            <span>Home</span>
-          </Link>
-
-          <h1 className="text-lg font-semibold tracking-tight">Blog</h1>
-
-          {/* spacer to balance layout */}
-          <span className="text-sm text-transparent select-none">placeholder</span>
-        </div>
-      </header>
+    <div className="max-w-6xl mx-auto px-4 pt-24 pb-12">
+      {/* Page title under your global SiteHeader */}
+      <h1 className="text-3xl md:text-4xl font-bold text-center">Blog</h1>
 
       {/* List */}
-      <main className="max-w-5xl mx-auto px-4 py-8">
+      <main className="mt-8">
         {posts.length === 0 ? (
           <div className="rounded-2xl border border-slate-200 bg-white p-5">
             <div className="font-medium">No posts yet</div>
