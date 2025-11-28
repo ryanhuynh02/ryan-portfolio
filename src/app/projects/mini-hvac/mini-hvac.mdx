@@ -12,7 +12,6 @@ temperature control and airflow work in cars.
 The goal was to create a system that can **monitor temperature**, make
 **automatic decisions**, and control components like a **fan** or **heater**
 based on the readings.
-
 <br />
 
 ## 1. Project Overview  
@@ -96,77 +95,3 @@ If you have a project photo, you can reference it like this (update the path):
   alt="Mini HVAC automatic cooling system prototype with Arduino, fan, LCD, and thermometer"
 />
 
-
-## 2. System Overview  
-<br />
-
-The mini HVAC system is made up of three main parts:
-
-- **Sensing** – A temperature sensor that continuously reads the room or box temperature.  
-- **Control** – A microcontroller (e.g., Arduino) that compares the sensed value
-  with the desired setpoint.  
-- **Actuation** – A small DC fan and/or heater element that turns on or off to keep
-  the temperature within a comfortable range.
-
-<br />
-
-<div className="not-prose grid gap-4 sm:grid-cols-2">
-  <div className="rounded-xl border bg-slate-50 p-4">
-    <h3 className="font-semibold mb-2">What the system can do</h3>
-    <ul className="list-disc pl-5 text-sm">
-      <li>Read live temperature data</li>
-      <li>Decide when to cool or heat</li>
-      <li>Show status using LEDs or a display</li>
-      <li>Log data for analysis and tuning</li>
-    </ul>
-  </div>
-  <div className="rounded-xl border bg-slate-50 p-4">
-    <h3 className="font-semibold mb-2">What I focused on</h3>
-    <ul className="list-disc pl-5 text-sm">
-      <li>System wiring and safety</li>
-      <li>Control logic for turning fan/heater on/off</li>
-      <li>Testing different temperature setpoints</li>
-      <li>Making the demo easy to understand</li>
-    </ul>
-  </div>
-</div>
-
-<br />
-
-## 3. Hardware & Software  
-<br />
-
-**Hardware (example):**
-
-- Microcontroller (e.g., Arduino Uno)
-- Temperature sensor (e.g., DHT11 / DS18B20 / thermistor)
-- Small DC fan and/or heating element
-- Power supply & breadboard
-- Indicator LEDs and resistors
-- Wires, jumpers, and housing/enclosure
-
-**Software / Logic:**
-
-- Reads the temperature at a fixed interval  
-- Compares it with a **user-defined setpoint**  
-- If temperature is above the limit → **fan turns on**  
-- If temperature is below the limit → **heater turns on** (if included)  
-- Otherwise, the system stays in an **idle / comfortable** state  
-
-<br />
-
-## 4. Control Logic (Simple Pseudo-code)  
-<br />
-
-```text
-loop:
-  read currentTemperature
-  if currentTemperature > maxTemp:
-    turn fan ON
-    turn heater OFF
-  else if currentTemperature < minTemp:
-    turn heater ON
-    turn fan OFF
-  else:
-    turn fan OFF
-    turn heater OFF
