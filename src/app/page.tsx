@@ -53,20 +53,20 @@ const CONFIG = {
   ],
   projects: [
     {
-      title: "Door Sensor w/ Reed Switch & Piezo",
-      description:
-        "Designed a low-power door sensor using a magnet and reed switch with audible alert; modeled behavior and tuned thresholds.",
-      tags: ["Soldering", "Hardware", "Wiring"],
-      href: "/projects/door-sensor",
-      images: [
-        "/projects/doorSlide1.jpg",
-        "/projects/doorSlide2.jpg",
-        "/projects/doorSlide3.jpg",
-        "/projects/doorSlide5.jpg",
-        "/projects/doorSlide6.jpg",
-        "/projects/doorSlide7.jpg",
-      ],
+        title: "A mini HVAC System",
+        description:
+          "Built a small-scale HVAC prototype with temperature sensing, PID-style control, and fan/heater actuation. Logged data and tuned setpoints for comfort and efficiency.",
+        tags: ["Embedded", "Sensors", "Control"],
+        href: "/projects/hvac", // (optional) create this page later
+        images: [
+          "/projects/mini-hvac/hvac1.jpeg",
+          "/projects/mini-hvac/hvac2.jpeg",
+          "/projects/mini-hvac/hvac3.jpeg",
+          "/projects/mini-hvac/hvac4.jpeg",
+          "/projects/mini-hvac/hvac5.jpeg",
+        ],
     },
+
     {
       title: "Color & Math Game (Ionic)",
       description:
@@ -82,6 +82,23 @@ const CONFIG = {
         "/projects/color-math/sample.jpg",
       ],
     },
+
+    {
+      title: "Door Sensor w/ Reed Switch & Piezo",
+      description:
+        "Designed a low-power door sensor using a magnet and reed switch with audible alert; modeled behavior and tuned thresholds.",
+      tags: ["Soldering", "Hardware", "Wiring"],
+      href: "/projects/door-sensor",
+      images: [
+        "/projects/doorSlide1.jpg",
+        "/projects/doorSlide2.jpg",
+        "/projects/doorSlide3.jpg",
+        "/projects/doorSlide5.jpg",
+        "/projects/doorSlide6.jpg",
+        "/projects/doorSlide7.jpg",
+      ],
+    },
+    
     {
       title: "City Flights (C++ Graphs)",
       description:
