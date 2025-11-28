@@ -10,7 +10,7 @@ import {
   Briefcase,
   Cpu,
   Rocket,
-  ChevronRight, // now used in the View button
+  ChevronRight,
   ChevronDown,
   BookOpen,
 } from "lucide-react";
@@ -102,19 +102,19 @@ const CONFIG = {
         "Translated an iOS app game into a web application to help children with complex communication needs express internal states and support individuals with cognitive impairments.",
       ],
     },
-  
+
     {
       role: "Math Tutor",
       org: "Chabot College",
-      period: "2023 – 2025",            
+      period: "2023 – 2025",
       bullets: [
         "Tutored algebra, trigonometry, and calculus to college students in 1:1 and small-group sessions.",
         "Created step-by-step walkthroughs and practice problems to clarify tough concepts.",
         "Helped students develop problem-solving strategies, study plans, and exam preparation techniques.",
       ],
     },
-  ],  
-  
+  ],
+
   education: [
     {
       school: "University of California, Davis",
@@ -134,13 +134,11 @@ const CONFIG = {
 function AboutCollapse() {
   return (
     <div className="mt-4">
-      {/* Top bar kept for visual consistency (not clickable) */}
       <div className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm cursor-default select-none">
         <span className="font-medium text-slate-700">More about me</span>
         <ChevronDown className="h-4 w-4 text-slate-600 rotate-180" />
       </div>
 
-      {/* Expanded content (always shown) */}
       <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
         <p>
           I’m a passionate Computer Engineering student with practical
@@ -242,6 +240,52 @@ function ExperienceMoreSFSU() {
             wasn’t very confident speaking in front of a large audience, but it
             turned out to be a valuable practice environment that helped me
             improve my communication skills.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** NEW: More details dropdown for Math Tutor (Chabot College) */
+function ExperienceMoreTutor() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-4">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
+        aria-expanded={open}
+      >
+        <span className="font-medium text-slate-700">More details</span>
+        <ChevronDown
+          className={`h-4 w-4 text-slate-600 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {open && (
+        <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
+          <p>
+            Supported students across Algebra, Trigonometry, Pre-Calculus, and
+            Calculus in 1:1 and small-group sessions. Quickly assessed
+            misconceptions and tailored explanations to each learner’s approach.
+          </p>
+          <p>
+            Built step-by-step solution guides and targeted practice sets; emphasized
+            problem-solving strategies (draw a sketch, define variables, check
+            units, sanity-check answers).
+          </p>
+          <p>
+            Coached study plans before midterms/finals, including spaced
+            repetition and error-log reviews to turn mistakes into checkpoints
+            for future problems.
+          </p>
+          <p>
+            Tools used: whiteboard derivations, Desmos/GeoGebra for visualization,
+            and LaTeX snippets to format clear formulas for handouts.
           </p>
         </div>
       )}
@@ -419,8 +463,6 @@ export default function Portfolio() {
       ref={topRef}
       className="min-h-screen overflow-x-hidden bg-gradient-to-b from-slate-50 to-white text-slate-900"
     >
-      {/* Global header comes from src/app/layout.tsx if you moved it there.
-          If not, you can render <SiteHeader /> here: */}
       <SiteHeader />
 
       {/* Hero */}
@@ -512,25 +554,33 @@ export default function Portfolio() {
 
       {/* Experience */}
       <Section id="experience" title="Experience" icon={<Briefcase className="size-5" />}>
-        {CONFIG.experience.map((e) => (
-          <Card key={e.org}>
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-              <div>
-                <h3 className="font-semibold text-lg">{e.role}</h3>
-                <div className="text-slate-600">{e.org}</div>
-                <ul className="mt-3 list-disc pl-5 space-y-1 text-slate-700">
-                  {e.bullets.map((b, i) => (
-                    <li key={i}>{b}</li>
-                  ))}
-                </ul>
+        {/* ADDED: spacing between cards */}
+        <div className="space-y-4 sm:space-y-5 md:space-y-6">
+          {CONFIG.experience.map((e) => (
+            <Card key={e.org}>
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                <div>
+                  <h3 className="font-semibold text-lg">{e.role}</h3>
+                  <div className="text-slate-600">{e.org}</div>
+                  <ul className="mt-3 list-disc pl-5 space-y-1 text-slate-700">
+                    {e.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="text-sm text-slate-500 whitespace-nowrap">
+                  {e.period}
+                </div>
               </div>
-              <div className="text-sm text-slate-500 whitespace-nowrap">{e.period}</div>
-            </div>
-            {e.org.includes("San Francisco State University") && (
-              <ExperienceMoreSFSU />
-            )}
-          </Card>
-        ))}
+
+              {/* existing SFSU details */}
+              {e.org.includes("San Francisco State University") && <ExperienceMoreSFSU />}
+
+              {/* NEW: Tutor (Chabot College) details */}
+              {e.org.includes("Chabot College") && <ExperienceMoreTutor />}
+            </Card>
+          ))}
+        </div>
       </Section>
 
       {/* Projects */}
