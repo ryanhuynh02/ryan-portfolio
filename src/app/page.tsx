@@ -177,72 +177,56 @@ function AboutCollapse() {
 }
 
 function ExperienceMoreSFSU() {
-  const [open, setOpen] = useState(false);
+  // Always-expanded version: no toggle, no state.
   return (
     <div className="mt-4">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
-        aria-expanded={open}
-      >
+      {/* Static header bar (not clickable) */}
+      <div className="w-full inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm cursor-default select-none">
         <span className="font-medium text-slate-700">More details</span>
-        <ChevronDown
-          className={`h-4 w-4 text-slate-600 transition-transform ${
-            open ? "rotate-180" : ""
-          }`}
-        />
-      </button>
+        {/* Keep chevron rotated to indicate expanded */}
+        <ChevronDown className="h-4 w-4 text-slate-600 rotate-180" />
+      </div>
 
-      {open && (
-        <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
-          <p>
-            I’ve been selected as a Summer Training Academy for Research
-            Scholars (STARS) Program. During my research, I collaborated with Dr
-            Alyssa Kubota at the Personalized Health and Assistive Technologies
-            Laboratory (PHAST Lab) at San Francisco State University. My role in
-            the lab involved constructing the Carmen robot hardware and
-            translating the iOS app game into a web version that aids children
-            with complex communication needs in expressing their internal states
-            and individuals with cognitive impairments.
-          </p>
-          <p>
-            There were lots of documents I needed to read on how robots will
-            impact not only physically but also emotionally to human life. Our
-            labs also work with clinicians to better understand how to engage
-            patients with our Carmen robots. We also have to implement the study
-            of AAC (Augmented and Alternative Communication) and VSD (Visual
-            Scene Display) into our Carmen to make it behave more like a
-            humanoid and assist people with cognitive disabilities
-          </p>
-          <p>
-            When I first started my internship in the lab, I felt overwhelmed
-            and a little bit of nervous because this was my first internship.
-            Additionally, there were many tasks to complete, and I also wasn’t
-            sure which ones to prioritize. I also wondered whether we could
-            finish everything within two months.
-          </p>
-          <p>
-            As time went on, I had to adapt quickly to the workflow and build
-            connections with my teammates by learning from them and through
-            self-teaching. Fortunately, my mentor, Mathew, was very friendly,
-            helpful, and supportive. He regularly checked on our progress,
-            ensured we didn’t get stuck, and guided us in solving problems. I am
-            especially thankful to him for his hard work and valuable advice,
-            and I have learned many meaningful things from him.
-          </p>
-          <p>
-            The most challenging part we faced was setting up the Raspberry Pi,
-            which took nearly three weeks. We had to figure out and test the
-            default position while installing the Dynamixel packages, and we had
-            to flash our drive multiple times while trying to install ROS on the
-            Pi. During the internship, each lab had to give two presentations. I
-            wasn’t very confident speaking in front of a large audience, but it
-            turned out to be a valuable practice environment that helped me
-            improve my communication skills.
-          </p>
-        </div>
-      )}
+      {/* Always-visible content */}
+      <div className="mt-3 text-sm leading-6 text-slate-700 space-y-3">
+        <p>
+          I’ve been selected as a Summer Training Academy for Research Scholars (STARS) Program.
+          During my research, I collaborated with Dr. Alyssa Kubota at the Personalized Health and
+          Assistive Technologies Laboratory (PHAST Lab) at San Francisco State University. My role
+          in the lab involved constructing the Carmen robot hardware and translating the iOS app
+          game into a web version that aids children with complex communication needs in expressing
+          their internal states and individuals with cognitive impairments.
+        </p>
+        <p>
+          There were lots of documents I needed to read on how robots will impact not only
+          physically but also emotionally to human life. Our labs also work with clinicians to
+          better understand how to engage patients with our Carmen robots. We also have to implement
+          the study of AAC (Augmented and Alternative Communication) and VSD (Visual Scene Display)
+          into our Carmen to make it behave more like a humanoid and assist people with cognitive
+          disabilities.
+        </p>
+        <p>
+          When I first started my internship in the lab, I felt overwhelmed and a little bit nervous
+          because this was my first internship. Additionally, there were many tasks to complete, and
+          I also wasn’t sure which ones to prioritize. I also wondered whether we could finish
+          everything within two months.
+        </p>
+        <p>
+          As time went on, I had to adapt quickly to the workflow and build connections with my
+          teammates by learning from them and through self-teaching. Fortunately, my mentor, Mathew,
+          was very friendly, helpful, and supportive. He regularly checked on our progress, ensured
+          we didn’t get stuck, and guided us in solving problems. I am especially thankful to him
+          for his hard work and valuable advice, and I have learned many meaningful things from him.
+        </p>
+        <p>
+          The most challenging part we faced was setting up the Raspberry Pi, which took nearly
+          three weeks. We had to figure out and test the default position while installing the
+          Dynamixel packages, and we had to flash our drive multiple times while trying to install
+          ROS on the Pi. During the internship, each lab had to give two presentations. I wasn’t
+          very confident speaking in front of a large audience, but it turned out to be a valuable
+          practice environment that helped me improve my communication skills.
+        </p>
+      </div>
     </div>
   );
 }
@@ -272,21 +256,23 @@ function ExperienceMoreTutor() {
             Supported students across Algebra, Trigonometry, Pre-Calculus, and
             Calculus in 1:1 and small-group sessions. Quickly assessed
             misconceptions and tailored explanations to each learner’s approach.
-          </p>
-          <p>
             Built step-by-step solution guides and targeted practice sets; emphasized
             problem-solving strategies (draw a sketch, define variables, check
-            units, sanity-check answers).
+            units, sanity-check answers). Tools used: whiteboard derivations, Desmos/GeoGebra for visualization, and Calculator.
           </p>
           <p>
-            Coached study plans before midterms/finals, including spaced
-            repetition and error-log reviews to turn mistakes into checkpoints
-            for future problems.
+            Tutoring gave me the chance to revisit core concepts and formulas on a regular basis,
+            which strengthened my understanding and helped me excel in higher-level math courses.
+            As a result, my grades improved noticeably. I also became as a TA for my Math
+            professor, which exposed me to his teaching style and grading techniques and directly
+            improved my own tutoring skills. This experience helped me build a closer mentor–mentee
+            relationship with him; I asked him for advice on how he achieved  his academic success, 
+            and he was always willing to share his insights and experiences with me. 
+            Tutoring and TA work also connected me with more
+            students and gave me more opportunities to practice spoken English in real, everyday
+            conversations.
           </p>
-          <p>
-            Tools used: whiteboard derivations, Desmos/GeoGebra for visualization,
-            and LaTeX snippets to format clear formulas for handouts.
-          </p>
+          
         </div>
       )}
     </div>
