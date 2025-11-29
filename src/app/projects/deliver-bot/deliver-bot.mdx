@@ -1,42 +1,66 @@
 # Function
-Our Line Follower / Delivery Robot is an autonomous mobile robot designed to navigate along a predefined path using infrared (IR) sensors. It follows black electrical tape on a white surface and adjusts its movement based on real-time sensor feedback. This project gave us practical experience with embedded systems, sensors, motor control, and microcontroller programming.
+<br />
+
+Our Line Follower / Delivery Robot is an autonomous mobile robot designed to navigate along a predefined path using infrared (IR) sensors. It follows black tape on a surface and adjusts its movement based on real-time sensor feedback. This project gave us practical experience with embedded systems, sensors, motor control, and microcontroller programming.
 
 ## Overview
+<br />
 
 The robot uses:
+<br />
 
-- **IR sensors** to detect the black line  
-- **Arduino / ESP32** as the main controller  
-- **Two DC motors with motor driver** for movement  
-- **Rechargeable battery pack**  
-- **Chassis platform with wheels**  
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>**IR sensors** to detect the black line</li>
+    <li>**Arduino / ESP32** as the main controller</li>
+    <li>**Two DC motors with motor driver** for movement</li>
+    <li>**Rechargeable battery pack**</li>
+    <li>**Chassis platform with wheels**</li>
+</ul>
+<br />
 
 Its purpose is to simulate small-scale **delivery automation** — the robot can be programmed to carry small items from one point to another while staying on a guided route.
 
 ## How It Works
+<br />
 
-1. The IR sensors continuously measure reflected light.
-2. Black tape absorbs more IR light → lower readings.
-3. White background reflects more → higher readings.
-4. The microcontroller compares left/right sensor values.
-5. It adjusts motor speeds to turn left or right and remain on the track.
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>The IR sensors continuously measure reflected light.</li>
+    <li>Black tape absorbs more IR light → lower readings.</li>
+    <li>White background reflects more → higher readings.</li>
+    <li>The microcontroller compares left/right sensor values.</li>
+    <li>It adjusts motor speeds to turn left or right and remain on the track.</li>
+</ul>
+<br />
 
 This real-time feedback loop allows the robot to follow the path smoothly.
 
-## Features
+## Challenges
+<br />
+The most challenging part of the project was the coding. We wanted the robot to follow a line, and at first we wrote code for each sensor to detect when the robot was not aligned while moving. We used simple if–else statements, but we forgot to use nested if–else structures. Because of that, the robot kept turning in circles or moving back and forth slowly, and the wheels rotated very sluggishly.
+<br />
 
-- Autonomous line detection  
-- Adjustable motor PID tuning  
-- Supports multiple track layouts  
-- Can carry small payloads  
-- Quick battery swap  
-- Customizable chassis design  
+We spent about a week trying to fix the issue but couldn’t find the solution on our own. Eventually, we reached out to our professor for help. He suggested using nested conditions so that whenever the robot was misaligned—whether to the left or the right—it would continuously turn in the correct direction until the sensor detected the black line again.
+<br />
 
-## Images
+Another difficulty we faced was positioning the IR sensors correctly. If they were placed too low, they constantly detected black, which made the robot behave incorrectly. We had to experiment and find the perfect height where the sensors could detect the line consistently.
+<br /> 
 
-<Image src="/projects/line-follower/robot1.jpg" alt="Line Follower Robot Front View" width={1000} height={700} />
-<Image src="/projects/line-follower/robot2.jpg" alt="Bottom View Showing Sensors" width={1000} height={700} />
-<Image src="/projects/line-follower/robot3.jpg" alt="Robot Following the Line" width={1000} height={700} />
+Here is the code for the delivery bot:
+<br />
+
+<div className="not-prose mt-3 flex justify-center">
+    <Image
+      src="/projects/deliver-bot/code.jpeg"
+      alt="Code for delivery bot"
+      width={800}
+      height={500}
+      className="rounded-xl border max-w-full md:max-w-2xl"
+    />
+  </div>
+<br />
+
+Then we uploaded the code to our robot and testing at home before presenting in class.
+<br />
 
 ---
 
@@ -45,7 +69,7 @@ This real-time feedback loop allows the robot to follow the path smoothly.
 <figure className="not-prose my-10 flex flex-col items-center">
   <div className="w-full max-w-3xl aspect-video rounded-xl overflow-hidden shadow">
     <iframe
-      src="https://www.youtube.com/embed/XXXXXXXXXXX"
+      src="https://www.youtube.com/embed/6PNIWnq0HSI"
       title="Line Follower / Delivery Robot Demo"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
@@ -54,22 +78,38 @@ This real-time feedback loop allows the robot to follow the path smoothly.
     ></iframe>
   </div>
   <figcaption className="text-sm text-slate-600 mt-3 text-center">
-    Demonstration of the robot following a track autonomously.
+    Home testing robot following a track autonomously.
   </figcaption>
 </figure>
+<br />
 
+<div className="w-full max-w-3xl aspect-video rounded-xl overflow-hidden shadow">
+    <iframe
+      src="https://www.youtube.com/embed/M10kQwlAhDk"
+      title="Line Follower / Delivery Robot Demo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      loading="lazy"
+      className="w-full h-full"
+    ></iframe>
+  </div>
+  <figcaption className="text-sm text-slate-600 mt-3 text-center">
+    In class perform robot following a track autonomously.
+  </figcaption>
+</figure>
 ---
 
 ## What I Learned
+<br />
 
 Working on this project improved my:
-
-- Embedded programming skills  
-- Understanding of sensor calibration  
-- Motor speed control and PID logic  
-- Soldering and wiring skills  
-- Debugging physical hardware  
-- Team collaboration and testing  
+<ul className="list-disc pl-6 space-y-2 marker:text-slate-600">
+    <li>Understanding of sensor calibration</li>
+    <li>Motor speed control and PID logic</li>
+    <li>Debugging physical hardware & software</li>
+    <li>Team collaboration and testing</li>
+</ul>
+<br /> 
 
 This project was a great hands-on introduction to robotics and automation.
 
