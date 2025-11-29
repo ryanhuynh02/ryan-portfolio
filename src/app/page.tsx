@@ -84,6 +84,18 @@ const CONFIG = {
     },
 
     {
+      title: "Line-Following Delivery Bot",
+      description:
+        "Built a small autonomous robot that follows a black line using IR reflectance sensors. Implemented PID-like steering, obstacle detection, and smooth acceleration for stable delivery runs.",
+      tags: ["Robotics", "Embedded", "PID Control"],
+      href: "/projects/deliver-bot", // create this page later
+      images: [
+        "/projects/deliver-bot/deliverbot1.jpg",
+        "/projects/deliver-bot/deliverbot2.jpg",
+      ],
+    },
+    
+    {
       title: "Door Sensor w/ Reed Switch & Piezo",
       description:
         "Designed a low-power door sensor using a magnet and reed switch with audible alert; modeled behavior and tuned thresholds.",
