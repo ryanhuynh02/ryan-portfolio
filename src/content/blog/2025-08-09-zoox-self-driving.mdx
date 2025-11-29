@@ -1,31 +1,46 @@
-
 ---
 title: "Riding in a Zoox Self-Driving Car — What It Felt Like"
-date: "2025-01-15"
+date: "2025-08-09"
 summary: "A first-hand ride with Zoox: safety brief, how the vehicle ‘sees’, and what surprised me most about the driving style."
-cover: "/blog/zoox/zoox.jpg"
-tags: ["self-driving", "robotaxi", "autonomy"]
+tags:
+  - self-driving
+  - robotaxi
+  - autonomy
+cover: "/blog/zoox/zoox.jpeg"
 ---
+#Updating
 
+*TL;DR — smooth, cautious, consistent. The most surprising part: how confidently it handled merges and unprotected turns.*
 
-
-<em>TL;DR — Smooth, cautious, and impressively consistent. The most surprising part: how confidently it handled merges and unprotected turns.</em>
-
-#Updating ...
 ## Check-in & Safety Brief
-I arrived at the pickup point, scanned in, and got a short safety overview. The operator explained how the system hands off to manual control in edge cases and how the redundant sensors (LiDAR, radar, and cameras) overlap.
 
-<ImgCap src="/blog/zoox/lidar-array.jpg" alt="Sensor array" cap="The roofline sensor suite that powers 360° perception." />
+I arrived at the pickup point, scanned in, and got a short safety overview. The operator explained how the system hands off to manual control in edge cases and how the redundant sensors (LiDAR, radar, and cameras) overlap to give the vehicle 360° awareness.
+
+<figure style={{ margin: "1.25rem 0" }}>
+  <img src="/blog/zoox/lidar-array.jpg" alt="Sensor array on the Zoox vehicle" style={{ width: "100%", borderRadius: "0.75rem", border: "1px solid #e5e7eb" }} />
+  <figcaption style={{ marginTop: "0.5rem", textAlign: "center", color: "#64748b", fontStyle: "italic" }}>
+    The roofline sensor suite that powers 360° perception.
+  </figcaption>
+</figure>
 
 ## The Ride
-Acceleration was gentle, lane-keeping precise, and the robotaxi left more buffer than most human drivers. Lane changes were signaled early and executed with a steady arc—no jerks.
 
-<ImgCap src="/blog/zoox/intersection.jpg" alt="Intersection behavior" cap="Handled an unprotected left with a clear gap selection, then a smooth commit." />
+Acceleration was gentle, lane-keeping precise, and the robotaxi left more buffer than most human drivers. Lane changes were signaled early and executed with a steady arc—no jerks. At four-way stops, it yielded predictably, then committed cleanly when it was its turn.
+
+<figure style={{ margin: "1.25rem 0" }}>
+  <img src="/blog/zoox/intersection.jpg" alt="Zoox handling an urban intersection" style={{ width: "100%", borderRadius: "0.75rem", border: "1px solid #e5e7eb" }} />
+  <figcaption style={{ marginTop: "0.5rem", textAlign: "center", color: "#64748b", fontStyle: "italic" }}>
+    Handled an unprotected left with a clear gap selection and smooth follow-through.
+  </figcaption>
+</figure>
 
 ## What Stood Out
-- **Consistency > raw speed.** It never rushed yellow lights or tailgated.
-- **Merge behavior** felt human-aware—signaled, matched speed, and slotted in.
-- **Edge-case caution.** It paused for a pedestrian who looked undecided—good call.
+
+- **Consistency over raw speed.** It never rushed yellows or tailgated.
+- **Merge behavior** felt human-aware—signaled, matched speed, and slotted in without cutting anyone off.
+- **Edge-case caution.** It paused for a pedestrian who looked undecided—good call that kept everyone comfortable.
+- **Comfort tuning.** Starts/stops were feathered to avoid head-bob; passengers could talk or use their phones without bracing.
 
 ## Final Thoughts
-As a computer-engineering student, the most impressive part is the **system integration**: perception, prediction, and planning all working in real time. It isn’t flashy; it’s steady—and that’s exactly what you want from autonomy.
+
+As a computer-engineering student, the most impressive part was the **system integration**: perception, prediction, and planning all working in real time. It isn’t flashy; it’s steady—and that’s exactly what you want from autonomy. I left more optimistic about everyday robotaxi reliability, especially for predictable urban routes.
