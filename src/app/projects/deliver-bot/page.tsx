@@ -42,7 +42,7 @@ function sanitizeForMDX(raw: string): string {
     .replace(/<(?=\s|\d)/g, "&lt;");
 }
 
-function readLineFollowerMDX(): string | null {
+function readDeliverBotMDX(): string | null {
   const candidates = [
     path.join(
       process.cwd(),
@@ -50,14 +50,14 @@ function readLineFollowerMDX(): string | null {
       "app",
       "projects",
       "line-follower",
-      "line-follower.mdx"
+      "deliver-bot.mdx"
     ),
     path.join(
       process.cwd(),
       "app",
       "projects",
       "line-follower",
-      "line-follower.mdx"
+      "deliver-bot.mdx"
     ),
   ];
   for (const f of candidates) {
@@ -70,7 +70,7 @@ function readLineFollowerMDX(): string | null {
 }
 
 export default function LineFollowerProjectPage() {
-  const mdx = readLineFollowerMDX();
+  const mdx = readDeliverBotMDX();
 
   return (
     <main
@@ -103,7 +103,7 @@ export default function LineFollowerProjectPage() {
           />
         ) : (
           <p className="text-slate-600">
-            (Couldn’t load <code>line-follower.mdx</code> at build time.)
+            (Couldn’t load <code>deliver-bot.mdx</code> at build time.)
           </p>
         )}
       </div>
