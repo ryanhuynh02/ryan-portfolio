@@ -1,0 +1,80 @@
+---
+title: "Line Follower / Delivery Robot"
+---
+
+# Line Follower / Delivery Robot
+
+Our Line Follower / Delivery Robot is an autonomous mobile robot designed to navigate along a predefined path using infrared (IR) sensors. It follows black electrical tape on a white surface and adjusts its movement based on real-time sensor feedback. This project gave us practical experience with embedded systems, sensors, motor control, and microcontroller programming.
+
+## Overview
+
+The robot uses:
+
+- **IR sensors** to detect the black line  
+- **Arduino / ESP32** as the main controller  
+- **Two DC motors with motor driver** for movement  
+- **Rechargeable battery pack**  
+- **Chassis platform with wheels**  
+
+Its purpose is to simulate small-scale **delivery automation** — the robot can be programmed to carry small items from one point to another while staying on a guided route.
+
+## How It Works
+
+1. The IR sensors continuously measure reflected light.
+2. Black tape absorbs more IR light → lower readings.
+3. White background reflects more → higher readings.
+4. The microcontroller compares left/right sensor values.
+5. It adjusts motor speeds to turn left or right and remain on the track.
+
+This real-time feedback loop allows the robot to follow the path smoothly.
+
+## Features
+
+- Autonomous line detection  
+- Adjustable motor PID tuning  
+- Supports multiple track layouts  
+- Can carry small payloads  
+- Quick battery swap  
+- Customizable chassis design  
+
+## Images
+
+<Image src="/projects/line-follower/robot1.jpg" alt="Line Follower Robot Front View" width={1000} height={700} />
+<Image src="/projects/line-follower/robot2.jpg" alt="Bottom View Showing Sensors" width={1000} height={700} />
+<Image src="/projects/line-follower/robot3.jpg" alt="Robot Following the Line" width={1000} height={700} />
+
+---
+
+## Demo
+
+<figure className="not-prose my-10 flex flex-col items-center">
+  <div className="w-full max-w-3xl aspect-video rounded-xl overflow-hidden shadow">
+    <iframe
+      src="https://www.youtube.com/embed/XXXXXXXXXXX"
+      title="Line Follower / Delivery Robot Demo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      loading="lazy"
+      className="w-full h-full"
+    ></iframe>
+  </div>
+  <figcaption className="text-sm text-slate-600 mt-3 text-center">
+    Demonstration of the robot following a track autonomously.
+  </figcaption>
+</figure>
+
+---
+
+## What I Learned
+
+Working on this project improved my:
+
+- Embedded programming skills  
+- Understanding of sensor calibration  
+- Motor speed control and PID logic  
+- Soldering and wiring skills  
+- Debugging physical hardware  
+- Team collaboration and testing  
+
+This project was a great hands-on introduction to robotics and automation.
+
