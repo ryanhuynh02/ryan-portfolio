@@ -1,5 +1,5 @@
 ---
-title: "Riding in a Zoox Self-Driving RoboTaxi — What It Felt Like"
+title: "Riding in a Zoox Self-Driving RoboTaxi"
 date: "2025-08-09"
 summary: "A first-hand ride with Zoox: safety brief, how the vehicle ‘sees’, and what surprised me most about the driving style."
 tags:
@@ -8,39 +8,53 @@ tags:
   - autonomy
 cover: "/blog/zoox/zoox.jpeg"
 ---
-#Updating
 
-*TL;DR — smooth, cautious, consistent. The most surprising part: how confidently it handled merges and unprotected turns.*
 
-## Check-in & Safety Brief
+## Drive Test
+<br />
 
-I arrived at the pickup point, scanned in, and got a short safety overview. The operator explained how the system hands off to manual control in edge cases and how the redundant sensors (LiDAR, radar, and cameras) overlap to give the vehicle 360° awareness.
+Back in August, the Zoox robotaxi was not yet open to the public. It was only available to family members of Zoox employees. I was lucky because my cousin works there, so I had the chance to test the ride. The service operates within a 2-mile radius. My cousin booked a ride through the Zoox app, and the car picked us up about 5–10 minutes later.
+<br />
 
-<figure style={{ margin: "1.25rem 0" }}>
-  <img src="/blog/zoox/lidar-array.jpg" alt="Sensor array on the Zoox vehicle" style={{ width: "100%", borderRadius: "0.75rem", border: "1px solid #e5e7eb" }} />
-  <figcaption style={{ marginTop: "0.5rem", textAlign: "center", color: "#64748b", fontStyle: "italic" }}>
-    The roofline sensor suite that powers 360° perception.
+The experience really impressed me—especially because the vehicle has no steering wheel, unlike most self-driving cars today that still keep one for manual control. It truly felt futuristic. When we got in, the car required us to buckle our seat belts before it allowed us to hit the start button. The in-car infotainment system was also very good; we could choose any music to play while waiting to reach our destination. Our estimated travel time was about 10 minutes, and the ride was smooth and comfortable.
+<br />
+
+<div className="not-prose mt-3 flex justify-center">
+    <Image
+      src="/public/blog/zoox/me.jpeg"
+      alt="My First Drive"
+      width={300}
+      height={600}
+      className="rounded-xl border max-w-full md:max-w-2xl"
+    />
+  </div>
+<br />
+
+The car recognized traffic signs extremely well—it knew when to stop, turn, and yield to pedestrians using its multiple lidars and cameras. During the ride, the vehicle made a few unexpected stops and attempted to correct itself by rerouting. We reported the issue to the help desk using the built-in microphone and camera system, which made contacting support very convenient. Because the car had to fix its routing issues, the arrival time ended up being longer than expected.
+<br />
+
+Overall, it was a great experience despite a few bugs during the drive. I have high hopes that in the near future, we may not even need to own cars anymore. I’ve been following Zoox since 2020, and seeing how they transformed their early prototype into something close to a commercial product is incredible. It really shows the hard work and dedication of the Zoox team.
+<br />
+
+I also hope that one day I’ll have the opportunity to work or intern at Zoox. I would love to study, learn, and expand my knowledge and experience there, especially because I am passionate about automation and self-driving technology.
+<br />
+
+<h2 style={{ color: "#4f81bd", fontSize: "1.75rem", fontWeight: "bold", fontStyle: "italic", marginTop: "2rem", marginBottom: "1rem" }}>
+  Demo
+</h2>
+
+<figure className="not-prose my-10 flex flex-col items-center">
+  <div className="w-full max-w-3xl aspect-video rounded-xl overflow-hidden shadow">
+    <iframe
+      src="https://www.youtube.com/embed/mgj50IK5w_o"
+      title="Zoox Drive"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      loading="lazy"
+      className="w-full h-full"
+    ></iframe>
+  </div>
+  <figcaption className="text-sm text-slate-600 mt-3 text-center">
+    My first Zoox drive.
   </figcaption>
 </figure>
-
-## The Ride
-
-Acceleration was gentle, lane-keeping precise, and the robotaxi left more buffer than most human drivers. Lane changes were signaled early and executed with a steady arc—no jerks. At four-way stops, it yielded predictably, then committed cleanly when it was its turn.
-
-<figure style={{ margin: "1.25rem 0" }}>
-  <img src="/blog/zoox/intersection.jpg" alt="Zoox handling an urban intersection" style={{ width: "100%", borderRadius: "0.75rem", border: "1px solid #e5e7eb" }} />
-  <figcaption style={{ marginTop: "0.5rem", textAlign: "center", color: "#64748b", fontStyle: "italic" }}>
-    Handled an unprotected left with a clear gap selection and smooth follow-through.
-  </figcaption>
-</figure>
-
-## What Stood Out
-
-- **Consistency over raw speed.** It never rushed yellows or tailgated.
-- **Merge behavior** felt human-aware—signaled, matched speed, and slotted in without cutting anyone off.
-- **Edge-case caution.** It paused for a pedestrian who looked undecided—good call that kept everyone comfortable.
-- **Comfort tuning.** Starts/stops were feathered to avoid head-bob; passengers could talk or use their phones without bracing.
-
-## Final Thoughts
-
-As a computer-engineering student, the most impressive part was the **system integration**: perception, prediction, and planning all working in real time. It isn’t flashy; it’s steady—and that’s exactly what you want from autonomy. I left more optimistic about everyday robotaxi reliability, especially for predictable urban routes.
