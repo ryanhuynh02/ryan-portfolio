@@ -49,14 +49,14 @@ function readDeliverBotMDX(): string | null {
       "src",
       "app",
       "projects",
-      "line-follower",
+      "deliver-bot",
       "deliver-bot.mdx"
     ),
     path.join(
       process.cwd(),
       "app",
       "projects",
-      "line-follower",
+      "deliver-bot",
       "deliver-bot.mdx"
     ),
   ];
