@@ -28,7 +28,7 @@ type HomePost = {
 
 const CONFIG = {
   name: "Ryan Huynh",
-  tagline: "Currently Computer Engineering Student @ UC Davis (Fall 2025)",
+  tagline: "Currently Computer Engineering Student @ UC Davis (Fall 2025 - Present)",
   summary:
     "Aspiring computer engineer with a strong foundation in C/C++, embedded systems, and web development. Passionate about building reliable, user-centric solutions.",
   email: "ryhuynh2@gmail.com",
