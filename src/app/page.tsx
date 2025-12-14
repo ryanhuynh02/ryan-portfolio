@@ -37,7 +37,7 @@ const CONFIG = {
     github: "https://github.com/ryanhuynh02",
     linkedin: "https://www.linkedin.com/in/ryan-huynh2",
   },
-  resumeUrl: "/Ryan_Huynh_Resume.pdf?v=2025-08-19",
+  resumeUrl: "/Ryan_Huynh_Resume.pdf?v=2025-12-14",
   skills: [
     "C/C++",
     "Python",
